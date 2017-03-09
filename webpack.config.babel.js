@@ -1,5 +1,5 @@
 import path from 'path';
-import webpack from 'webpack'
+import webpack from 'webpack';
 
 import { WDS_PORT } from './src/shared/config';
 import { isProd } from './src/shared/util';
@@ -32,5 +32,5 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-  ]
+  ],
 };

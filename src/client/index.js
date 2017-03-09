@@ -12,7 +12,7 @@ const rootEl = document.querySelector(APP_CONTAINER_SELECTOR);
 const wrapApp = AppComponent =>
   <AppContainer>
     <AppComponent />
-  </AppContainer>
+  </AppContainer>;
 
 ReactDOM.render(wrapApp(App), rootEl);
 
@@ -20,7 +20,7 @@ if (module.hot) {
   // flow-disable-next-line
   module.hot.accept('./app', () => {
     // eslint-disable-next-line global-require
-    const NextApp = require('./app').default
-    ReactDOM.render(wrapApp(NextApp), rootEl)
-  })
+    const NextApp = require('./app').default;
+    ReactDOM.render(wrapApp(NextApp), rootEl);
+  });
 }
