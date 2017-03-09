@@ -12,7 +12,7 @@
     "prod:start": "heroku local",
     "lint": "eslint src webpack.config.babel.js --ext .js,.jsx",
     "test": "jest --coverage",
-    "heroku-postbuild": "yarn prod:build",
+    "heroku-postbuild": "yarn prod:build"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
