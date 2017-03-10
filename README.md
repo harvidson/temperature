@@ -22,3 +22,8 @@ heroku config:set NPM_CONFIG_PRODUCTION=false
 ```
 
 This is needed so that heroku downloads all the development dependencies to build the project.
+
+
+## Credits
+
+This boiler plate was inspired by [js-stack-from-scratch](https://github.com/verekia/js-stack-from-scratch)
