@@ -23,6 +23,12 @@ heroku config:set NPM_CONFIG_PRODUCTION=false
 
 This is needed so that heroku downloads all the development dependencies to build the project.
 
+After the configuration has been set, you can deploy using the following command.
+
+```shell
+git push heroku master
+```
+
 
 ## Credits
 
