@@ -2,6 +2,7 @@ import 'babel-polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, browserHistory } from 'react-router';
 import { AppContainer } from 'react-hot-loader';
 
 import App from './app';
@@ -11,7 +12,9 @@ const rootEl = document.querySelector(APP_CONTAINER_SELECTOR);
 
 const wrapApp = AppComponent =>
   <AppContainer>
-    <AppComponent />
+    <Router history={browserHistory}>
+      <Route path="/" component={AppComponent} />
+    </Router>
   </AppContainer>;
 
 ReactDOM.render(wrapApp(App), rootEl);

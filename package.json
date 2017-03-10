@@ -39,7 +39,8 @@
     "express": "^4.15.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-hot-loader": "next"
+    "react-hot-loader": "next",
+    "react-router": "^3.0.2"
   },
   "engines": {
     "node": "7.x",
