@@ -18,7 +18,7 @@ yarn dev:wds
 After creating the heroku app and adding the remote to your repository, run the following command.
 
 ```shell
-heroku config set NPM_CONFIG_PRODUCTION:false
+heroku config:set NPM_CONFIG_PRODUCTION=false
 ```
 
 This is needed so that heroku downloads all the development dependencies to build the project.
