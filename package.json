@@ -40,7 +40,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "next",
-    "react-router": "^4.2.0"
+    "react-router-dom": "^4.2.2"
   },
   "engines": {
     "node": "7.x",
