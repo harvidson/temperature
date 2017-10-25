@@ -6,6 +6,7 @@ function renderApp(title) {
     <html>
       <head>
         <title>${title}</title>
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.8.1/css/tachyons.min.css"/>
         <link rel="stylesheet" href="${STATIC_PATH}/css/style.css">
       </head>
       <body>
