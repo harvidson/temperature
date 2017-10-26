@@ -16,7 +16,7 @@ li .link {
   color: #3D3D3D;
 }
 
-.link:hover {
+li .link:hover {
   color: #20AAB2;
 
 }
