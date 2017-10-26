@@ -4,8 +4,21 @@ body {
   font-family: sans-serif;
 }
 
-h1 {
-  color: limegreen;
+.footer {
+  background-color: #FF7316;
+}
+
+h2, p, {
+  color: #3D3D3D;
+}
+
+li .link {
+  color: #3D3D3D;
+}
+
+.link:hover {
+  color: #20AAB2;
+
 }
 
 .action-button {
