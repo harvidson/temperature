@@ -11,6 +11,7 @@ function renderApp(title) {
       </head>
       <body>
         <div class="${APP_CONTAINER_CLASS}"></div>
+        <script src="https://use.fontawesome.com/1eaaf0a07e.js"></script>
         <script src="${isProd ? STATIC_PATH : `http://localhost:${WDS_PORT}/dist`}/js/bundle.js"></script>
       </body>
     </html>`;

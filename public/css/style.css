@@ -8,14 +8,6 @@ body {
   background-color: #FF7316;
 }
 
-h2, p, {
-  color: #3D3D3D;
-}
-
-li .link {
-  color: #3D3D3D;
-}
-
 li .link:hover {
   color: #20AAB2;
 
@@ -24,4 +16,9 @@ li .link:hover {
 .action-button {
   background-color: #20AAB2;
   border-color: #20AAB2;
+}
+
+.accent-orange {
+  color: #D95700;
+  
 }
