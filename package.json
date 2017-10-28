@@ -13,7 +13,8 @@
     "lint": "eslint src webpack.config.babel.js --ext .js,.jsx",
     "test": "jest --coverage",
     "heroku-postbuild": "yarn prod:build",
-    "knex": "knex"
+    "knex": "knex",
+    "latest": "knex --knexfile ./src/server/knexfile.js migrate:latest"
 
   },
   "devDependencies": {
