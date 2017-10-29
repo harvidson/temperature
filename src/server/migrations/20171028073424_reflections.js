@@ -15,7 +15,8 @@ exports.up = function(knex, Promise) {
       .inTable('users')
       .onDelete('CASCADE')
       .index()
-    table.string('content').notNullable().defaultTo('');
+    table.string('title').notNullable().defaultTo('');
+    table.text('content').notNullable().defaultTo('');
     table.json('text_analytics');
     table.integer('one_word_id')
       .notNullable()
@@ -24,6 +25,8 @@ exports.up = function(knex, Promise) {
       .onDelete('CASCADE')
       .index()
     table.integer('one_word_intensity');
+    table.timestamp('deleted_at').defaultTo(null);
+    table.timestamps(true, true);
   })
 };
 

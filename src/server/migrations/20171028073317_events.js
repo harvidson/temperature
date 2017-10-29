@@ -4,9 +4,10 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('events', (table) => {
     table.increments();
     table.string('title').notNullable().defaultTo('');
-    table.string('description').notNullable().defaultTo('');
+    table.text('description').notNullable().defaultTo('');
     table.string('default_prompt').notNullable().unique();
     table.timestamps(true, true);
+    table.timestamp('deleted_at').defaultTo(null);
   })
 };
 

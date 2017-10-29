@@ -14,7 +14,8 @@
     "test": "jest --coverage",
     "heroku-postbuild": "yarn prod:build",
     "knex": "knex",
-    "latest": "knex --knexfile ./src/server/knexfile.js migrate:latest"
+    "latest": "knex --knexfile ./src/server/knexfile.js migrate:latest",
+    "seed": "knex --knexfile ./src/server/knexfile.js seed:run"
 
   },
   "devDependencies": {
