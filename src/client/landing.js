@@ -22,7 +22,6 @@ class Landing extends React.Component {
   }
 
   openModal(action) {
-    console.log(action);
     if (action === 'login') {
       this.setState({login: true})
     } else {
@@ -37,7 +36,6 @@ class Landing extends React.Component {
   }
 
   saveUser(id, firstName) {
-    console.log('save user ', id);
     this.setState({userId: id, userName: firstName, modalIsOpen: false, login: false})
   }
 
@@ -106,7 +104,7 @@ class Landing extends React.Component {
           </div>
 
           {this.state.login
-            ? <Login saveUser={this.saveUser} />
+            ? <Login history={this.props.history} saveUser={this.saveUser} />
             : <Signup history={this.props.history} saveUser={this.saveUser}/>}
 
         </Modal>

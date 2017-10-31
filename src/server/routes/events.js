@@ -23,8 +23,9 @@ const authorize = function(req, res, next) {
 };
 
 //get all of a user's events [[authorize and update userId with req.claim.userId]]
-router.get('/', (req, res, next) => {
-  const userId = 4;
+router.get('/', authorize, (req, res, next) => {
+  console.log(req.claim);
+  const userId = req.claim.userId;
   const eventsLeading = [];
   const eventsWriting = [];
   const promises = [];
@@ -40,7 +41,6 @@ router.get('/', (req, res, next) => {
       return Promise.all(promises)
     })
     .then((events) => {
-      console.log(events);
       for (const event of events) {
         if (event.is_lead) {
           eventsLeading.push(event)
@@ -67,7 +67,6 @@ router.get('/', (req, res, next) => {
           .where('id', row.event_id)
           .first()
           .then((event) => {
-            console.log(`isLead `, isLead);
             if (isLead) {
               event.is_lead = true;
             } else {

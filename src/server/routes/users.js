@@ -60,14 +60,13 @@ router.post('/', (req, res, next) => {
         expiresIn: '7 days'
       });
 
-      console.log(token);
-
       res.cookie('token', token, {
         httpOnly: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         secure: router.get('env') === 'production'
       });
 
+      console.log(user);
       res.send(user);
     })
     .catch((err) => {

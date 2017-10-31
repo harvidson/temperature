@@ -50,7 +50,7 @@ class Signup extends React.Component {
     const user = {firstName: this.state.firstName, lastName: this.state.lastName, pronouns: this.state.pronouns, email: this.state.email, password: this.state.password}
     this.postUser(user)
 
-    this.props.history.push('/dashboard');
+
 
 
     //this needs to send back user id when it gets it from the http response
@@ -70,6 +70,7 @@ class Signup extends React.Component {
    })
    const userAdded = await response.json()
     console.log('userAdded', userAdded);
+    this.props.history.push('/dashboard');
  }
 
 

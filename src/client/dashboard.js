@@ -1,4 +1,6 @@
 import React from 'react'
+import {Route, Link} from 'react-router-dom';
+
 import Writing from './writing'
 import Header from './header'
 
@@ -19,13 +21,21 @@ class Dashboard extends React.Component {
     .then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j)
+      console.log('response from token check: ', j)
+      if (!j.authorized) {
+        this.props.history.push('/');
+        console.log('not authorized for this page');
+      }
     }).catch((err) => {
       console.log(err)
     })
 
   //load user's events
-    fetch('/api/events', {method: 'get'}).then((response) => {
+    fetch('/api/events', {
+      method: 'get',
+      credentials: 'include'
+    })
+    .then((response) => {
       return response.json();
     }).then((j) => {
       console.log(j);
