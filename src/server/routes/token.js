@@ -13,8 +13,11 @@ const router = express.Router()
 
 //check that user has cookie
 router.get('/', (req, res, next) => {
+  console.log(req.cookies);
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
+
     if (err) {
+      console.log('err', err);
       return res.send({
         authorized: false
       });

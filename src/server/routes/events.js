@@ -25,9 +25,9 @@ const authorize = function(req, res, next) {
 //get all of a user's events [[authorize and update userId with req.claim.userId]]
 router.get('/', (req, res, next) => {
   const userId = 4;
-  let eventsLeading = [];
-  let eventsWriting = [];
-  let promises = [];
+  const eventsLeading = [];
+  const eventsWriting = [];
+  const promises = [];
 
   knex('events_users')
     .where('user_id', userId)
@@ -40,8 +40,18 @@ router.get('/', (req, res, next) => {
       return Promise.all(promises)
     })
     .then((events) => {
-      console.log(`events: ${events}`);
-      // console.log(`eventsWriting: ${eventsWriting}`);
+      console.log(events);
+      for (const event of events) {
+        if (event.is_lead) {
+          eventsLeading.push(event)
+        } else {
+          eventsWriting.push(event)
+        }
+      }
+      res.send({
+        leading: eventsLeading,
+        writing: eventsWriting
+      })
     })
     .catch((err) => {
       console.log(err);
@@ -60,10 +70,8 @@ router.get('/', (req, res, next) => {
             console.log(`isLead `, isLead);
             if (isLead) {
               event.is_lead = true;
-              console.log(`event: `, event);
             } else {
               event.is_lead = false;
-              console.log(`event: `, event);
             }
             resolve(event)
           })

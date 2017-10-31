@@ -6,12 +6,16 @@ class Dashboard extends React.Component {
     super()
 
     this.state = {
-      // leading = [],
-      // writing = []
+      leading: [],
+      writing: []
     }
 
-//check token
-    fetch('/api/token', {method: 'get'}).then((response) => {
+  //check token
+    fetch('/api/token', {
+      method: 'get',
+      credentials: 'include'
+      })
+    .then((response) => {
       return response.json();
     }).then((j) => {
       console.log(j);
@@ -19,26 +23,18 @@ class Dashboard extends React.Component {
       console.log(err);
     })
 
-    //should i go get all of a users events, then send them back in an object with leader: and writer: ?
-
-      //load user's events
+  //load user's events
     fetch('/api/events', {method: 'get'}).then((response) => {
       return response.json();
     }).then((j) => {
       console.log(j);
-      // this.state.leading = j.leading;
-      // this.state.writng = j.writing;
+      this.setState({leading: j.leading, writing: j.writing});
     }).catch((err) => {
       console.log(err);
     })
 
 
   }
-
-
-
-
-
 
   render() {
     return (
@@ -65,10 +61,6 @@ class Dashboard extends React.Component {
         </div>
       </div>
 
-
-{/* each of these will be their own component, made up of components */}
-
-
           <div className="ma5">
             <h2 className="f1 fw3 dark-gray">Leading</h2>
 
@@ -76,8 +68,12 @@ class Dashboard extends React.Component {
 
 
           </div>
-          <div className="ma5">
+          <div className="ma5 writing">
             <h2 className="f1 fw3 dark-gray">Writing</h2>
+            {/* { this.state.writing } */}
+              <ul>
+                { this.state.writing.map(event => <Writing key={ event.id } event={ event } />) }
+              </ul>
 
               <Writing />
 

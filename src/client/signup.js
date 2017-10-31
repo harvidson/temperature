@@ -65,7 +65,8 @@ class Signup extends React.Component {
      headers: {
        'Content-Type': 'application/json',
        'Accept': 'application/json',
-     }
+     },
+     credentials: 'include'
    })
    const userAdded = await response.json()
     console.log('userAdded', userAdded);
