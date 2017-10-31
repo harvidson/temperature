@@ -38,7 +38,7 @@ const eventsUsersList = [
   {
     id: 6,
     event_id: 2,
-    user_id: 4,
+    user_id: 3,
     is_lead: true
   },
   {
@@ -69,7 +69,7 @@ const eventsUsersList = [
   {
     id: 11,
     event_id: 3,
-    user_id: 4,
+    user_id: 3,
     is_lead: true
   },
   {

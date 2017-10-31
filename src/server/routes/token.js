@@ -29,4 +29,10 @@ router.get('/', (req, res, next) => {
   });
 });
 
+//on logout, delete cookie
+router.delete('/', (req, res, next) => {
+  res.clearCookie('token');
+  res.end();
+})
+
 module.exports = router;
