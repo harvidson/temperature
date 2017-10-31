@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Leading = ({event}) => {
+const Event = ({event}) => {
   return (
     <div>
-      <h2 className="f1 fw3 dark-gray">Leading</h2>
+      <h2 className="f2 fw3 dark-gray">{event.title}</h2>
       <ul>
         {/* { this.state.writing.map(event => <Writing key={ event.id } event={ event } />) } */}
       </ul>
@@ -12,4 +12,4 @@ const Leading = ({event}) => {
   )
 }
 
-export default Leading
+export default Event
