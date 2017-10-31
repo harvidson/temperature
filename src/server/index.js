@@ -1,3 +1,9 @@
+'use strict';
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const compression = require('compression');
 const express = require('express');
 const logger = require('morgan');
@@ -19,11 +25,25 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-
+app.use('/api/users', require('./routes/users'));
+app.use('/api/token', require('./routes/token'));
+app.use('/api/events', require('./routes/events'));
 
 app.get('*', (req, res) => {
   console.log('route not found');
   res.send(renderApp(APP_NAME));
+});
+
+app.use((err, _req, res, _next) => {
+  console.log(err);
+  if (err.output && err.output.statusCode) {
+    return res
+      .status(err.output.statusCode)
+      .set('Content-Type', 'text/plain')
+      .send({message: err.message});
+  }
+
+  res.sendStatus(err.status || 500);
 });
 
 app.listen(WEB_PORT, () => {

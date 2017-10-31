@@ -1,16 +1,20 @@
 body {
-  /*width: 960px;*/
-  margin: auto;
   font-family: sans-serif;
 }
 
-.footer {
-  background-color: #FF7316;
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-content {
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 li .link:hover {
   color: #20AAB2;
-
 }
 
 .action-button {
@@ -20,5 +24,4 @@ li .link:hover {
 
 .accent-orange {
   color: #D95700;
-  
 }

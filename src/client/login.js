@@ -39,6 +39,19 @@ class login extends React.Component {
     this.setState({email: '', password: ''})
   }
 
+ //  async logIn(user) {
+ //   const response = await fetch('/api/token', {
+ //     method: 'POST',
+ //     body: JSON.stringify(user),
+ //     headers: {
+ //       'Content-Type': 'application/json',
+ //       'Accept': 'application/json',
+ //     }
+ //   })
+ //   const userAdded = await response.json()
+ //    console.log('userAdded', userAdded);
+ // }
+
   render() {
     return (
 

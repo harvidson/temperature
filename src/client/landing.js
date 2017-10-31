@@ -36,29 +36,28 @@ class Landing extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
-  saveUser(id) {
+  saveUser(id, firstName) {
     console.log('save user ', id);
-    this.setState({userId: id, modalIsOpen: false, signup: false, login: false})
+    this.setState({userId: id, userName: firstName, modalIsOpen: false, login: false})
   }
 
   render() {
     return (
       <div>
         <header className="sans-serif">
-          <div className="cover bg-left bg-center-l w-100" style={{
+          {/* <div className="cover bg-left bg-center-l w-100" style={{
             backgroundImage: 'url(static/images/kluber.jpg)'
-          }}>
-            <div className="bg-black-05 pb5 pb6-m pb7-l">
+          }}> */}
+            <div className="bg-dark-gray pb4 pb4-m pb5-l">
               <nav className="dt w-100 mw8 center">
 
                 <div className="dtc v-mid tr pa3">
-                  <a className="f6 fw4 hover-white no-underline white-70 dib-l pv2 ph3 link" href="/">About</a>
+                  {/* <a className="f6 fw4 hover-white no-underline white-70 dib-l pv2 ph3 link" href="/">About</a> */}
                   <a className="f6 fw4 hover-white no-underline white-70 dib-l pv2 ph3 link" href="#" onClick={this.openModal.bind(this, 'login')}>Log in</a>
-                  <a className="f6 fw4 hover-white no-underline white-70 dib ml2 pv2 ph3 ba br1 link" href="/">Sign Up</a>
-                  <Link to="/dashboard" className="f6 fw4 hover-white no-underline white-70 dib ml2 pv2 ph3 ba br1 link" href="/">Dashboard</Link>
+                  <a className="f6 fw4 hover-white no-underline white-70 dib ml2 pv2 ph3 ba br1 link" href="#" onClick={this.openModal.bind(this, 'signup')}>Sign Up</a>
                 </div>
               </nav>
-              <div className="tc mt4 mt5-m mt6-l ph3">
+              <div className="tc mt3 mt4-m mt5-l ph2">
                 <div className="mt4">
                   <img src="/static/images/temperature-logo.png" alt="logo" width="600px"/>
 
@@ -67,7 +66,7 @@ class Landing extends React.Component {
                 <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link" onClick={this.openModal.bind(this, 'signup')} href="#">Get started</a>
               </div>
             </div>
-          </div>
+          {/* </div> */}
         </header>
 
         <main>
@@ -107,8 +106,8 @@ class Landing extends React.Component {
           </div>
 
           {this.state.login
-            ? <Login saveUser={this.saveUser}/>
-            : <Signup saveUser={this.saveUser}/>}
+            ? <Login saveUser={this.saveUser} />
+            : <Signup history={this.props.history} saveUser={this.saveUser}/>}
 
         </Modal>
 
