@@ -9,7 +9,6 @@ class Event extends React.Component {
       iterations: [],
     }
 
-
     //check token
     fetch('/api/token', {
       method: 'get',
@@ -47,7 +46,7 @@ class Event extends React.Component {
         <h2 className="f3 fw3 dark-gray">{this.props.event.title}</h2>
 
         {this.state.iterations.length > 0
-          ? <ul>
+          ? <ul className="list">
               {this.state.iterations.map((iteration) => {
                 return <li key={iteration.iteration_id}><Iteration iteration={iteration}/></li>
               })
