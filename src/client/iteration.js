@@ -1,5 +1,7 @@
 import React from 'react';
-import Reflection from './reflection'
+import Reflection from './reflection';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 const Iteration = ({iteration}) => {
   return (
@@ -13,11 +15,11 @@ const Iteration = ({iteration}) => {
         :
         <div>
           <div className="cf">
-              <h3 className="f4 fl">New reflection</h3>
+              <h3 className="f4 fw4 fl">New reflection</h3>
               <a className="fr tr f6 no-underline grow white ba ph3 pv2 v-mid ma2 action-button br2 link" href="#">Write</a>
           </div>
           <div className="">
-            Due: {iteration.due_date}
+            Due: <Moment format="dddd, MMMM D, YYYY, h:mm a">{iteration.due_date}</Moment>
           </div>
         </div>
       }

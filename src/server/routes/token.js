@@ -14,7 +14,7 @@ const router = express.Router()
 //check that user has cookie
 router.get('/', (req, res, next) => {
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
-
+    console.log('payload', payload);
     if (err) {
       return res.send({
         authorized: false
@@ -23,6 +23,7 @@ router.get('/', (req, res, next) => {
     return res.send({
       authorized: true,
       userId: payload.userId,
+      name: payload.name
     });
   });
 });

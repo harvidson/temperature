@@ -41,9 +41,14 @@ class Event extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
 
-        <h2 className="f3 fw3 dark-gray">{this.props.event.title}</h2>
+        <h2 className="f3 fw3 accent-orange">{this.props.event.title}</h2>
+        <p>{this.props.event.description}</p>
+        <div className="w-100 tc">
+          <a className="tc center f6 no-underline grow white ba ph3 pv2 v-mid ma2 accent-orange br2 link" href="#">Analysis</a>
+
+        </div>
 
         {this.state.iterations.length > 0
           ? <ul className="list">
