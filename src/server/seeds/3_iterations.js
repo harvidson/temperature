@@ -5,7 +5,8 @@ const iterationsList = [
     id: 1,
     event_id: 1,
     due_date: '2017-10-26 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How are you feeling this week about your role in the team?',
+    is_anonymous: true,
     created_at: new Date('2017-10-02 14:26:16 UTC'),
     updated_at: new Date('2017-10-02 14:26:16 UTC')
   },
@@ -14,7 +15,7 @@ const iterationsList = [
     event_id: 1,
     due_date: '2017-11-02 14:00:00 UTC',
     prompt: 'How are you feeling this week about your role in the team and your progress on our project?',
-    isAnonymous: true,
+    is_anonymous: true,
     created_at: new Date('2017-10-09 14:26:16 UTC'),
     updated_at: new Date('2017-10-09 14:26:16 UTC')
   },
@@ -23,7 +24,7 @@ const iterationsList = [
     event_id: 1,
     due_date: '2017-11-09 14:00:00 UTC',
     prompt: 'How are you feeling this week about your role in the team and your progress on our project?',
-    isAnonymous: true,
+    is_anonymous: true,
     created_at: new Date('2017-10-15 14:26:16 UTC'),
     updated_at: new Date('2017-10-15 14:26:16 UTC')
   },
@@ -32,7 +33,8 @@ const iterationsList = [
     id: 4,
     event_id: 5,
     due_date: '2017-10-23 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How do you feel about how the meeting went?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   },
@@ -40,7 +42,8 @@ const iterationsList = [
     id: 5,
     event_id: 5,
     due_date: '2017-10-30 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How do you feel about how the meeting went?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   },
@@ -48,7 +51,8 @@ const iterationsList = [
     id: 6,
     event_id: 5,
     due_date: '2017-10-06 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How do you feel about how the meeting went?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   },
@@ -56,7 +60,8 @@ const iterationsList = [
     id: 7,
     event_id: 5,
     due_date: '2017-11-13 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How do you feel about how the meeting went?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   },
@@ -64,7 +69,8 @@ const iterationsList = [
     id: 8,
     event_id: 5,
     due_date: '2017-11-20 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How do you feel about how the meeting went?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   },
@@ -73,7 +79,8 @@ const iterationsList = [
     id: 9,
     event_id: 4,
     due_date: '2017-09-20 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How are you feeling about your group\'s collaborative process?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   },
@@ -81,7 +88,8 @@ const iterationsList = [
     id: 10,
     event_id: 4,
     due_date: '2017-09-27 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How are you feeling about your group\'s collaborative process?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   },
@@ -89,7 +97,8 @@ const iterationsList = [
     id: 11,
     event_id: 4,
     due_date: '2017-10-04 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How are you feeling about your group\'s collaborative process?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   },
@@ -97,7 +106,8 @@ const iterationsList = [
     id: 12,
     event_id: 4,
     due_date: '2017-10-11 14:00:00 UTC',
-    isAnonymous: true,
+    prompt: 'How are you feeling about your group\'s collaborative process?',
+    is_anonymous: true,
     created_at: new Date('2017-09-15 14:26:16 UTC'),
     updated_at: new Date('2017-09-15 14:26:16 UTC')
   }

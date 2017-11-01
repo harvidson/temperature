@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
 
           <div className="ma5 leading">
             {this.state.leading.length > 0
-              ? <Leading/>
+              ? <Leading events={this.state.leading}/>
               : null}
           </div>
 
@@ -69,7 +69,6 @@ class Dashboard extends React.Component {
             {this.state.writing.length > 0
               ? <Writing events={this.state.writing}/>
               : null}
-              { console.log(this.state.writing)}
           </div>
 
         </main>

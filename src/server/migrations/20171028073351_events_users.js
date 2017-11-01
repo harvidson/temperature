@@ -16,6 +16,7 @@ exports.up = function(knex, Promise) {
       .onDelete('CASCADE')
       .index()
     table.boolean('is_lead').notNullable().defaultTo(false)
+    table.boolean('is_participant').notNullable().defaultTo(true)
   })
 };
 
