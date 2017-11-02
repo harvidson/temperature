@@ -11,7 +11,6 @@ const Iteration = ({iteration}) => {
       { iteration.reflection_id
         ?
           <Reflection key={iteration.reflection_id} iteration={iteration}/>
-
         :
         <div>
           <div className="cf">

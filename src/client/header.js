@@ -56,8 +56,8 @@ class Header extends React.Component {
           <nav className="w-100 mv3">
 
             <div className="v-mid tr pv3 mr3 fr">
-              <p className="f6 fw4 hover-white no-underline white-70 dib pv2 ph3" >Hello, {this.state.name}</p>
-              <a className="f6 fw4 hover-white no-underline white-70 dib pv2 ph3 ba br1 link" href="/" onClick={this.logout}>Log out</a>
+              <p className="f6 fw4 hover-white no-underline white-90 dib pv2 ph3" >Hello, {this.state.name}</p>
+              <a className="f6 fw4 hover-white no-underline white-90 dib pv2 ph3 ba br1 link" href="/" onClick={this.logout}>Log out</a>
 
             </div>
           </nav>

@@ -21,7 +21,7 @@ const eventsList = [
     id: 3,
     title: 'Outside English 11',
     description: 'To better understand your responses to each day\'s class, I\'d also like to get a rough idea of how things are gong for you outside of class. And, it\'s an opportunity to bring a little more free-writing into your day!',
-    default_prompt: 'How are you feeling about things outside of school?',
+    default_prompt: 'How are you feeling today about things outside of school?',
     created_at: new Date('2017-09-02 14:26:16 UTC'),
     updated_at: new Date('2017-09-02 14:26:16 UTC')
   },
