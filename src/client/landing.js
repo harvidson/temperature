@@ -52,7 +52,7 @@ class Landing extends React.Component {
                 <div className="dtc v-mid tr pa3">
                   {/* <a className="f6 fw4 hover-white no-underline white-70 dib-l pv2 ph3 link" href="/">About</a> */}
                   <a className="f6 fw4 hover-white no-underline white-70 dib-l pv2 ph3 link" href="#" onClick={this.openModal.bind(this, 'login')}>Log in</a>
-                  <a className="f6 fw4 hover-white no-underline white-70 dib ml2 pv2 ph3 ba br1 link" href="#" onClick={this.openModal.bind(this, 'signup')}>Sign Up</a>
+                  <a className="f6 fw4 hover-white no-underline white-70 dib ml2 pv2 ph3 ba br1 link" href="#" onClick={ () => {this.openModal('signup')} }>Sign Up</a>
                 </div>
               </nav>
               <div className="tc mt3 mt4-m mt5-l ph2">

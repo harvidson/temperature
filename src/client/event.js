@@ -11,6 +11,7 @@ class Event extends React.Component {
       iterationsLead: []
     }
 
+
     //check token
     fetch('/api/token', {
       method: 'get',
@@ -53,15 +54,14 @@ class Event extends React.Component {
   }
 
   render() {
+
+    const {event, openModal } = this.props
+
     return (
       <div >
 
-        <div className="cf mt3">
-          <div className="fl"><h2 className="mt0 f3 fw3 accent-orange">{this.props.event.title}</h2></div>
-            <div className="fr">
-              <a className="f6 no-underline grow white ba ph3 pv2 v-mid accent-orange br2 link" href="#">Analysis</a>
-            </div>
-        </div>
+
+        <div className=""><h2 className="f3 fw3 accent-orange">{event.title}</h2></div>
 
         {this.props.event.lead
           ? <div>
@@ -84,14 +84,20 @@ class Event extends React.Component {
 
         {this.state.iterationsLead.length > 0
           ?
-            <div className="mt1">
-              <ul className="list">
+
+          <div className="">
+            <div className="tc">
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" onClick={() => {openModal('iteration')}}>Assign new reflection</a>
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#">See analytics</a>
+            </div>
+
+
+              <ul className="list mt1">
                 <li className="cf small-caps">
                   <div className="fl">reflection due date</div>
                   <div className="fr mv2">submitted</div>
                 </li>
                 { this.state.iterationsLead.map((iteration) => {
-                  console.log('leading this iteration: ', iteration);
                   return <li key={iteration.iteration_id}><IterationLead iteration={iteration}/></li>
                   })
                 }

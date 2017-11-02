@@ -85,7 +85,7 @@ class login extends React.Component {
       <div className="w-100 mh4">
 
         <div className="tc">
-          <h1 className="accent-orange f1-m f2">Log in</h1>
+          <h1 className="accent-orange f1-m f2 fw4">Log in</h1>
         </div>
 
         <div className="pa4">

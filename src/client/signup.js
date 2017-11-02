@@ -50,9 +50,6 @@ class Signup extends React.Component {
     const user = {firstName: this.state.firstName, lastName: this.state.lastName, pronouns: this.state.pronouns, email: this.state.email, password: this.state.password}
     this.postUser(user)
 
-
-
-
     //this needs to send back user id when it gets it from the http response
     this.resetForm();
     this.props.saveUser(this.state.id, this.state.firstName)
@@ -91,7 +88,7 @@ class Signup extends React.Component {
       <div className="w-100 mh4">
 
         <div className="tc">
-          <h1 className="accent-orange f1-m f2">Sign up</h1>
+          <h1 className="accent-orange f1-m f2 fw4">Sign up</h1>
         </div>
 
         <div className="pa4">
