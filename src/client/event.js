@@ -66,7 +66,7 @@ class Event extends React.Component {
               <div className="">Lead: {this.props.event.lead}</div>
               <p>{this.props.event.description}</p>
           </div>
-          : null
+          : <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link pointer" onClick={() => {openModal('iteration')}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Assign new reflection</a>
         }
 
 
@@ -83,10 +83,10 @@ class Event extends React.Component {
         {this.state.iterationsLead.length > 0
           ?
 
-          <div className="">
+          <div>
             <div className="tc">
-              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link pointer" onClick={() => {openModal('iteration')}}>Assign new reflection</a>
-              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#">See analytics</a>
+
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link" href="#"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</a>
             </div>
 
 

@@ -22,6 +22,11 @@ li .link:hover {
   border-color: #20AAB2;
 }
 
+.analytics-button {
+  background-color: #D95700;
+  border-color: #D95700;
+}
+
 .accent-orange {
   color: #D95700;
 }

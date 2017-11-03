@@ -95,7 +95,7 @@ class Dashboard extends React.Component {
 
           <div className="bg-moon-gray bg-left bg-center-l w-100">
             <div className="tr">
-              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}>Create a new journal</a>
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}><i className="fa fa-book" aria-hidden="true"></i> Create new journal</a>
             </div>
           </div>
 
