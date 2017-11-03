@@ -12,7 +12,7 @@ class NewEvent extends React.Component {
       description: '',
       defaultPrompt: '',
       participants: '',
-      invalidEmails: []
+      invalidEmails: [],
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -42,12 +42,15 @@ class NewEvent extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault;
-
+    event.preventDefault();
     const participants = this.checkPartipants(this.state.participants)
-    console.log(participants);
 
-    const newEvent = {title: this.state.title, description: this.state.description, defaultPrompt: this.state.defaultPrompt, participants: participants}
+    const newEvent = {
+      title: this.state.title,
+      description: this.state.description,
+      defaultPrompt: this.state.defaultPrompt,
+      participants: participants
+    }
 
     this.postEvent(newEvent)
   }
@@ -81,7 +84,7 @@ class NewEvent extends React.Component {
       return response.json();
     }).then((j) => {
       console.log(j);
-
+      // this.props.saveEvent(j)
     }).catch((err) => {
       console.log(err);
     })

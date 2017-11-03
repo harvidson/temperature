@@ -113,9 +113,93 @@ router.get('/', authorize, (req, res, next) => {
 //add new event
 router.post('/', authorize, (req, res, next) => {
   const userId = req.claim.userId;
+  let newEvent;
+  const registered = [];
+  const notRegistered = [];
 
-  console.log(req.body);
-  // knex('events')
+  knex('events')
+    .insert({
+      title: req.body.title,
+      description: req.body.description,
+      default_prompt: req.body.defaultPrompt
+    }, '*')
+    .then((event) => {
+      newEvent = camelizeKeys(event[0])
+      const eventParticipants = []
+
+      for (const participant of req.body.participants) {
+        eventParticipants.push(checkParticipant(participant))
+      }
+
+      return Promise.all(eventParticipants)
+    })
+    .then((eventParticipants) => {
+      const participantsAdded = []
+
+      for (const p of eventParticipants) {
+        if (p.id) {
+          registered.push(p)
+          participantsAdded.push(addParticipant(p))
+        } else {
+          notRegistered.push(p)
+        }
+      }
+      newEvent.participants = {registered, notRegistered}
+      console.log(newEvent);
+
+      participantsAdded.push(addLead())
+      return Promise.all(participantsAdded)
+    })
+    .then((participantsAdded) => {
+      console.log(participantsAdded);
+      res.send(newEvent)
+    })
+    .catch((err) => {
+      console.log(err);
+      next(err)
+    })
+
+    function checkParticipant(email) {
+      const participant = {id: null, email: email}
+
+      return knex('users')
+      .where('email', email)
+      .first()
+      .then((row) => {
+        if (!row) {
+          return Promise.resolve(participant)
+        } else {
+          participant.id = row.id
+          return Promise.resolve(participant)
+        }
+      })
+    }
+
+    function addParticipant(p) {
+      return knex('events_users')
+      .insert({
+        event_id: newEvent.id,
+        user_id: p.id,
+        is_lead: false,
+        is_participant: true
+      }, '*')
+      .then((row) => {
+        return Promise.resolve(row)
+      })
+    }
+
+    function addLead() {
+      return knex('events_users')
+      .insert({
+        event_id: newEvent.id,
+        user_id: userId,
+        is_lead: true,
+        is_participant: false
+      }, '*')
+      .then((row) => {
+        return Promise.resolve(row)
+      })
+    }
 
 
 })

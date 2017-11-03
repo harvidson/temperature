@@ -115,11 +115,9 @@ class Dashboard extends React.Component {
 
             {this.state.createNewEvent
               ? <NewEvent
-
                   saveEvent={this.saveEvent}
                 />
               : <NewIteration
-
                   saveIteration={this.saveIteration}
 
                 />}
