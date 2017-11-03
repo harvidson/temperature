@@ -59,18 +59,25 @@ class Event extends React.Component {
 
     return (
       <div >
-        <div className=""><h2 className="f3 fw3 accent-orange">{event.title}</h2></div>
 
-        {this.props.event.lead
-          ? <div>
-              <div className="">Lead: {this.props.event.lead}</div>
-              <p>{this.props.event.description}</p>
-          </div>
-          : <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link pointer" onClick={() => {openModal('iteration')}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Assign new reflection</a>
+        { this.props.event.lead
+          ?
+            <div>
+              <div className="cf">
+                <h2 className="fl f3 fw3 mt0 accent-orange">{event.title}</h2>
+                <div className="fr accent-blue">Lead: {this.props.event.lead}</div>
+              </div>
+            <p>{this.props.event.description}</p></div>
+
+          :
+            <div className="cf">
+              <h2 className="fl f3 fw3 accent-orange">{event.title}</h2>
+              <a className="fr f6 no-underline grow dib ba ph2 pv2 ma2 accent-blue br2 link pointer" onClick={() => {openModal('iteration')}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Assign new reflection</a>
+            </div>
         }
 
 
-        {this.state.iterations.length > 0
+        { this.state.iterations.length > 0
           ? <ul className="list">
               { this.state.iterations.map((iteration) => {
                 return <li key={iteration.iteration_id}><Iteration iteration={iteration}/></li>
@@ -80,7 +87,7 @@ class Event extends React.Component {
           : null
         }
 
-        {this.state.iterationsLead.length > 0
+        { this.state.iterationsLead.length > 0
           ?
 
           <div>
