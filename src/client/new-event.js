@@ -4,8 +4,8 @@ import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'validator/lib/isEmpty';
 
 class NewEvent extends React.Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
 
     this.state = {
       title: '',
@@ -35,10 +35,7 @@ class NewEvent extends React.Component {
   }
 
   handleParticipantsChange(event) {
-
     this.setState({participants: event.target.value});
-
-    //separate on delimeters; use split; after have an array, loop through npm module validator; return to user--these emails got inserted with event, these didn't work, these were gibberish
   }
 
   handleSubmit(event) {
@@ -60,7 +57,6 @@ class NewEvent extends React.Component {
     const valid = [];
     const invalid = [];
     const emails = this.state.participants.split(separators)
-    // const emails = 'heather.arvidson@gmail.com, hefty     howdy@hotmail.com junk@junk cj@yahoo.ca boo-hoo.com iris@highschool.edu emma@university.edu'.split(separators)
 
     for (let i = 0; i < emails.length; i++) {
       isEmail(emails[i]) ? valid.push(emails[i]) : invalid.push(emails[i])
@@ -83,8 +79,8 @@ class NewEvent extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
-      // this.props.saveEvent(j)
+      j.participants.invalidEmails = this.state.invalidEmails;
+      this.props.saveEvent(j)
     }).catch((err) => {
       console.log(err);
     })

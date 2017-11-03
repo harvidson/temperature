@@ -7,6 +7,7 @@ import Leading from './leading'
 import Header from './header'
 import NewEvent from './new-event'
 import NewIteration from './new-iteration'
+import FormResponse from './form-response'
 
 class Dashboard extends React.Component {
   constructor() {
@@ -17,8 +18,9 @@ class Dashboard extends React.Component {
       writing: [],
       modalIsOpen: false,
 
-      //this var controls the new form modal; if true, modal opens new event form; if false, modal opens new iteration form
-      createNewEvent: true
+      //this var controls the new form modal;
+      modalType: null,
+
     }
 
     this.openModal = this.openModal.bind(this);
@@ -56,23 +58,30 @@ class Dashboard extends React.Component {
 
   }
 
-  openModal(action) {
-    console.log('action ', action);
-    if (action === 'event') {
-      this.setState({createNewEvent: true})
-    } else {
-      this.setState({createNewEvent: false})
-    }
+  openModal(type) {
 
-    this.setState({modalIsOpen: true});
+
+    this.setState({
+      modalIsOpen: true,
+      modalType: type
+    });
   }
 
   closeModal() {
     this.setState({modalIsOpen: false});
   }
 
-  saveEvent() {
-    console.log('saving the event!');
+  saveEvent(newEvent) {
+    console.log('newEvent sent to dashboard', newEvent);
+  }
+
+  modal(type) {
+    switch (type) {
+      case 'newEvent': return <NewEvent saveEvent={this.saveEvent}/>
+      case 'newIteration': return <NewIteration saveIteration={this.saveIteration}/>
+      // case 'formResponse': return <FormResponse />
+      default: return null
+    }
   }
 
   render() {
@@ -85,7 +94,7 @@ class Dashboard extends React.Component {
 
           <div className="bg-moon-gray bg-left bg-center-l w-100">
             <div className="tr">
-              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('event')}}>Create a new journal</a>
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}>Create a new journal</a>
             </div>
           </div>
 
@@ -113,14 +122,7 @@ class Dashboard extends React.Component {
               <img className="fl" src="/static/images/temperature-logo.png" alt="logo" width="100px"/>
             </div>
 
-            {this.state.createNewEvent
-              ? <NewEvent
-                  saveEvent={this.saveEvent}
-                />
-              : <NewIteration
-                  saveIteration={this.saveIteration}
-
-                />}
+            {this.modal(this.state.modalType)}
 
             </Modal>
       </div>
