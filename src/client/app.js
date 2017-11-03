@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Link} from 'react-router-dom'
 
-import Dashboard from './Dashboard'
-import Landing from './Landing'
+import Dashboard from './dashboard'
+import Landing from './landing'
 
 class App extends React.Component {
   constructor() {
