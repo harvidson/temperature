@@ -59,8 +59,6 @@ class Event extends React.Component {
 
     return (
       <div >
-
-
         <div className=""><h2 className="f3 fw3 accent-orange">{event.title}</h2></div>
 
         {this.props.event.lead
