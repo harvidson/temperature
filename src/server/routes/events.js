@@ -138,10 +138,10 @@ router.post('/', authorize, (req, res, next) => {
 
       for (const p of eventParticipants) {
         if (p.id) {
-          registered.push(p)
+          registered.push(p.email)
           participantsAdded.push(addParticipant(p))
         } else {
-          notRegistered.push(p)
+          notRegistered.push(p.email)
         }
       }
       newEvent.participants = {registered, notRegistered}

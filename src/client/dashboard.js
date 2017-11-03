@@ -20,6 +20,7 @@ class Dashboard extends React.Component {
 
       //this var controls the new form modal;
       modalType: null,
+      newEvent: {}
 
     }
 
@@ -59,8 +60,6 @@ class Dashboard extends React.Component {
   }
 
   openModal(type) {
-
-
     this.setState({
       modalIsOpen: true,
       modalType: type
@@ -73,13 +72,15 @@ class Dashboard extends React.Component {
 
   saveEvent(newEvent) {
     console.log('newEvent sent to dashboard', newEvent);
+    this.newEvent = newEvent
+    this.openModal('formResponse')
   }
 
   modal(type) {
     switch (type) {
       case 'newEvent': return <NewEvent saveEvent={this.saveEvent}/>
       case 'newIteration': return <NewIteration saveIteration={this.saveIteration}/>
-      // case 'formResponse': return <FormResponse />
+      case 'formResponse': return <FormResponse newEvent={this.newEvent}/>
       default: return null
     }
   }

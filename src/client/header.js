@@ -22,7 +22,6 @@ class Header extends React.Component {
         this.props.history.push('/');
         console.log('Unauthorized for this page');
       }
-      console.log(j);
       this.setState({name: j.name})
     })
     .catch((err) => {
