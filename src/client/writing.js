@@ -4,8 +4,9 @@ import Event from './event';
 const Writing = ({events}) => {
   return (
     <div>
-      {console.log(events)}
-      <h2 className="f2 fw3 dark-gray">Reflect</h2>
+      <div className="bg-moon-gray">
+        <h2 className="f2 fw3 dark-gray">Write reflections</h2>
+      </div>
       <ul>
         { events.map(event => <Event key={ event.id } event={ event } />) }
       </ul>

@@ -83,9 +83,9 @@ class Dashboard extends React.Component {
 
         <main>
 
-          <div className="bg-silver bg-left bg-center-l w-100">
+          <div className="bg-moon-gray bg-left bg-center-l w-100">
             <div className="tr">
-              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('event')}}>Create a new survey</a>
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('event')}}>Create a new journal</a>
             </div>
           </div>
 
@@ -107,6 +107,7 @@ class Dashboard extends React.Component {
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           >
+
             <div className="cf">
               <i className="fa fa-times fa-lg dark-gray fr f5 pointer" aria-hidden="false" onClick={this.closeModal}></i>
               <img className="fl" src="/static/images/temperature-logo.png" alt="logo" width="100px"/>

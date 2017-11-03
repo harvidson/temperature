@@ -23,7 +23,6 @@ const authorize = function(req, res, next) {
 };
 
 //get all of a user's events
-// TODO: add lead name to returns
 router.get('/', authorize, (req, res, next) => {
   const userId = req.claim.userId;
   const eventsLeading = [];
@@ -110,6 +109,16 @@ router.get('/', authorize, (req, res, next) => {
       })
     }
 });
+
+//add new event
+router.post('/', authorize, (req, res, next) => {
+  const userId = req.claim.userId;
+
+  console.log(req.body);
+  // knex('events')
+
+
+})
 
 //participants: get iterations for an event, and any reflections written
 router.get('/:id/writer', authorize, (req, res, next) => {

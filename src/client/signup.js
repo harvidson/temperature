@@ -44,13 +44,10 @@ class Signup extends React.Component {
   }
 
   handleSubmit(event) {
-    //http call
-    console.log(this.state);
     event.preventDefault();
     const user = {firstName: this.state.firstName, lastName: this.state.lastName, pronouns: this.state.pronouns, email: this.state.email, password: this.state.password}
     this.postUser(user)
 
-    //this needs to send back user id when it gets it from the http response
     this.resetForm();
     this.props.saveUser(this.state.id, this.state.firstName)
   }
@@ -66,7 +63,6 @@ class Signup extends React.Component {
      credentials: 'include'
    })
    const userAdded = await response.json()
-    console.log('userAdded', userAdded);
     this.props.history.push('/dashboard');
  }
 

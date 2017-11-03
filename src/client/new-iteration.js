@@ -21,7 +21,7 @@ class NewIteration extends React.Component {
       <div>
 
 
-<h1>newiteration</h1>
+        <h1>new iteration</h1>
 
 
 

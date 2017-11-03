@@ -11,7 +11,8 @@ exports.up = function(knex, Promise) {
       .index()
     table.dateTime('due_date');
     table.string('prompt').notNullable().defaultTo('');
-    table.boolean('is_anonymous').notNullable().defaultTo(true)
+    table.integer('min_word_count');
+    table.boolean('is_anonymous').notNullable().defaultTo(true);
     table.timestamp('deleted_at').defaultTo(null);
     table.timestamps(true, true);
   })

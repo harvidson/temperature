@@ -87,7 +87,7 @@ class Event extends React.Component {
 
           <div className="">
             <div className="tc">
-              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" onClick={() => {openModal('iteration')}}>Assign new reflection</a>
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link pointer" onClick={() => {openModal('iteration')}}>Assign new reflection</a>
               <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#">See analytics</a>
             </div>
 
