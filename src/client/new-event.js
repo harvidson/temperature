@@ -53,7 +53,7 @@ class NewEvent extends React.Component {
   }
 
   checkPartipants() {
-    const separators = /\s|\t|\n|\r|,/;
+    const separators = /\s|\t|\n|\r|,|;/;
     const valid = [];
     const invalid = [];
     const emails = this.state.participants.split(separators)
@@ -88,11 +88,11 @@ class NewEvent extends React.Component {
 
   render(){
     return(
-        <div className="w-100 mh4">
+        <div className="mh4">
 
 
           <div className="tc">
-            <h1 className="accent-orange f1-m f2 fw4">New Journal</h1>
+            <h1 className="accent-orange f1-l f2 fw4">New Journal</h1>
           </div>
 
           <div className="pa4">

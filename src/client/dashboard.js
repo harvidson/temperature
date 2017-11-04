@@ -51,7 +51,7 @@ class Dashboard extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
+      // console.log(j);
       this.setState({leading: j.leading, writing: j.writing});
     }).catch((err) => {
       console.log(err);
@@ -59,10 +59,11 @@ class Dashboard extends React.Component {
 
   }
 
-  openModal(type) {
+  openModal(type, data) {
     this.setState({
       modalIsOpen: true,
-      modalType: type
+      modalType: type,
+      modalData: data || {}
     });
   }
 
@@ -76,16 +77,17 @@ class Dashboard extends React.Component {
     this.openModal('formResponse')
   }
 
-  modal(type) {
+  modal(type, data) {
     switch (type) {
       case 'newEvent': return <NewEvent saveEvent={this.saveEvent}/>
-      case 'newIteration': return <NewIteration saveIteration={this.saveIteration}/>
+      case 'newIteration': return <NewIteration  saveIteration={this.saveIteration} event={data}/>
       case 'formResponse': return <FormResponse newEvent={this.newEvent}/>
       default: return null
     }
   }
 
   render() {
+    
     return (
 
       <div>
@@ -123,7 +125,7 @@ class Dashboard extends React.Component {
               <img className="fl" src="/static/images/temperature-logo.png" alt="logo" width="100px"/>
             </div>
 
-            {this.modal(this.state.modalType)}
+            {this.modal(this.state.modalType, this.state.modalData)}
 
             </Modal>
       </div>

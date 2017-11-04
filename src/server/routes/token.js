@@ -14,7 +14,6 @@ const router = express.Router()
 //check that user has cookie
 router.get('/', (req, res, next) => {
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
-    console.log('payload', payload);
     if (err) {
       return res.send({
         authorized: false
@@ -31,14 +30,11 @@ router.get('/', (req, res, next) => {
 //on login, give user a cookie
 router.post('/', (req, res, next) => {
   let user;
-  console.log(req.body);
-  console.log('inside post');
 
   knex('users')
     .where('email', req.body.email)
     .first()
     .then((row) => {
-      console.log(row);
       if (!row) {
         return next(boom.create(400, 'Invalid EMAIL or password.'))
       };

@@ -5,7 +5,7 @@ const FormResponse = ({newEvent}) => {
   //transform participant data on the backend--don't need ids once users have been divided into registered and not registered
 
   return(
-    <div className="w-100 mh4">
+    <div className="mh4">
 
 
       <div className="tc">
@@ -19,6 +19,7 @@ const FormResponse = ({newEvent}) => {
       <p>{newEvent.description}</p>
       <div className="fw3 lh-copy f4 dark-gray db">Prompt</div>
       <p>{newEvent.defaultPrompt}</p>
+      {/* // TODO: add conditional to this */}
       <div className="fw3 lh-copy f4 dark-gray db">Participants</div>
       <p>These email addresses have been added to your journal: {newEvent.participants.registered.join(', ')}.</p>
       {newEvent.participants.notRegistered

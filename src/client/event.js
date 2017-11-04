@@ -55,24 +55,24 @@ class Event extends React.Component {
 
   render() {
 
-    const {event, openModal } = this.props
+    const { event, openModal } = this.props
 
     return (
-      <div >
+      <div>
 
-        { this.props.event.lead
+        { event.lead
           ?
             <div>
               <div className="cf">
-                <h2 className="fl f3 fw3 mt0 accent-orange">{event.title}</h2>
+                <h2 className="fl f3 fw3 mt0 accent-orange"><a className="link pointer">{event.title}</a></h2>
                 <div className="fr accent-blue">Lead: {this.props.event.lead}</div>
               </div>
-            <p>{this.props.event.description}</p></div>
+            <p>{event.description}</p></div>
 
           :
             <div className="cf">
               <h2 className="fl f3 fw3 accent-orange">{event.title}</h2>
-              <a className="fr f6 no-underline grow dib ba ph2 pv2 ma2 accent-blue br2 link pointer" onClick={() => {openModal('iteration')}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Assign new reflection</a>
+              <a className="fr f6 no-underline grow dib ba ph2 pv2 ma2 accent-blue br2 link pointer" onClick={() => { openModal('newIteration', event)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Assign new reflection</a>
             </div>
         }
 

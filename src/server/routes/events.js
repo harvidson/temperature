@@ -263,6 +263,33 @@ router.get('/:id/writer', authorize, (req, res, next) => {
       })
     })
 
+    router.post('/:id/iterations', authorize, (req, res, next) => {
+      const eventId = Number.parseInt(req.params.id);
+      const userId = req.claim.userId;
+
+      if (Number.isNaN(eventId) || userId < 0) {
+        return next(boom.create(404, 'Not found.'));
+      }
+
+      knex('iterations')
+        .insert({
+          event_id: eventId,
+          due_date: req.body.dueDate,
+          prompt: req.body.prompt,
+          min_word_count: req.body.minWordCount,
+          is_anonymous: req.body.isAnonymous
+        }, '*')
+        .then((iteration) => {
+          console.log(iteration);
+        })
+        .catch((err) => {
+          console.log(err);
+          next(err)
+        })
+
+    
+    })
+
 
 
 
