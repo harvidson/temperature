@@ -1,7 +1,7 @@
 import React from 'react';
 
 // TODO: reformat for style
-const EventFormResponse = ({newEvent, newIteration, closeModal}) => {
+const EventFormResponse = ({newEvent, closeModal}) => {
   //transform participant data on the backend--don't need ids once users have been divided into registered and not registered
 
   return(

@@ -8,6 +8,7 @@ import Header from './header'
 import NewEvent from './new-event'
 import NewIteration from './new-iteration'
 import EventFormResponse from './event-form-response'
+import IterationFormResponse from './iteration-form-response'
 
 class Dashboard extends React.Component {
   constructor() {
@@ -78,21 +79,24 @@ class Dashboard extends React.Component {
   }
 
   saveIteration(newIteration){
-    console.log('need to get this new iteration from the dashboard[here] to the event comp ', newIteration);
+    console.log('need to get this new iteration from the dashboard[here] to the event comp and to the iterationFormResponse comp', newIteration);
     // this.setState({newIteration: newIteration})
-    this.openModal('eventFormResponse', newIteration)
+    this.openModal('iterationFormResponse', newIteration)
   }
 
   modal(type, data) {
     switch (type) {
       case 'newEvent': return <NewEvent saveEvent={this.saveEvent} />
       case 'newIteration': return <NewIteration saveIteration={this.saveIteration} event={data} saveIteration={this.saveIteration} openModal={this.openModal}/>
-      case 'eventFormResponse': return <EventFormResponse newEvent={this.state.newEvent} newIteration={this.state.newIteration} closeModal={this.closeModal}/>
+      case 'eventFormResponse': return <EventFormResponse newEvent={this.state.newEvent} closeModal={this.closeModal}/>
+      case 'iterationFormResponse': return <IterationFormResponse newIteration={this.state.newIteration} closeModal={this.closeModal}/>
       default: return null
     }
   }
 
   render() {
+    console.log('leading ', this.state.leading);
+    console.log('writing: ', this.state.writing);
 
     return (
 

@@ -55,19 +55,10 @@ class Event extends React.Component {
 
   }
 
-//where does this function get its info from??? this one isn't doing anything
-  // saveIteration(newIteration) {
-  //   console.log('newIteration sent to event comp ', newIteration);
-  //   this.setState({newIteration: newIteration});
-  //   this.setState({iterationsLead: [...this.state.iterationsLead, newIteration]})
-  //   this.props.openModal('EventFormResponse')
-  // }
-
-
-
   render() {
 
     const { event, openModal } = this.props
+    console.log(event);
 
     return (
       <div>
