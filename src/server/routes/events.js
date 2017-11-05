@@ -281,13 +281,14 @@ router.get('/:id/writer', authorize, (req, res, next) => {
         }, '*')
         .then((iteration) => {
           console.log(iteration);
+          res.send(iteration)
         })
         .catch((err) => {
           console.log(err);
           next(err)
         })
 
-    
+
     })
 
 

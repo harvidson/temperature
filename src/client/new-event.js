@@ -92,7 +92,7 @@ class NewEvent extends React.Component {
 
 
           <div className="tc">
-            <h1 className="accent-orange f1-l f2 fw4">New Journal</h1>
+            <h1 className="accent-orange f1-l f2 fw4">New Series</h1>
           </div>
 
           <div className="pa4">
@@ -109,21 +109,21 @@ class NewEvent extends React.Component {
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Description
                     <textarea className="mv2 bg-transparent w-100 measure db input-reset ba b--black-20 f5" rows="6" type="textarea" name="description" value={this.state.description} onChange={this.handleDescriptionChange}/>
-                    <small id="name-desc" className="f6 black-60 db mb2">Describe your purpose: what do you hope this journal will accomplish?</small>
+                    <small className="f6 black-60 db mb2">Describe your purpose: what do you hope this journal will accomplish?</small>
                   </label>
                 </div>
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Reflection prompt
                     <textarea className="mv2 bg-transparent w-100 measure db input-reset ba b--black-20 f5" rows="3" type="teaxtarea" name="defaultPrompt" value={this.state.defaultPrompt} onChange={this.handleDefaultPromptChange}/>
-                      <small id="name-desc" className="f6 black-60 db mb2">This is a default. You can customize it each time you assign a new reflection.</small>
+                      <small className="f6 black-60 db mb2">This is a default. You can customize it each time you assign a new reflection.</small>
                   </label>
                 </div>
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Invite participants
                     <textarea className="mv2 bg-transparent w-100 measure db input-reset ba b--black-20 f5" type="textarea" rows="2" name="participants" value={this.state.participants} onChange={this.handleParticipantsChange}/>
-                    <small id="name-desc" className="f6 black-60 db mb2">Add email addresses for your participants.</small>
+                    <small className="f6 black-60 db mb2">Add email addresses for your participants.</small>
                   </label>
                 </div>
                 <div className="tc mt4">

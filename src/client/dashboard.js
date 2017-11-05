@@ -7,7 +7,7 @@ import Leading from './leading'
 import Header from './header'
 import NewEvent from './new-event'
 import NewIteration from './new-iteration'
-import FormResponse from './form-response'
+import EventFormResponse from './event-form-response'
 
 class Dashboard extends React.Component {
   constructor() {
@@ -20,7 +20,8 @@ class Dashboard extends React.Component {
 
       //this var controls the new form modal;
       modalType: null,
-      newEvent: {}
+      newEvent: {},
+      newIteration: {}
 
     }
 
@@ -56,7 +57,6 @@ class Dashboard extends React.Component {
     }).catch((err) => {
       console.log(err);
     })
-
   }
 
   openModal(type, data) {
@@ -73,21 +73,27 @@ class Dashboard extends React.Component {
 
   saveEvent(newEvent) {
     console.log('newEvent sent to dashboard', newEvent);
-    this.newEvent = newEvent
-    this.openModal('formResponse')
+    this.setState({newEvent: newEvent})
+    this.openModal('eventFormResponse')
+  }
+
+  saveIteration(newIteration){
+    console.log('need to get this new iteration from the dashboard[here] to the event comp ', newIteration);
+    // this.setState({newIteration: newIteration})
+    this.openModal('eventFormResponse', newIteration)
   }
 
   modal(type, data) {
     switch (type) {
-      case 'newEvent': return <NewEvent saveEvent={this.saveEvent}/>
-      case 'newIteration': return <NewIteration  saveIteration={this.saveIteration} event={data}/>
-      case 'formResponse': return <FormResponse newEvent={this.newEvent}/>
+      case 'newEvent': return <NewEvent saveEvent={this.saveEvent} />
+      case 'newIteration': return <NewIteration saveIteration={this.saveIteration} event={data} saveIteration={this.saveIteration} openModal={this.openModal}/>
+      case 'eventFormResponse': return <EventFormResponse newEvent={this.state.newEvent} newIteration={this.state.newIteration} closeModal={this.closeModal}/>
       default: return null
     }
   }
 
   render() {
-    
+
     return (
 
       <div>
@@ -97,7 +103,7 @@ class Dashboard extends React.Component {
 
           <div className="bg-moon-gray bg-left bg-center-l w-100">
             <div className="tr">
-              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}><i className="fa fa-book" aria-hidden="true"></i> Create new journal</a>
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}><i className="fa fa-book" aria-hidden="true"></i> Create new series</a>
             </div>
           </div>
 

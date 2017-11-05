@@ -6,7 +6,7 @@ const Leading = ({events, openModal}) => {
   return (
     <div>
       <div className="bg-moon-gray">
-      <h2 className="f2 fw3 dark-gray">Collect reflections</h2>
+      <h2 className="f2 fw3 dark-gray">Take the Temperature</h2>
     </div>
 
       <ul>

@@ -8,9 +8,11 @@ class Event extends React.Component {
 
     this.state = {
       iterations: [],
-      iterationsLead: []
+      iterationsLead: [],
+
     }
 
+    // this.saveIteration = this.saveIteration.bind(this);
 
     //check token
     fetch('/api/token', {
@@ -53,6 +55,16 @@ class Event extends React.Component {
 
   }
 
+//where does this function get its info from??? this one isn't doing anything
+  // saveIteration(newIteration) {
+  //   console.log('newIteration sent to event comp ', newIteration);
+  //   this.setState({newIteration: newIteration});
+  //   this.setState({iterationsLead: [...this.state.iterationsLead, newIteration]})
+  //   this.props.openModal('EventFormResponse')
+  // }
+
+
+
   render() {
 
     const { event, openModal } = this.props
@@ -67,23 +79,32 @@ class Event extends React.Component {
                 <h2 className="fl f3 fw3 mt0 accent-orange"><a className="link pointer">{event.title}</a></h2>
                 <div className="fr accent-blue">Lead: {this.props.event.lead}</div>
               </div>
-            <p>{event.description}</p></div>
+            <p>{event.description}</p>
+
+          </div>
 
           :
             <div className="cf">
               <h2 className="fl f3 fw3 accent-orange">{event.title}</h2>
+              {/* // TODO: how does this event get the new iteration back after submission? */}
               <a className="fr f6 no-underline grow dib ba ph2 pv2 ma2 accent-blue br2 link pointer" onClick={() => { openModal('newIteration', event)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Assign new reflection</a>
             </div>
         }
 
 
         { this.state.iterations.length > 0
-          ? <ul className="list">
-              { this.state.iterations.map((iteration) => {
-                return <li key={iteration.iteration_id}><Iteration iteration={iteration}/></li>
-                })
-              }
-            </ul>
+          ?
+            <div>
+              <div className="tc">
+                <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link" href="#"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</a>
+              </div>
+              <ul className="list">
+                { this.state.iterations.map((iteration) => {
+                  return <li key={iteration.iteration_id}><Iteration iteration={iteration}/></li>
+                  })
+                }
+              </ul>
+            </div>
           : null
         }
 
@@ -92,7 +113,6 @@ class Event extends React.Component {
 
           <div>
             <div className="tc">
-
               <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link" href="#"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</a>
             </div>
 
