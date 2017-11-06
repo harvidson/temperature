@@ -93,7 +93,7 @@ postIteration(newIteration) {
                 <label className="fw3 lh-copy f4 dark-gray db">
                   Reflection prompt
                   <textarea
-                    className="mv2 bg-transparent w-100 measure db ba b--black-20 f5"
+                    className="mv2 bg-transparent w-100 db ba b--black-20 f5"
                     rows="3"
                     type="teaxtarea"
                     name="prompt"
@@ -108,7 +108,7 @@ postIteration(newIteration) {
                   <input
                     className="mv2 bg-transparent db ba b--black-20 f5"
                     type="number"
-                    step="50" min="0" max="400"
+                    step="50" min="0" max="500"
                     name="minWordCount"
                     value={ this.state.minWordCount }
                     onChange={ this.handleInputChange }
@@ -139,7 +139,7 @@ postIteration(newIteration) {
                     onChange={ this.handleDueDateChange }
                     showTimeSelect
                     dateFormat="LLL"
-                    className="f5 w-100 measure "
+                    className="f5 w-100"
                   />
 
                 </label>

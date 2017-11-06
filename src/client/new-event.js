@@ -101,28 +101,28 @@ class NewEvent extends React.Component {
                 <div className=" ">
                     <label className="fw3 lh-copy f4 dark-gray db">
                       Title
-                      <input className="mv2 bg-transparent w-100 measure db input-reset ba b--black-20 f5" type="text" name="title" value={this.state.title} onChange={this.handleTitleChange}/>
+                      <input className="mv2 bg-transparent w-100 db input-reset ba b--black-20 f5" type="text" name="title" value={this.state.title} onChange={this.handleTitleChange}/>
                     </label>
 
                 </div>
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Description
-                    <textarea className="mv2 bg-transparent w-100 measure db input-reset ba b--black-20 f5" rows="6" type="textarea" name="description" value={this.state.description} onChange={this.handleDescriptionChange}/>
+                    <textarea className="mv2 bg-transparent w-100 db input-reset ba b--black-20 f5" rows="6" type="textarea" name="description" value={this.state.description} onChange={this.handleDescriptionChange}/>
                     <small className="f6 black-60 db mb2">Describe your purpose: what do you hope this journal will accomplish?</small>
                   </label>
                 </div>
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Reflection prompt
-                    <textarea className="mv2 bg-transparent w-100 measure db input-reset ba b--black-20 f5" rows="3" type="teaxtarea" name="defaultPrompt" value={this.state.defaultPrompt} onChange={this.handleDefaultPromptChange}/>
+                    <textarea className="mv2 bg-transparent w-100 db input-reset ba b--black-20 f5" rows="3" type="teaxtarea" name="defaultPrompt" value={this.state.defaultPrompt} onChange={this.handleDefaultPromptChange}/>
                       <small className="f6 black-60 db mb2">This is a default. You can customize it each time you assign a new reflection.</small>
                   </label>
                 </div>
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Invite participants
-                    <textarea className="mv2 bg-transparent w-100 measure db input-reset ba b--black-20 f5" type="textarea" rows="2" name="participants" value={this.state.participants} onChange={this.handleParticipantsChange}/>
+                    <textarea className="mv2 bg-transparent w-100 db input-reset ba b--black-20 f5" type="textarea" rows="2" name="participants" value={this.state.participants} onChange={this.handleParticipantsChange}/>
                     <small className="f6 black-60 db mb2">Add email addresses for your participants.</small>
                   </label>
                 </div>

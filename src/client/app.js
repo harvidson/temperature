@@ -3,6 +3,7 @@ import {Route, Link} from 'react-router-dom'
 
 import Dashboard from './dashboard'
 import Landing from './landing'
+import NewReflection from './new-reflection'
 
 class App extends React.Component {
   constructor() {
@@ -18,6 +19,8 @@ class App extends React.Component {
         <div className="site-content">
           <Route exact path='/dashboard' component={Dashboard}/>
           <Route exact path='/' component={Landing}/>
+          <Route path='/iterations/:id/reflection' component={NewReflection}/>
+
 
 
         </div>

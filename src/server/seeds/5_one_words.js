@@ -22,10 +22,6 @@ const wordsList = [
     word: 'excited',
     word_analytics: '{ "documentSentiment": { "magnitude":0.7, "score": 0.7 }, "language": "en", "sentences": [ {  "text": { "content": "I am excited", "beginOffset": 0  },  "sentiment": { "magnitude": 0.7, "score": 0.7  } } ]}'
   }, {
-    id: 6,
-    word: 'amused',
-    word_analytics: '{ "documentSentiment": { "magnitude": 0.6, "score": 0.6 }, "language": "en", "sentences": [ {  "text": { "content": "I feel amused",  "beginOffset": 0  }, "sentiment": { "magnitude": 0.6, "score": 0.6  } } ]}'
-  }, {
     id: 7,
     word: 'cheerful',
     word_analytics: '{ "documentSentiment": { "magnitude": 0.6, "score": 0.6 }, "language": "en", "sentences": [ {  "text": { "content": "i feel cheerful", "beginOffset": 0  },  "sentiment": { "magnitude": 0.6, "score": 0.6  } } ]}'

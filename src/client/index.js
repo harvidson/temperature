@@ -10,7 +10,7 @@ import { APP_CONTAINER_SELECTOR } from '../shared/config';
 const rootEl = document.querySelector(APP_CONTAINER_SELECTOR);
 
 const wrapApp = AppComponent =>
-    <BrowserRouter>
+    <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}>
       <AppComponent></AppComponent>
     </BrowserRouter>
 

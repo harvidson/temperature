@@ -39,6 +39,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "@google-cloud/language": "^1.0.0",
     "babel-polyfill": "^6.23.0",
     "bcrypt-as-promised": "^1.1.0",
     "boom": "^6.0.0",
