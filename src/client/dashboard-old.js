@@ -1,13 +1,14 @@
 import React from 'react'
+import {Route, Link} from 'react-router-dom';
 import Modal from 'react-modal';
 
+import Writing from './writing'
+import Leading from './leading'
 import Header from './header'
-import EventWriting from './event-writing'
-import EventLeading from './event-leading'
 import NewEvent from './new-event'
-import EventFormResponse from './event-form-response'
 import NewIteration from './new-iteration'
-
+import EventFormResponse from './event-form-response'
+import IterationFormResponse from './iteration-form-response'
 
 class Dashboard extends React.Component {
   constructor() {
@@ -19,13 +20,14 @@ class Dashboard extends React.Component {
       modalIsOpen: false,
       //this var controls the new form modal;
       modalType: null,
+      newEvent: {},
+      newIteration: {}
 
     }
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveEvent = this.saveEvent.bind(this);
-    this.saveIteration = this.saveIteration.bind(this);
 
     //check token
     fetch('/api/token', {
@@ -69,6 +71,18 @@ class Dashboard extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
+  saveEvent(newEvent) {
+    console.log('newEvent sent to dashboard', newEvent);
+    this.setState({newEvent: newEvent})
+    this.openModal('eventFormResponse')
+  }
+
+  saveIteration(newIteration){
+    console.log('need to get this new iteration from the dashboard[here] to the event comp and to the iterationFormResponse comp', newIteration);
+    // this.setState({newIteration: newIteration})
+    this.openModal('iterationFormResponse', newIteration)
+  }
+
   modal(type, data) {
     switch (type) {
       case 'newEvent': return <NewEvent saveEvent={this.saveEvent} />
@@ -79,55 +93,31 @@ class Dashboard extends React.Component {
     }
   }
 
-  saveEvent(newEvent) {
-    console.log('newEvent sent to dashboard', newEvent);
-    this.setState({newEvent: newEvent})
-    this.openModal('eventFormResponse')
-  }
-
-  saveIteration(newIteration){
-    console.log('newIteration sent to dashboard', newIteration);
-    this.setState({newIteration: newIteration})
-    this.closeModal()
-    // this.openModal('iterationFormResponse', newIteration)
-  }
-
-
   render() {
-
-
     return (
 
       <div>
         <Header/>
 
         <main>
-        <div className="bg-moon-gray bg-left bg-center-l w-100 cf">
-          <div className="fl mh4">
-            <h2 className="f2 fw3 dark-gray mv1">Take the Temperature</h2>
-          </div>
-          <div className="fr v-mid">
-            <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}><i className="fa fa-book" aria-hidden="true"></i> Create new journal event</a>
 
-          </div>
-        </div>
-
-        <div className="mh5 mt4">
-          { this.state.leading.map(event => <EventLeading key={ event.id } event={ event } openModal= { this.openModal }/>) }
-        </div>
-
-        <div className="bg-moon-gray bg-left bg-center-l w-100 cf">
-          <div className="fl mh4">
-            <h2 className="f2 fw3 dark-gray mv1">Write reflections</h2>
-
+          <div className="bg-moon-gray bg-left bg-center-l w-100">
+            <div className="tr">
+              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}><i className="fa fa-book" aria-hidden="true"></i> Create new series</a>
+            </div>
           </div>
 
-        </div>
-        <div className="mh5 mt4">
-          { this.state.writing.map(event => <EventWriting key={ event.id } event={ event } />) }
-        </div>
+          <div className="ma5 leading">
+            {this.state.leading.length > 0
+              ? <Leading events={this.state.leading} openModal={this.openModal}/>
+              : null}
+          </div>
 
-
+          <div className="ma5 writing">
+            {this.state.writing.length > 0
+              ? <Writing events={this.state.writing}/>
+              : null}
+          </div>
 
         </main>
 
@@ -144,7 +134,6 @@ class Dashboard extends React.Component {
             {this.modal(this.state.modalType, this.state.modalData)}
 
         </Modal>
-
       </div>
 
     )

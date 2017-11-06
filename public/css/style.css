@@ -23,7 +23,7 @@ li .link:hover {
 }
 
 .analytics-button {
-  background-color: #D95700;
+  color: #D95700;
   border-color: #D95700;
 }
 
@@ -36,9 +36,7 @@ li .link:hover {
 }
 
 .bright-orange {
-  background-color: #FF7316;
-  color: white;
-  padding: 1px;
+  color: #FF7316;
 }
 
 /*react-datepicker*/

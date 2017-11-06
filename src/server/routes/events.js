@@ -116,6 +116,7 @@ router.post('/', authorize, (req, res, next) => {
   let newEvent;
   const registered = [];
   const notRegistered = [];
+  let gotLead = false;
 
   knex('events')
     .insert({
@@ -139,7 +140,11 @@ router.post('/', authorize, (req, res, next) => {
       for (const p of eventParticipants) {
         if (p.id) {
           registered.push(p.email)
+          if (p.lead) {
+            gotLead = true;
+          }
           participantsAdded.push(addParticipant(p))
+
         } else {
           notRegistered.push(p.email)
         }
@@ -147,7 +152,7 @@ router.post('/', authorize, (req, res, next) => {
       newEvent.participants = {registered, notRegistered}
       console.log(newEvent);
 
-      participantsAdded.push(addLead())
+      if (!gotLead) participantsAdded.push(addLead())
       return Promise.all(participantsAdded)
     })
     .then((participantsAdded) => {
@@ -160,7 +165,7 @@ router.post('/', authorize, (req, res, next) => {
     })
 
     function checkParticipant(email) {
-      const participant = {id: null, email: email}
+      const participant = {id: null, email: email, lead: false}
 
       return knex('users')
       .where('email', email)
@@ -170,6 +175,7 @@ router.post('/', authorize, (req, res, next) => {
           return Promise.resolve(participant)
         } else {
           participant.id = row.id
+          if (participant.id === userId) participant.lead = true;
           return Promise.resolve(participant)
         }
       })
@@ -180,7 +186,7 @@ router.post('/', authorize, (req, res, next) => {
       .insert({
         event_id: newEvent.id,
         user_id: p.id,
-        is_lead: false,
+        is_lead: p.lead,
         is_participant: true
       }, '*')
       .then((row) => {
@@ -213,6 +219,17 @@ router.get('/:id/writer', authorize, (req, res, next) => {
     return next(boom.create(404, 'Not found.'));
   }
 
+
+  // knex.raw(`SELECT iterations.id AS iteration_id, iterations.event_id, iterations.due_date, iterations.prompt, iterations.created_at AS iteration_created_at, iterations.is_anonymous, reflections.id AS reflection_id, reflections.user_id, reflections.created_at AS reflection_created_at, reflections.title AS reflection_title, reflections.content AS reflection_content, reflections.text_analytics AS reflection_analytics, reflections.one_word_intensity, one_words.word AS one_word, one_words.word_analytics, events_users.is_lead, events_users.is_participant
+  //   FROM iterations
+  //   LEFT JOIN reflections ON reflections.iteration_id = iterations.id
+  //   LEFT JOIN one_words ON one_words.id = reflections.one_word_id
+  //   LEFT JOIN events_users ON events_users.event_id = iterations.event_id
+  //   WHERE iterations.event_id = ${eventId}
+  //   AND iterations.deleted_at IS null AND events_users.user_id = ${userId}
+  //   AND events_users.is_participant = true
+  //   AND (reflections.user_id = ${userId} OR reflections.user_id IS null)`)
+
   //get all iterations of event
   knex('iterations')
     .select('iterations.id AS iteration_id', 'iterations.event_id', 'iterations.due_date', 'iterations.prompt', 'iterations.created_at AS iteration_created_at', 'iterations.is_anonymous', 'reflections.id AS reflection_id', 'reflections.user_id', 'reflections.created_at AS reflection_created_at', 'reflections.title AS reflection_title', 'reflections.content AS reflection_content', 'reflections.text_analytics AS reflection_analytics', 'reflections.one_word_intensity', 'one_words.word AS one_word', 'one_words.word_analytics', 'events_users.is_lead', 'events_users.is_participant')
@@ -224,7 +241,14 @@ router.get('/:id/writer', authorize, (req, res, next) => {
       'iterations.deleted_at': null,
       'events_users.user_id': userId,
       'events_users.is_participant': true,
-      'events_users.is_lead': false
+      'reflections.user_id': userId
+    })
+    .orWhere({
+      'iterations.event_id': eventId,
+      'iterations.deleted_at': null,
+      'events_users.user_id': userId,
+      'events_users.is_participant': true,
+      'reflections.user_id': null
     })
     .orderBy('iterations.due_date', 'desc')
     .then((iterations) => {
@@ -251,7 +275,7 @@ router.get('/:id/writer', authorize, (req, res, next) => {
         'iterations.event_id': eventId,
         'iterations.deleted_at': null,
         'events_users.user_id': userId,
-        'events_users.is_participant': false,
+        // 'events_users.is_participant': false,
         'events_users.is_lead': true
       })
       .orderBy('iterations.due_date', 'desc')

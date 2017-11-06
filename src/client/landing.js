@@ -19,6 +19,21 @@ class Landing extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveUser = this.saveUser.bind(this);
+
+    //check token
+    fetch('/api/token', {
+      method: 'get',
+      credentials: 'include'
+    }).then((response) => {
+      return response.json();
+    }).then((j) => {
+      console.log('response from token check: ', j)
+      if (j.authorized) {
+        this.props.history.push('/dashboard');
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
   openModal(action) {
