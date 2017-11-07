@@ -1,5 +1,10 @@
 import React from 'react'
 import IterationLead from './iteration-lead'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 class EventLeading extends React.Component {
   constructor(props) {
@@ -10,6 +15,9 @@ class EventLeading extends React.Component {
 
     }
 
+  }
+
+  componentWillMount(){
     //check token
     fetch('/api/token', {
       method: 'get',
@@ -36,13 +44,11 @@ class EventLeading extends React.Component {
     }).catch((err) => {
       console.log(err);
     })
-
   }
 
   render() {
 
     const { event, openModal } = this.props
-
 
     return (
       <div>
@@ -50,7 +56,7 @@ class EventLeading extends React.Component {
             <div className="cf">
               <h2 className="fl f3 fw3 accent-orange">{event.title}</h2>
               <a className="fr f6 no-underline grow dib ba ph2 pv2 ma2 accent-blue br2 link pointer" onClick={() => { openModal('newIteration', event)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Assign new reflection</a>
-              <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link fr" href="#"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</a>
+              <Link to={`/events/${event.id}/analytics`} className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link fr"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</Link>
             </div>
 
 

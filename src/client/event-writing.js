@@ -11,7 +11,9 @@ class EventWriting extends React.Component {
 
     }
 
+  }
 
+  componentWillMount() {
     //check token
     fetch('/api/token', {
       method: 'get',

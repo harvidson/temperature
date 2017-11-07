@@ -27,6 +27,10 @@ class Dashboard extends React.Component {
     this.saveEvent = this.saveEvent.bind(this);
     this.saveIteration = this.saveIteration.bind(this);
 
+
+  }
+
+  componentWillMount() {
     //check token
     fetch('/api/token', {
       method: 'get',
@@ -67,6 +71,7 @@ class Dashboard extends React.Component {
 
   closeModal() {
     this.setState({modalIsOpen: false});
+    this.props.history.push('/dashboard');
   }
 
   modal(type, data) {
@@ -116,17 +121,20 @@ class Dashboard extends React.Component {
           { this.state.leading.map(event => <EventLeading key={ event.id } event={ event } openModal= { this.openModal }/>) }
         </div>
 
-        <div className="bg-moon-gray bg-left bg-center-l w-100 cf">
-          <div className="fl mh4">
-            <h2 className="f2 fw3 dark-gray mv1">Write reflections</h2>
-
-          </div>
-
-        </div>
-        <div className="mh5 mt4">
-          { this.state.writing.map(event => <EventWriting key={ event.id } event={ event } />) }
-        </div>
-
+        {this.state.writing.length > 0
+          ?
+            <div>
+              <div className="bg-moon-gray bg-left bg-center-l w-100 cf">
+                <div className="fl mh4">
+                  <h2 className="f2 fw3 dark-gray mv1">Write reflections</h2>
+                </div>
+              </div>
+              <div className="mh5 mt4">
+                { this.state.writing.map(event => <EventWriting key={ event.id } event={ event } />) }
+              </div>
+            </div>
+          : null
+        }
 
 
         </main>

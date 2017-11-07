@@ -219,17 +219,6 @@ router.get('/:id/writer', authorize, (req, res, next) => {
     return next(boom.create(404, 'Not found.'));
   }
 
-
-  // knex.raw(`SELECT iterations.id AS iteration_id, iterations.event_id, iterations.due_date, iterations.prompt, iterations.created_at AS iteration_created_at, iterations.is_anonymous, reflections.id AS reflection_id, reflections.user_id, reflections.created_at AS reflection_created_at, reflections.title AS reflection_title, reflections.content AS reflection_content, reflections.text_analytics AS reflection_analytics, reflections.one_word_intensity, one_words.word AS one_word, one_words.word_analytics, events_users.is_lead, events_users.is_participant
-  //   FROM iterations
-  //   LEFT JOIN reflections ON reflections.iteration_id = iterations.id
-  //   LEFT JOIN one_words ON one_words.id = reflections.one_word_id
-  //   LEFT JOIN events_users ON events_users.event_id = iterations.event_id
-  //   WHERE iterations.event_id = ${eventId}
-  //   AND iterations.deleted_at IS null AND events_users.user_id = ${userId}
-  //   AND events_users.is_participant = true
-  //   AND (reflections.user_id = ${userId} OR reflections.user_id IS null)`)
-
   //get all iterations of event
   knex('iterations')
     .select('iterations.id AS iteration_id', 'iterations.event_id', 'iterations.due_date', 'iterations.prompt', 'iterations.created_at AS iteration_created_at', 'iterations.is_anonymous', 'reflections.id AS reflection_id', 'reflections.user_id', 'reflections.created_at AS reflection_created_at', 'reflections.title AS reflection_title', 'reflections.content AS reflection_content', 'reflections.text_analytics AS reflection_analytics', 'reflections.one_word_intensity', 'one_words.word AS one_word', 'one_words.word_analytics', 'events_users.is_lead', 'events_users.is_participant')
@@ -260,60 +249,62 @@ router.get('/:id/writer', authorize, (req, res, next) => {
   })
 
 //leads: get iterations for an event
-  router.get('/:id/lead', authorize, (req, res, next) => {
-    const eventId = Number.parseInt(req.params.id);
-    const userId = req.claim.userId;
+router.get('/:id/lead', authorize, (req, res, next) => {
+  const eventId = Number.parseInt(req.params.id);
+  const userId = req.claim.userId;
 
-    if (Number.isNaN(eventId) || userId < 0) {
-      return next(boom.create(404, 'Not found.'));
-    }
+  if (Number.isNaN(eventId) || userId < 0) {
+    return next(boom.create(404, 'Not found.'));
+  }
 
-    knex('iterations')
-      .select('iterations.id AS iteration_id', 'iterations.event_id', 'iterations.due_date', 'iterations.prompt', 'iterations.created_at AS iteration_created_at', 'iterations.is_anonymous', 'events_users.is_lead', 'events_users.is_participant')
-      .leftJoin('events_users', 'events_users.event_id', 'iterations.event_id')
-      .where({
-        'iterations.event_id': eventId,
-        'iterations.deleted_at': null,
-        'events_users.user_id': userId,
-        // 'events_users.is_participant': false,
-        'events_users.is_lead': true
-      })
-      .orderBy('iterations.due_date', 'desc')
-      .then((iterations) => {
-        res.send(iterations)
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+  knex('iterations')
+    .select('iterations.id AS iteration_id', 'iterations.event_id', 'iterations.due_date', 'iterations.prompt', 'iterations.created_at AS iteration_created_at', 'iterations.is_anonymous', 'events_users.is_lead', 'events_users.is_participant')
+    .leftJoin('events_users', 'events_users.event_id', 'iterations.event_id')
+    .where({
+      'iterations.event_id': eventId,
+      'iterations.deleted_at': null,
+      'events_users.user_id': userId,
+      // 'events_users.is_participant': false,
+      'events_users.is_lead': true
     })
-
-    router.post('/:id/iterations', authorize, (req, res, next) => {
-      const eventId = Number.parseInt(req.params.id);
-      const userId = req.claim.userId;
-
-      if (Number.isNaN(eventId) || userId < 0) {
-        return next(boom.create(404, 'Not found.'));
-      }
-
-      knex('iterations')
-        .insert({
-          event_id: eventId,
-          due_date: req.body.dueDate,
-          prompt: req.body.prompt,
-          min_word_count: req.body.minWordCount,
-          is_anonymous: req.body.isAnonymous
-        }, '*')
-        .then((iteration) => {
-          console.log(iteration);
-          res.send(iteration)
-        })
-        .catch((err) => {
-          console.log(err);
-          next(err)
-        })
-
-
+    .orderBy('iterations.due_date', 'desc')
+    .then((iterations) => {
+      res.send(iterations)
     })
+    .catch((err) => {
+      console.log(err);
+    })
+  })
+
+//post new iteration
+router.post('/:id/iterations', authorize, (req, res, next) => {
+  const eventId = Number.parseInt(req.params.id);
+  const userId = req.claim.userId;
+
+  if (Number.isNaN(eventId) || userId < 0) {
+    return next(boom.create(404, 'Not found.'));
+  }
+
+  knex('iterations')
+    .insert({
+      event_id: eventId,
+      due_date: req.body.dueDate,
+      prompt: req.body.prompt,
+      min_word_count: req.body.minWordCount,
+      is_anonymous: req.body.isAnonymous
+    }, '*')
+    .then((iteration) => {
+      console.log(iteration);
+      res.send(iteration)
+    })
+    .catch((err) => {
+      console.log(err);
+      next(err)
+    })
+})
+
+//get all one-word data for an event
+
 
 
 

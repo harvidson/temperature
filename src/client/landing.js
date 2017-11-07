@@ -20,6 +20,9 @@ class Landing extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.saveUser = this.saveUser.bind(this);
 
+  }
+
+  componentWillMount() {
     //check token
     fetch('/api/token', {
       method: 'get',

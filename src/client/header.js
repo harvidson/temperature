@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import {Route, Link} from 'react-router-dom'
 
 class Header extends React.Component {
   constructor() {
@@ -7,8 +8,12 @@ class Header extends React.Component {
     this.state = {
       name: ''
     }
+
     this.logout = this.logout.bind(this);
 
+  }
+
+  componentWillMount() {
     //check token
     fetch('/api/token', {
       method: 'get',
@@ -28,6 +33,7 @@ class Header extends React.Component {
       console.log(err)
     })
   }
+
 
 
   logout() {
@@ -51,7 +57,7 @@ class Header extends React.Component {
       <div className="bg-dark-gray bg-left bg-center-l w-100" >
 
         <div className="cf">
-          <img className="ml2 pa3 fl" src="static/images/temperature-logo.png" width="150px"/>
+          <Link to={'/dashboard'}><img className="ml2 pa3 fl" src="/static/images/temperature-logo.png" width="150px"/></Link>
           <nav className="w-100 mv3">
 
             <div className="v-mid tr pv3 mr3 fr">

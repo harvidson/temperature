@@ -1,14 +1,9 @@
 import React from 'react'
 import Select from 'react-select'
-import 'react-select/dist/react-select.css';
+import 'react-select/dist/react-select.css'
 import {Route, Link} from 'react-router-dom'
 
 import Header from './header'
-
-//needs to take in iteration id from params
-//get info from backend: [iteration] needs to display prompt, whether this reflection is anonymous, get minWordCount (convert  ceiling(word count x 6.3 characters)); [event] title
-//from user: title, content, one-word, one_word_intensity
-//generate from backend: userId, text_analytics
 
 class NewReflection extends React.Component {
   constructor(props){
@@ -34,7 +29,7 @@ class NewReflection extends React.Component {
   componentWillMount() {
     window.scrollTo(0, 0)
 
-    //fetch iteration data   **add id to api call
+    //fetch iteration data  
     fetch(`/api/iterations/${this.props.match.params.id}`, {
       method: 'get',
       credentials: 'include'

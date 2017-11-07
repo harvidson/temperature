@@ -10,6 +10,9 @@ class IterationLead extends React.Component {
       reflectionsIn: 0
     }
 
+  }
+
+  componentWillMount() {
     //get count of number of reflections submitted for this iteration
     fetch(`/api/iterations/${this.props.iteration.iteration_id}/reflections`, {
       method: 'get',
@@ -22,7 +25,6 @@ class IterationLead extends React.Component {
       console.log(err);
     })
   }
-
 
   render(){
     return (

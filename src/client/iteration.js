@@ -11,7 +11,6 @@ import Reflection from './reflection'
 import NewReflection from './new-reflection'
 
 const Iteration = ({iteration}) => {
-  // console.log(iteration);
   return (
     <div>
 
