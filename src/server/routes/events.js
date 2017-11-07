@@ -214,39 +214,80 @@ router.post('/', authorize, (req, res, next) => {
 router.get('/:id/writer', authorize, (req, res, next) => {
   const eventId = Number.parseInt(req.params.id);
   const userId = req.claim.userId;
+  const iterations = []
 
   if (Number.isNaN(eventId) || userId < 0) {
     return next(boom.create(404, 'Not found.'));
   }
+  //check that user is a participant in this event
+  knex('events_users')
+  .where({
+    'event_id': eventId,
+    'user_id': userId,
+    'is_participant': true
+  })
+  .then((rows) => {
+    if (!rows) return next(boom.create(401, 'Unauthorized.'));
 
   //get all iterations of event
-  knex('iterations')
-    .select('iterations.id AS iteration_id', 'iterations.event_id', 'iterations.due_date', 'iterations.prompt', 'iterations.created_at AS iteration_created_at', 'iterations.is_anonymous', 'reflections.id AS reflection_id', 'reflections.user_id', 'reflections.created_at AS reflection_created_at', 'reflections.title AS reflection_title', 'reflections.content AS reflection_content', 'reflections.text_analytics AS reflection_analytics', 'reflections.one_word_intensity', 'one_words.word AS one_word', 'one_words.word_analytics', 'events_users.is_lead', 'events_users.is_participant')
-    .leftJoin('reflections', 'reflections.iteration_id', 'iterations.id')
-    .leftJoin('one_words', 'one_words.id', 'reflections.one_word_id')
-    .leftJoin('events_users', 'events_users.event_id', 'iterations.event_id')
-    .where({
-      'iterations.event_id': eventId,
-      'iterations.deleted_at': null,
-      'events_users.user_id': userId,
-      'events_users.is_participant': true,
-      'reflections.user_id': userId
-    })
-    .orWhere({
-      'iterations.event_id': eventId,
-      'iterations.deleted_at': null,
-      'events_users.user_id': userId,
-      'events_users.is_participant': true,
-      'reflections.user_id': null
-    })
-    .orderBy('iterations.due_date', 'desc')
-    .then((iterations) => {
-      res.send(iterations)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    return knex('iterations')
+      .where('event_id', eventId)
+      .whereNull('iterations.deleted_at')
   })
+  .then((iterations) => {
+    const array = []
+
+    //look for a reflection for each iteration
+    for (const i of iterations) {
+      array.push(getReflection(i))
+    }
+
+    return Promise.all(array)
+
+  })
+  .then(iterationsWithReflections => {
+    res.send(iterationsWithReflections)
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+  function getReflection(iteration) {
+    return knex('reflections')
+    .where({
+      iteration_id: iteration.id,
+      user_id: userId
+    })
+    .first()
+    .then((reflection) => {
+      if (!reflection) throw new NotAnError()
+
+      iteration.reflection = reflection
+
+        return knex('one_words')
+        .where('id', reflection.one_word_id)
+        .first()
+    })
+    .then((row) => {
+      iteration.reflection.one_word = row.word;
+      iteration.reflection.one_word_analytics = row.word_analytics
+      return Promise.resolve(iteration)
+    })
+    .catch((noReflections) => {
+      if(noReflections instanceof NotAnError){
+        return Promise.resolve(iteration);
+      }
+
+      throw noReflections;
+    })
+  }
+
+})
+
+class NotAnError{
+  construcor(){
+  }
+}
 
 //leads: get iterations for an event
 router.get('/:id/lead', authorize, (req, res, next) => {
@@ -304,7 +345,66 @@ router.post('/:id/iterations', authorize, (req, res, next) => {
 })
 
 //get all one-word data for an event
+router.get('/:id/one-words', authorize, (req, res,next) => {
+  const eventId = Number.parseInt(req.params.id);
+  const userId = req.claim.userId;
 
+  if (Number.isNaN(eventId) || userId < 0) {
+    return next(boom.create(404, 'Not found.'));
+  }
+
+  //check that user is lead on this event
+  knex('events_users')
+  .where({
+    'event_id': eventId,
+    'user_id': userId,
+    'is_lead': true
+  })
+  .first()
+  .then((row) => {
+    if (!row) return next(boom.create(401, 'Unauthorized.'));
+
+  //grab all iterations of this eventId
+    return knex('iterations')
+      .where('event_id', eventId)
+  })
+  .then((iterations) => {
+    console.log(iterations);
+    //for each row, get one-word data from relections
+    for (const i of iterations){
+
+      console.log(i);
+      getReflections(i.id)
+    }
+
+
+  })
+  .catch((err) => {
+    console.log(err);
+    next(err)
+  })
+
+  function getReflections(iterationId) {
+    console.log('getting the reflections for iteration ', iterationId);
+    return knex('reflections')
+      .where('iteration_id', iterationId)
+      .then((reflections) => {
+        const oneWords = [];
+        console.log(reflections);
+        for (const r of reflections) {
+          const word = {
+            id: r.one_word_id,
+            intensity: r.one_word_intensity
+          }
+          oneWords.push(word)
+        }
+        console.log('oneWords for iteration ', iterationId, oneWords);
+        return Promise.resolve(oneWords)
+      })
+  }
+
+
+})
 
 
 

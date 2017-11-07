@@ -36,6 +36,7 @@ class EventWriting extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
+      console.log(j);
       this.setState({iterations: j})
     }).catch((err) => {
       console.log(err);
@@ -70,7 +71,7 @@ class EventWriting extends React.Component {
               </div>
               <ul className="list">
                 { this.state.iterations.map((iteration) => {
-                  return <li key={iteration.iteration_id}><Iteration iteration={iteration}/></li>
+                  return <li key={iteration.id}><Iteration iteration={iteration}/></li>
                   })
                 }
               </ul>
