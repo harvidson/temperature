@@ -66,19 +66,6 @@ class login extends React.Component {
     this.setState({email: '', password: ''})
   }
 
- //  async logIn(user) {
- //   const response = await fetch('/api/token', {
- //     method: 'POST',
- //     body: JSON.stringify(user),
- //     headers: {
- //       'Content-Type': 'application/json',
- //       'Accept': 'application/json',
- //     }
- //   })
- //   const userAdded = await response.json()
- //    console.log('userAdded', userAdded);
- // }
-
   render() {
     return (
 
@@ -112,7 +99,7 @@ class login extends React.Component {
         </div>
 
         <div className="tc">
-          <p>Need an account? <a className="accent-orange link" href="#">Sign up</a>.</p>
+          <p>Need an account? <a className="accent-orange link pointer" onClick={ () => {this.props.openModal('signup')}}>Sign up</a>.</p>
         </div>
       </div>
 

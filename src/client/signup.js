@@ -132,7 +132,7 @@ class Signup extends React.Component {
         </div>
 
         <div className="tc">
-          <p>Already have an account? <a className="accent-orange link" href="#">Log in</a>.</p>
+          <p>Already have an account? <a className="accent-orange link pointer" onClick={ () => {this.props.openModal('login')}}>Log in</a>.</p>
         </div>
       </div>
 

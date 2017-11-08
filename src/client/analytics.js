@@ -10,7 +10,7 @@ class Analytics extends React.Component {
     super()
 
     this.state = {
-
+      iterations: []
     }
     this.createDonutChart = this.createDonutChart.bind(this);
   }
@@ -33,7 +33,7 @@ class Analytics extends React.Component {
       console.log(err)
     })
 
-    //load user's events
+    //load one-word data for this event
     fetch(`/api/events/${this.props.match.params.id}/one-words`, {
       method: 'get',
       credentials: 'include'
@@ -41,6 +41,7 @@ class Analytics extends React.Component {
       return response.json();
     }).then((j) => {
       console.log(j);
+      this.setState({iterations: j})
     }).catch((err) => {
       console.log(err);
     })
@@ -57,8 +58,17 @@ class Analytics extends React.Component {
 
   }
 
+  aggregateOneWords() {
+
+  }
+
+  aggregateOneWordsWithIntensity() {
+
+  }
+
+
   createDonutChart() {
-    const watsonSummary = [
+    const oneWordData = [
       {
         tone: 'happy',
         score: 15
@@ -104,7 +114,7 @@ class Analytics extends React.Component {
     .sort(null);
 
     const path = svg.selectAll('path')
-    .data(pie(watsonSummary))
+    .data(pie(oneWordData))
     .enter()
     .append('path')
     .attr('d', arc)
@@ -113,7 +123,7 @@ class Analytics extends React.Component {
     });
 
     path.on('mouseover', function(d) {
-      let total = d3.sum(watsonSummary.map(function(d) {
+      let total = d3.sum(oneWordData.map(function(d) {
         return d.score;
       }));
       const percent = Math.round(1000 * d.data.score / total) / 10;

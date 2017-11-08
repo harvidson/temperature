@@ -150,13 +150,11 @@ router.post('/', authorize, (req, res, next) => {
         }
       }
       newEvent.participants = {registered, notRegistered}
-      console.log(newEvent);
 
       if (!gotLead) participantsAdded.push(addLead())
       return Promise.all(participantsAdded)
     })
     .then((participantsAdded) => {
-      console.log(participantsAdded);
       res.send(newEvent)
     })
     .catch((err) => {
@@ -335,7 +333,6 @@ router.post('/:id/iterations', authorize, (req, res, next) => {
       is_anonymous: req.body.isAnonymous
     }, '*')
     .then((iteration) => {
-      console.log(iteration);
       res.send(iteration)
     })
     .catch((err) => {
@@ -369,42 +366,70 @@ router.get('/:id/one-words', authorize, (req, res,next) => {
       .where('event_id', eventId)
   })
   .then((iterations) => {
-    console.log(iterations);
     //for each row, get one-word data from relections
-    for (const i of iterations){
+    const wordedIterations = []
 
-      console.log(i);
-      getReflections(i.id)
+    for (const i of iterations){
+      wordedIterations.push(getWordData(i))
     }
 
-
+    return Promise.all(wordedIterations)
+  })
+  .then((data) => {
+    console.log('sending to frontend: ');
+    console.log(data[0]);
+    res.send(data)
   })
   .catch((err) => {
     console.log(err);
     next(err)
   })
 
-  function getReflections(iterationId) {
-    console.log('getting the reflections for iteration ', iterationId);
+  function getWordData(iteration) {
     return knex('reflections')
-      .where('iteration_id', iterationId)
+      .where('iteration_id', iteration.id)
       .then((reflections) => {
+        if (!reflections) throw new NotAnError()
+
         const oneWords = [];
-        console.log(reflections);
+
         for (const r of reflections) {
-          const word = {
+          const oneWord = {
             id: r.one_word_id,
-            intensity: r.one_word_intensity
+            intensity: r.one_word_intensity,
           }
-          oneWords.push(word)
+          oneWords.push(oneWord);
         }
-        console.log('oneWords for iteration ', iterationId, oneWords);
-        return Promise.resolve(oneWords)
+        iteration.oneWords = oneWords
+        console.log('iteration from helper fn ', iteration);
+        return Promise.resolve(iteration)
+      })
+      .catch((noReflections) => {
+        if(noReflections instanceof NotAnError){
+          return Promise.resolve(iteration);
+        }
+
+        throw noReflections;
       })
   }
 
+  function getWord(wordId) {
+    // console.log(wordId);
+    return knex('one_words')
+      .where('id', wordId)
+      .first()
+      .then((word) => {
+        // console.log('word ', word);
+        return Promise.resolve(word)
+      })
+  }
+
+  class NotAnError{
+    construcor(){ }
+  }
 
 })
+
 
 
 

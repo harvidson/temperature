@@ -69,7 +69,7 @@ class Landing extends React.Component {
 
                 <div className="dtc v-mid tr pa3">
                   {/* <a className="f6 fw4 hover-white no-underline white-70 dib-l pv2 ph3 link" href="/">About</a> */}
-                  <a className="f6 fw4 hover-white no-underline white-70 dib-l pv2 ph3 link" href="#" onClick={this.openModal.bind(this, 'login')}>Log in</a>
+                  <a className="f6 fw4 hover-white no-underline white-70 dib-l pv2 ph3 link" href="#" onClick={ () => {this.openModal('login')}}>Log in</a>
                   <a className="f6 fw4 hover-white no-underline white-70 dib ml2 pv2 ph3 ba br1 link" href="#" onClick={ () => {this.openModal('signup')} }>Sign Up</a>
                 </div>
               </nav>
@@ -91,7 +91,7 @@ class Landing extends React.Component {
             <p className="dark-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
             <div className="tc">
-              <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link" href="/">Get started</a>
+              <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link" onClick={this.openModal.bind(this, 'signup')}>Get started</a>
             </div>
 
           </div>
@@ -122,8 +122,8 @@ class Landing extends React.Component {
           </div>
 
           {this.state.login
-            ? <Login history={this.props.history} saveUser={this.saveUser} />
-            : <Signup history={this.props.history} saveUser={this.saveUser}/>}
+            ? <Login history={this.props.history} saveUser={this.saveUser} openModal={this.openModal}/>
+            : <Signup history={this.props.history} saveUser={this.saveUser} openModal={this.openModal}/>}
 
         </Modal>
 
