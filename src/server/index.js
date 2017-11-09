@@ -28,6 +28,7 @@ app.use(cookieParser());
 app.use('/api/users', require('./routes/users'));
 app.use('/api/token', require('./routes/token'));
 app.use('/api/events', require('./routes/events'));
+app.use('/api/events', require('./routes/events-analytics'));
 app.use('/api/iterations', require('./routes/iterations'));
 
 app.get('*', (req, res) => {

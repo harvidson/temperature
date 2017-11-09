@@ -208,13 +208,41 @@ router.post('/', authorize, (req, res, next) => {
 
 })
 
+//get a single event
+router.get('/:id', authorize, (req, res, next) => {
+  const eventId = Number.parseInt(req.params.id);
+  const userId = req.claim.userId;
+
+  if (Number.isNaN(eventId)) {
+    return next(boom.create(404, 'Not found.'));
+  }
+
+  //check that user is involved in this event
+  knex('events_users')
+  .where({
+    'event_id': eventId,
+    'user_id': userId,
+  })
+  .then((rows) => {
+    // console.log(rows);
+    if (!rows) return next(boom.create(401, 'Unauthorized.'));
+
+    return knex('events')
+      .where('id', eventId)
+      .first()
+  })
+  .then((event) => {
+    res.send(event)
+  })
+})
+
 //participants: get iterations for an event, and any reflections written
 router.get('/:id/writer', authorize, (req, res, next) => {
   const eventId = Number.parseInt(req.params.id);
   const userId = req.claim.userId;
   const iterations = []
 
-  if (Number.isNaN(eventId) || userId < 0) {
+  if (Number.isNaN(eventId)) {
     return next(boom.create(404, 'Not found.'));
   }
   //check that user is a participant in this event
@@ -339,95 +367,6 @@ router.post('/:id/iterations', authorize, (req, res, next) => {
       console.log(err);
       next(err)
     })
-})
-
-//get all one-word data for an event
-router.get('/:id/one-words', authorize, (req, res,next) => {
-  const eventId = Number.parseInt(req.params.id);
-  const userId = req.claim.userId;
-
-  if (Number.isNaN(eventId) || userId < 0) {
-    return next(boom.create(404, 'Not found.'));
-  }
-
-  //check that user is lead on this event
-  knex('events_users')
-  .where({
-    'event_id': eventId,
-    'user_id': userId,
-    'is_lead': true
-  })
-  .first()
-  .then((row) => {
-    if (!row) return next(boom.create(401, 'Unauthorized.'));
-
-  //grab all iterations of this eventId
-    return knex('iterations')
-      .where('event_id', eventId)
-  })
-  .then((iterations) => {
-    //for each row, get one-word data from relections
-    const wordedIterations = []
-
-    for (const i of iterations){
-      wordedIterations.push(getWordData(i))
-    }
-
-    return Promise.all(wordedIterations)
-  })
-  .then((data) => {
-    console.log('sending to frontend: ');
-    console.log(data[0]);
-    res.send(data)
-  })
-  .catch((err) => {
-    console.log(err);
-    next(err)
-  })
-
-  function getWordData(iteration) {
-    return knex('reflections')
-      .where('iteration_id', iteration.id)
-      .then((reflections) => {
-        if (!reflections) throw new NotAnError()
-
-        const oneWords = [];
-
-        for (const r of reflections) {
-          const oneWord = {
-            id: r.one_word_id,
-            intensity: r.one_word_intensity,
-          }
-          oneWords.push(oneWord);
-        }
-        iteration.oneWords = oneWords
-        console.log('iteration from helper fn ', iteration);
-        return Promise.resolve(iteration)
-      })
-      .catch((noReflections) => {
-        if(noReflections instanceof NotAnError){
-          return Promise.resolve(iteration);
-        }
-
-        throw noReflections;
-      })
-  }
-
-  function getWord(wordId) {
-    // console.log(wordId);
-    return knex('one_words')
-      .where('id', wordId)
-      .first()
-      .then((word) => {
-        // console.log('word ', word);
-        return Promise.resolve(word)
-      })
-  }
-
-  class NotAnError{
-    construcor(){ }
-  }
-
 })
 
 

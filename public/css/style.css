@@ -8,6 +8,12 @@ main {
   margin: auto;
 }
 
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
 .site {
   display: flex;
   flex-direction: column;
