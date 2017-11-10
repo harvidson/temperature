@@ -128,7 +128,7 @@ class Dashboard extends React.Component {
           </div>
 
         </div>
-              <div className="thermometer w-10"><p>thermometer!</p><p>gradient</p><p>here</p></div>
+              {/* <div className="thermometer w-10"><p>thermometer!</p><p>gradient</p><p>here</p></div> */}
 
         <div className="mh5 mt4">
           { this.state.leading.map(event => <EventLeading key={ event.id } event={ event } openModal= { this.openModal }/>) }

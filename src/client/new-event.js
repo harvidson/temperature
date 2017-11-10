@@ -92,7 +92,7 @@ class NewEvent extends React.Component {
 
 
           <div className="tc">
-            <h1 className="accent-orange f1-l f2 fw4">New Series</h1>
+            <h1 className="accent-orange f1-l f2 fw4">New Journal Event</h1>
           </div>
 
           <div className="pa4">
@@ -109,7 +109,7 @@ class NewEvent extends React.Component {
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Description
                     <textarea className="mv2 bg-transparent w-100 db input-reset ba b--black-20 f5" rows="6" type="textarea" name="description" value={this.state.description} onChange={this.handleDescriptionChange}/>
-                    <small className="f6 black-60 db mb2">Describe your purpose: what do you hope this journal will accomplish?</small>
+                    <small className="f6 black-60 db mb2">Describe your purpose. What do you hope this journal series will accomplish?</small>
                   </label>
                 </div>
                 <div className="mt4">
@@ -123,7 +123,7 @@ class NewEvent extends React.Component {
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Invite participants
                     <textarea className="mv2 bg-transparent w-100 db input-reset ba b--black-20 f5" type="textarea" rows="2" name="participants" value={this.state.participants} onChange={this.handleParticipantsChange}/>
-                    <small className="f6 black-60 db mb2">Add email addresses for your participants.</small>
+                    <small className="f6 black-60 db mb2">Add email addresses for your participants. We'll let you know which ones are registered.</small>
                   </label>
                 </div>
                 <div className="tc mt4">
