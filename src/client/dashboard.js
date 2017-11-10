@@ -117,7 +117,8 @@ class Dashboard extends React.Component {
         <Header/>
 
         <main>
-        <div className="bg-moon-gray bg-left bg-center-l w-100 cf">
+        {/* <div className="bg-moon-gray bg-left bg-center-l w-100 cf"> */}
+          <div className="bg-light-gray ba b--light-gray pa4 mt4 cf br1">
           <div className="fl mh4">
             <h2 className="f2 fw3 dark-gray mv1">Take the Temperature</h2>
           </div>
@@ -134,7 +135,7 @@ class Dashboard extends React.Component {
         {this.state.writing.length > 0
           ?
             <div>
-              <div className="bg-moon-gray bg-left bg-center-l w-100 cf">
+              <div className="bg-light-gray ba b--light-gray pa4 mt4 cf br1">
                 <div className="fl mh4">
                   <h2 className="f2 fw3 dark-gray mv1">Write reflections</h2>
                 </div>
