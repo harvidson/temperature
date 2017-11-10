@@ -10,25 +10,17 @@ class Analytics extends React.Component {
 
     this.state = {
       event: {},
+      isLead: false
 
     }
+    this.getEventData = this.getEventData.bind(this);
+    this.checkToken = this.checkToken.bind(this);
 
   }
 
   componentWillMount() {
-    //get event data
-    fetch(`/api/events/${this.props.match.params.id}`, {
-      method: 'get',
-      credentials: 'include'
-    }).then((response) => {
-      return response.json();
-    }).then((j) => {
-      // console.log(j);
-      this.setState({event: j})
-    }).catch((err) => {
-      console.log(err);
-    })
-
+    this.checkToken()
+    this.getEventData()
   }
 
   componentDidMount(){
@@ -37,7 +29,38 @@ class Analytics extends React.Component {
   componentDidUpdate() {
   }
 
+  getEventData(){
+    fetch(`/api/events/${this.props.match.params.id}`, {
+      method: 'get',
+      credentials: 'include'
+    }).then((response) => {
+      return response.json();
+    }).then((j) => {
+      console.log(j);
+      this.setState({
+        event: j
+      })
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 
+  checkToken() {
+    fetch('/api/token', {
+      method: 'get',
+      credentials: 'include'
+    }).then((response) => {
+      return response.json();
+    }).then((j) => {
+      console.log('response from token check: ', j)
+      if (!j.authorized) {
+        this.props.history.push('/');
+        console.log('Unauthorized for this page');
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
 
 

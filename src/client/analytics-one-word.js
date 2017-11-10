@@ -1,28 +1,26 @@
 import React from 'react'
 import * as d3 from 'd3'
 
-
 class OneWord extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
-      oneWordData: [],
       oneWords: [],
       oneWordsWithIntensity: [],
-      checkboxState: true
+      checkboxState: true,
+      noReflections: false
 
     }
     this.createDonutChart = this.createDonutChart.bind(this);
     this.toggleIntensity = this.toggleIntensity.bind(this);
+    this.getOneWordData = this.getOneWordData.bind(this);
+    this.getOneWordWriterData = this.getOneWordWriterData.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount() {}
 
-
-  }
-
-  componentDidMount(){
+  componentDidMount() {
     this.createDonutChart()
   }
 
@@ -31,35 +29,54 @@ class OneWord extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    //get one-word data
-    // console.log('show me nextProps.event', nextProps.event);
-  fetch(`/api/events/${nextProps.event.id}/one-words`, {
-    method: 'get',
-    credentials: 'include'
-  }).then((response) => {
-    return response.json();
-  }).then((j) => {
-    console.log(j);
-    this.setState({
-      oneWordData: j.oneWords,
-      oneWords: j.oneWords,
-      oneWordsWithIntensity: j.oneWordsWithIntensity
-    })
-  }).catch((err) => {
-    console.log(err);
-  })
+    if (nextProps.event.is_lead) {
+      this.getOneWordData(nextProps.event.id)
+    } else {
+      this.getOneWordWriterData(nextProps.event.id)
+    }
   }
 
   toggleIntensity(event) {
     this.setState({
       checkboxState: !this.state.checkboxState
     });
+  }
 
+  getOneWordData(id) {
+    fetch(`/api/events/${id}/one-words`, {
+      method: 'get',
+      credentials: 'include'
+    }).then((response) => {
+      return response.json();
+    }).then((j) => {
+      console.log(j);
+      this.setState({oneWordData: j.oneWords, oneWords: j.oneWords, oneWordsWithIntensity: j.oneWordsWithIntensity})
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 
+  getOneWordWriterData(id) {
+    fetch(`/api/events/${id}/one-words-writer`, {
+      method: 'get',
+      credentials: 'include'
+    }).then((response) => {
+      return response.json();
+    }).then((j) => {
+      console.log(j);
+      this.setState({oneWords: j.oneWords, oneWordsWithIntensity: j.oneWordsWithIntensity})
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
   createDonutChart() {
-    const oneWordData = this.state.checkboxState ? this.state.oneWordsWithIntensity : this.state.oneWords
+    let clear = d3.select(this.node)
+    clear.selectAll('*').remove();
+
+    const oneWordData = this.state.checkboxState
+      ? this.state.oneWordsWithIntensity
+      : this.state.oneWords
 
     const width = 360;
     const height = 360;
@@ -69,27 +86,15 @@ class OneWord extends React.Component {
     const legendRectSize = 18;
     const legendSpacing = 4;
 
-    const svg = d3.select(this.node)
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .append('g')
-    .attr('transform', 'translate(' + (width / 2) +  ',' + (height / 2) + ')');
+    const svg = d3.select(this.node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
 
-    const arc = d3.arc()
-    .innerRadius(radius - donutWidth)
-    .outerRadius(radius);
+    const arc = d3.arc().innerRadius(radius - donutWidth).outerRadius(radius);
 
-    const pie = d3.pie()
-    .value(function(d) { return d.score; })
-    .sort(null);
+    const pie = d3.pie().value(function(d) {
+      return d.score;
+    }).sort(null);
 
-    const path = svg.selectAll('path')
-    .data(pie(oneWordData))
-    .enter()
-    .append('path')
-    .attr('d', arc)
-    .attr('fill', function(d) {
+    const path = svg.selectAll('path').data(pie(oneWordData)).enter().append('path').attr('d', arc).attr('fill', function(d) {
       return color(d.data.word);
     });
 
@@ -109,69 +114,48 @@ class OneWord extends React.Component {
       tooltip.style('display', 'none');
     });
 
-    const legend = svg.selectAll('.legend')
-      .data(color.domain())
-      .enter()
-      .append('g')
-      .attr('className', 'legend')
-      .attr('transform', function(d, i) {
-        var height = legendRectSize + legendSpacing;
-        var offset =  height * color.domain().length / 2;
-        var horz = -2 * legendRectSize;
-        var vert = i * height - offset;
-        return 'translate(' + horz + ',' + vert + ')';
-      });
+    const legend = svg.selectAll('.legend').data(color.domain()).enter().append('g').attr('className', 'legend').attr('transform', function(d, i) {
+      var height = legendRectSize + legendSpacing;
+      var offset = height * color.domain().length / 2;
+      var horz = -2 * legendRectSize;
+      var vert = i * height - offset;
+      return 'translate(' + horz + ',' + vert + ')';
+    });
 
-    legend.append('rect')
-      .attr('width', legendRectSize)
-      .attr('height', legendRectSize)
-      .style('fill', color)
-      .style('stroke', color);
+    legend.append('rect').attr('width', legendRectSize).attr('height', legendRectSize).style('fill', color).style('stroke', color);
 
-    legend.append('text')
-      .attr('x', legendRectSize + legendSpacing)
-      .attr('y', legendRectSize - legendSpacing)
-      .text(function(d) {
-        return d;
-      });
+    legend.append('text').attr('x', legendRectSize + legendSpacing).attr('y', legendRectSize - legendSpacing).text(function(d) {
+      return d;
+    });
 
-// TODO: make tooltip work
-    const tooltip = d3.select(this.node)
-     .append('div')
-     .attr('className', 'tooltip');
+    // TODO: make tooltip work
+    const tooltip = d3.select(this.node).append('div').attr('className', 'tooltip');
 
-   tooltip.append('div')
-     .attr('className', 'label');
-   tooltip.append('div')
-     .attr('className', 'count');
-   tooltip.append('div')
-     .attr('className', 'percent');
+    tooltip.append('div').attr('className', 'label');
+    tooltip.append('div').attr('className', 'count');
+    tooltip.append('div').attr('className', 'percent');
   }
 
+  render() {
 
-  render(){
+    return (
 
-    return(
-
-
-          <div className="w-50 mt3">
-            <div className="tc">
-              <svg ref={node => this.node = node}
-                width={400} height={400}>
-              </svg>
+      <div className="w-50 mt3">
+        {this.state.oneWords.length > 0
+          ?
+            <div>
+              <div className="tc">
+                <svg ref={node => this.node = node} width={400} height={400}></svg>
+              </div>
+              <div className="f4 tc">One-word answers</div>
+              <div className="f5 tc">
+                <input type="checkbox" className="" name="checkIntensity" onClick={this.toggleIntensity}/>
+                <label>
+                  Weight answers by intensity</label>
+              </div>
             </div>
-            <div className="f4 tc">One-word answers</div>
-            <div className="f5 tc">
-              <input
-              type="checkbox"
-              className=""
-              name="checkIntensity"
-              onClick={this.toggleIntensity}
-              />
-              <label> Weight answers by intensity</label>
-            </div>
-
-
+          : <div>No data is available yet.</div>
+        }
       </div>
     )
   }

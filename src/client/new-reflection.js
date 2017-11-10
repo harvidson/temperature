@@ -29,7 +29,7 @@ class NewReflection extends React.Component {
   componentWillMount() {
     window.scrollTo(0, 0)
 
-    //fetch iteration data  
+    //fetch iteration data
     fetch(`/api/iterations/${this.props.match.params.id}`, {
       method: 'get',
       credentials: 'include'
@@ -98,6 +98,7 @@ class NewReflection extends React.Component {
 
 
   render(){
+    // TODO: make these dynamic
     const options = [
         { value: 1, label: 'elated' },
         { value: 2, label: 'confident' },
