@@ -10,7 +10,13 @@ main {
 
 .line {
   fill: none;
-  stroke: steelblue;
+  stroke: #17CCD6;
+  stroke-width: 2px;
+}
+
+.line2 {
+  fill: none;
+  stroke: #FF7316;
   stroke-width: 2px;
 }
 
@@ -24,10 +30,6 @@ main {
   flex: 1 0 auto;
   width: 100%;
 }
-
-/*li .link:hover {
-  color: #20AAB2;
-}*/
 
 .action-button {
   background-color: #20AAB2;

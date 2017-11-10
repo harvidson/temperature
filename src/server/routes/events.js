@@ -212,6 +212,8 @@ router.post('/', authorize, (req, res, next) => {
 router.get('/:id', authorize, (req, res, next) => {
   const eventId = Number.parseInt(req.params.id);
   const userId = req.claim.userId;
+  let isLead;
+  let isParticipant;
 
   if (Number.isNaN(eventId)) {
     return next(boom.create(404, 'Not found.'));
@@ -224,7 +226,9 @@ router.get('/:id', authorize, (req, res, next) => {
     'user_id': userId,
   })
   .then((rows) => {
-    // console.log(rows);
+    isLead = rows[0].is_lead
+    isParticipant = rows[0].is_participant
+    console.log(rows);
     if (!rows) return next(boom.create(401, 'Unauthorized.'));
 
     return knex('events')
@@ -232,6 +236,8 @@ router.get('/:id', authorize, (req, res, next) => {
       .first()
   })
   .then((event) => {
+    event.is_lead = isLead
+    event.is_participant = isParticipant
     res.send(event)
   })
 })
