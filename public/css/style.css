@@ -61,6 +61,15 @@ main, .modal {
   color: #FAAD3F;
 }
 
+.thermometer {
+  background: #00f1ff;
+  background:-webkit-linear-gradient(bottom, #00f1ff, #ff7316);
+  background: -moz-linear-gradient(bottom, #00f1ff, #ff7316);
+  background: -ms-linear-gradient(bottom, #00f1ff, #ff7316);
+  background: -o-linear-gradient(bottom, #00f1ff, #ff7316);
+  background: linear-gradient(to top, #00f1ff, #ff7316);
+}
+
 /*react-datepicker*/
 .react-datepicker-time__header {
   font-size: 0.944em;

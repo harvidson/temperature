@@ -374,6 +374,8 @@ router.get('/:id/reflectionsOverTime', authorize, (req, res,next) => {
   }
 
   function aggregateReflections(data) {
+    if (data.length <= 0) return {aggregateScores: []}
+
     //because reflection data is sorted by iteration id, due dates will be arranged in order
     const dataMap = []
     let newObj = {date: data[0].date, cumulativeScore: 0, magnitudeScore: 0, total: 0, totalMagnitude: 0}
