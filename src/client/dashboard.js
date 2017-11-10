@@ -126,7 +126,9 @@ class Dashboard extends React.Component {
             <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}><i className="fa fa-book" aria-hidden="true"></i> Create new journal event</a>
 
           </div>
+
         </div>
+              <div className="thermometer w-10"><p>thermometer!</p><p>gradient</p><p>here</p></div>
 
         <div className="mh5 mt4">
           { this.state.leading.map(event => <EventLeading key={ event.id } event={ event } openModal= { this.openModal }/>) }
