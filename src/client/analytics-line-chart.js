@@ -53,9 +53,7 @@ class LineChart extends React.Component {
       return response.json();
     }).then((j) => {
       console.log(j);
-      if (j.length > 0) {
-        this.setState({aggregateScores: j.aggregateScores, aggregateScoresWithMagnitude: j.aggregateScoresWithMagnitude})
-      }
+      this.setState({aggregateScores: j.aggregateScores, aggregateScoresWithMagnitude: j.aggregateScoresWithMagnitude})
     }).catch((err) => {
       console.log(err);
     })
@@ -151,8 +149,7 @@ class LineChart extends React.Component {
   render() {
     return (
       <div className="w-50 mt3 tc">
-        {this.state.aggregateScores.length > 0
-          ? <div>
+       <div>
               <div className="tc">
                 <svg width="960" height="500" ref={node => this.node = node}></svg>
               </div>
@@ -168,8 +165,6 @@ class LineChart extends React.Component {
                 : null
               }
             </div>
-          : null
-        }
 
       </div>
     )

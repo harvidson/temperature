@@ -284,9 +284,7 @@ router.get('/:id/one-words-writer', authorize, (req, res,next) => {
 
       const newWordIntensity = {
         word: key,
-        //TODO: should this be divided by total or not??
         score: wordMapWithIntensity[key]
-        // / total
       }
 
       oneWords.push(newWord)
@@ -323,6 +321,7 @@ router.get('/:id/reflectionsOverTime', authorize, (req, res,next) => {
       .where('event_id', eventId)
   })
   .then((iterations) => {
+    // console.log(iterations);
     const reflectionData = []
 
     for (const i of iterations) {
@@ -333,7 +332,9 @@ router.get('/:id/reflectionsOverTime', authorize, (req, res,next) => {
     return Promise.all(reflectionData)
   })
   .then((data) => {
-    if (data[0].length <= 0) {
+    // console.log(data.length);
+    if (data.length <= 0) {
+      console.log('no data');
       res.send([])
     } else {
       const dataFlattened = data.reduce(function(arr, item) {
@@ -355,6 +356,7 @@ router.get('/:id/reflectionsOverTime', authorize, (req, res,next) => {
       .where('iteration_id', iteration.id)
       .orderBy('iteration_id')
       .then((reflections) => {
+        // console.log(reflections);
 
         const reflectionData = [];
 
@@ -458,7 +460,6 @@ router.get('/:id/writerReflectionsOverTime', authorize, (req, res,next) => {
   })
   .then((data) => {
     console.log(data);
-    // const aggregatedReflections = aggregateReflections(data)
     res.send(data)
   })
   .catch((err) => {
@@ -486,67 +487,6 @@ router.get('/:id/writerReflectionsOverTime', authorize, (req, res,next) => {
         return Promise.resolve(singleReflection)
       })
   }
-
-  // function aggregateReflections(data) {
-  //   //because reflection data is sorted by iteration id, due dates will be arranged in order
-  //   const dataMap = []
-  //
-  //   for (let i = 0; i < data.length; i++) {
-  //     let total = 0;
-  //     let totalMagnitude = 0;
-  //
-  //
-  //
-  //   }
-  //
-  //
-  //   let newObj = {date: data[0].date, cumulativeScore: 0, magnitudeScore: 0, total: 0, totalMagnitude: 0}
-  //   let currentDate = data[0].date;
-  //
-  //   for (let i = 0; i < data.length; i++) {
-  //     let total = 0;
-  //     let totalMagnitude = 0;
-  //
-  //     //create new date entry in dataMap
-  //     if (data[i].date !== currentDate) {
-  //       //add last date entry to dataMap and reset the tracking variables
-  //       dataMap.push(newObj);
-  //       newObj = {}
-  //       currentDate = data[i].date
-  //
-  //       //build object for nex date
-  //       newObj.date = currentDate
-  //       newObj.cumulativeScore = data[i].score
-  //       newObj.magnitudeScore = data[i].score * data[i].magnitude
-  //       newObj.total = 1
-  //       newObj.totalMagnitude = data[i].magnitude
-  //     //add new reflection scores to existing entry in dataMap
-  //     } else {
-  //       newObj.cumulativeScore += data[i].score
-  //       newObj.magnitudeScore += data[i].score * data[i].magnitude
-  //       newObj.total++
-  //       newObj.totalMagnitude += data[i].magnitude
-  //     }
-  //   }
-  //   //push in the final newObj
-  //   dataMap.push(newObj);
-  //
-  //   const aggregateScores = []
-  //
-  //   for (const d of dataMap) {
-  //     const average = d.cumulativeScore / d.total
-  //     const averageMag = d.magnitudeScore / d.totalMagnitude
-  //     const point = {
-  //       date: d.date,
-  //       score: average,
-  //       scoreMagnitude: averageMag
-  //     }
-  //
-  //     aggregateScores.push(point)
-  //
-  //   }
-  //   return {aggregateScores: aggregateScores}
-  // }
 })
 
 

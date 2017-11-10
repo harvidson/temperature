@@ -69,7 +69,7 @@ class login extends React.Component {
   render() {
     return (
 
-      <div className="w-100 mh4">
+      <div className="w-100 modal">
 
         <div className="tc">
           <h1 className="accent-orange f1-m f2 fw4">Log in</h1>

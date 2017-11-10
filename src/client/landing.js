@@ -58,6 +58,17 @@ class Landing extends React.Component {
   }
 
   render() {
+    const customStyles = {
+      content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
+
     return (
       <div>
         <header className="sans-serif">
@@ -115,6 +126,8 @@ class Landing extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
+          style={customStyles}
+
         >
           <div className="cf">
             <i className="fa fa-times fa-lg dark-gray fr f5 pointer" aria-hidden="false" onClick={this.closeModal}></i>

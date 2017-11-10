@@ -48,7 +48,7 @@ class EventWriting extends React.Component {
   }
 
   render() {
-    const { event } = this.props
+    const { event, openModal } = this.props
 
     return (
       <div>
@@ -56,7 +56,7 @@ class EventWriting extends React.Component {
             <div>
               <div className="cf">
                 <h2 className="fl f3 fw3 mt0 accent-orange">{event.title}</h2>
-                <div className="fr accent-blue v-mid ml2">Lead: {this.props.event.lead}</div>
+                <div className="fr accent-blue v-mid ml2">Lead: {event.lead}</div>
                 <Link to={`/events/${event.id}/analytics`} className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link fr"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</Link>
               </div>
             <p>{event.description}</p>
@@ -72,7 +72,7 @@ class EventWriting extends React.Component {
               </div>
               <ul className="list">
                 { this.state.iterations.map((iteration) => {
-                  return <li key={iteration.id}><Iteration iteration={iteration}/></li>
+                  return <li key={iteration.id}><Iteration iteration={iteration} openModal= { openModal }/></li>
                   })
                 }
               </ul>

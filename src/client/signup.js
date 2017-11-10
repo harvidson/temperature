@@ -81,7 +81,7 @@ class Signup extends React.Component {
   render() {
     return (
 
-      <div className="w-100 mh4">
+      <div className="w-100 mh4 modal">
 
         <div className="tc">
           <h1 className="accent-orange f1-m f2 fw4">Sign up</h1>
@@ -102,7 +102,7 @@ class Signup extends React.Component {
               </div>
               <div className="mt3">
                 <label className="fw4 lh-copy f5">
-                  Which pronouns do you prefer?
+                  Which pronouns do you prefer?&nbsp;&nbsp;
                   <select value={this.state.pronouns} onChange={this.handlePronounsChange}>
                     <option value="she">She/her</option>
                     <option value="he">He/him</option>

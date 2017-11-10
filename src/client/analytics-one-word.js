@@ -75,8 +75,8 @@ class OneWord extends React.Component {
     clear.selectAll('*').remove();
 
     const oneWordData = this.state.checkboxState
-      ? this.state.oneWordsWithIntensity
-      : this.state.oneWords
+      ? this.state.oneWords
+      : this.state.oneWordsWithIntensity
 
     const width = 360;
     const height = 360;

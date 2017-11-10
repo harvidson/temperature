@@ -7,6 +7,7 @@ import EventLeading from './event-leading'
 import NewEvent from './new-event'
 import EventFormResponse from './event-form-response'
 import NewIteration from './new-iteration'
+import ReflectionView from './reflection-view'
 
 
 class Dashboard extends React.Component {
@@ -17,7 +18,6 @@ class Dashboard extends React.Component {
       leading: [],
       writing: [],
       modalIsOpen: false,
-      //this var controls the new form modal;
       modalType: null,
 
     }
@@ -80,6 +80,7 @@ class Dashboard extends React.Component {
       case 'newIteration': return <NewIteration saveIteration={this.saveIteration} event={data} saveIteration={this.saveIteration} openModal={this.openModal}/>
       case 'eventFormResponse': return <EventFormResponse newEvent={this.state.newEvent} closeModal={this.closeModal}/>
       case 'iterationFormResponse': return <IterationFormResponse newIteration={this.state.newIteration} closeModal={this.closeModal}/>
+      case 'reflectionView': return <ReflectionView iteration={data} closeModal={this.closeModal}/>
       default: return null
     }
   }
@@ -99,7 +100,16 @@ class Dashboard extends React.Component {
 
 
   render() {
-
+    // const customStyles = {
+    //   content : {
+    //     top                   : '40%',
+    //     left                  : '40%',
+    //     right                 : 'auto',
+    //     bottom                : 'auto',
+    //     marginRight           : '-40%',
+    //     transform             : 'translate(-40%, -40%)'
+    //   }
+    // };
 
     return (
 
@@ -130,7 +140,7 @@ class Dashboard extends React.Component {
                 </div>
               </div>
               <div className="mh5 mt4">
-                { this.state.writing.map(event => <EventWriting key={ event.id } event={ event } />) }
+                { this.state.writing.map(event => <EventWriting key={ event.id } event={ event } openModal= { this.openModal }/>) }
               </div>
             </div>
           : null
@@ -142,10 +152,11 @@ class Dashboard extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
+          // style={customStyles}
           >
 
             <div className="cf">
-              <i className="fa fa-times fa-lg dark-gray fr f5 pointer" aria-hidden="false" onClick={this.closeModal}></i>
+              <i className="fa fa-times fa-lg dark-gray fr f4 pointer" aria-hidden="false" onClick={this.closeModal}></i>
               <img className="fl" src="/static/images/temperature-logo.png" alt="logo" width="100px"/>
             </div>
 

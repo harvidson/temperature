@@ -3,7 +3,7 @@ body {
 
 }
 
-main {
+main, .modal {
   max-width: 960px;
   margin: auto;
 }
@@ -45,12 +45,20 @@ main {
   color: #D95700;
 }
 
+.bright-orange {
+  color: #FF7316;
+}
+
 .accent-blue {
   color: #20AAB2;
 }
 
-.bright-orange {
-  color: #FF7316;
+.ice-blue {
+  color: #20AAB2;
+}
+
+.mid-yellow {
+  color: #FAAD3F;
 }
 
 /*react-datepicker*/

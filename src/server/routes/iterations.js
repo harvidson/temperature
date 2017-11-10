@@ -55,6 +55,7 @@ router.get('/:id', authorize, (req, res, next) => {
 
 })
 
+
 //get a count of the number of reflections submitted for an iteration
 router.get('/:id/reflections', authorize, (req, res, next) => {
   const iterationId = Number.parseInt(req.params.id);
@@ -138,9 +139,6 @@ router.post('/:id/reflections', authorize, (req, res, next) => {
     return client.analyzeSentiment({document: document})
   })
   .then(sentimentResults => {
-
-    // console.log(results[0]);
-    // console.log(sentiment);
 
     return knex('reflections')
     .insert({

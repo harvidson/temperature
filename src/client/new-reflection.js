@@ -135,7 +135,7 @@ class NewReflection extends React.Component {
         <div className="ph4 pt2">
           <form onSubmit={ this.handleSubmit }>
 
-                <div className="mt4">
+                <div className="mt4 bg-near-white ba b--light-gray pa4">
                 <div className="fw3 lh-copy f4 dark-gray db">
                   Prompt</div>
                   <p className="pl4">{iteration.prompt}</p>

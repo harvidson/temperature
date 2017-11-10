@@ -10,14 +10,14 @@ import 'moment-timezone'
 import Reflection from './reflection'
 import NewReflection from './new-reflection'
 
-const Iteration = ({iteration}) => {
+const Iteration = ({iteration, openModal}) => {
   return (
     <div>
 
 
       { iteration.reflection
         ?
-          <Reflection key={iteration.reflection.id} iteration={iteration}/>
+          <Reflection key={iteration.reflection.id} iteration={iteration} openModal={openModal}/>
         :
         <div>
           <div className="cf mt3">
