@@ -3,30 +3,39 @@ import WordCloud from 'react-d3-cloud';
 
 
 class Wordcloud extends React.Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
 
     this.state = {
-      words: [
-        {text: 'poohbear', value: 30},
-        {text: 'holiday', value: 80},
-        {text: 'tigger', value: 25},
-        {text: 'piglet', value: 10},
-        {text: 'honey', value: 200},
-        {text: 'joke', value: 45},
-        {text: 'neuron', value: 40}
-      ]
+      words: []
     }
+
+    this.getWordData = this.getWordData.bind(this);
 
   }
 
-  componentWillMount(){
-    // this.getWordData()
+  componentWillReceiveProps(nextProps) {
+    this.getWordData(nextProps.event.id)
+  }
 
+  getWordData(id){
+    fetch(`/api/events/${id}/word-cloud`, {
+      method: 'get',
+      credentials: 'include'
+    }).then((response) => {
+      return response.json();
+    }).then((j) => {
+      // console.log(j);
+      this.setState({
+        words: j
+      })
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
   fontSizeMapper(word){
-    return Math.log2(word.value) * 5;
+    return Math.log2(word.value) * 10;
   }
 
   rotate(word) {
@@ -48,6 +57,7 @@ class Wordcloud extends React.Component {
             data={this.state.words}
             fontSizeMapper={this.fontSizeMapper}
             rotate={this.rotate}
+            font="sans-serif"
           />
         <div>wordcloud graph above</div>
 

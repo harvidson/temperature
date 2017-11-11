@@ -80,7 +80,7 @@ class Analytics extends React.Component {
           </div>
 
           <OneWord event={this.state.event}></OneWord>
-          <Wordcloud></Wordcloud>
+          <Wordcloud event={this.state.event}></Wordcloud>
           <LineChart event={this.state.event}></LineChart>
 
       </main>

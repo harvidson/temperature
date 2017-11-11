@@ -25,7 +25,7 @@ class LineChart extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     //get reflection data
-    console.log('show me nextProps.event', nextProps.event);
+    // console.log('show me nextProps.event', nextProps.event);
 
     if (nextProps.event.is_lead) {
       this.getReflectionData(nextProps.event.id)
@@ -49,10 +49,10 @@ class LineChart extends React.Component {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
-      console.log(response);
+      // console.log(response);
       return response.json();
     }).then((j) => {
-      console.log(j);
+      // console.log(j);
       this.setState({aggregateScores: j.aggregateScores, aggregateScoresWithMagnitude: j.aggregateScoresWithMagnitude})
     }).catch((err) => {
       console.log(err);
@@ -64,10 +64,10 @@ class LineChart extends React.Component {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
-      console.log(response);
+      // console.log(response);
       return response.json();
     }).then((j) => {
-      console.log(j);
+      // console.log(j);
       this.setState({aggregateScores: j, aggregateScoresWithMagnitude: j})
     }).catch((err) => {
       console.log(err);
@@ -131,7 +131,7 @@ class LineChart extends React.Component {
       return a["date"] - b["date"];
     })
 
-    console.log(aggregateData);
+    // console.log(aggregateData);
 
     // Add the valueline path.
     svg.append("path").data([aggregateData]).attr("class", "line").attr("d", valueline);

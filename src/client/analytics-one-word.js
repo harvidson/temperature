@@ -75,7 +75,7 @@ class OneWord extends React.Component {
     }).then((response) => {
       return response.json()
     }).then((j) => {
-      console.log(j);
+      // console.log(j);
       this.setState({
         dateOptions: j
       })
@@ -106,7 +106,7 @@ class OneWord extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
+      // console.log(j);
       this.setState({
         wordsByDate: j.oneWords,
         wordsByDateWithIntensity: j.oneWordsWithIntensity,
