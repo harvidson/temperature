@@ -34,7 +34,7 @@ class EventLeading extends React.Component {
     })
 
     //Leads: load iterations for this event
-    fetch(`/api/events/${this.props.event.id}/lead`, {
+    fetch(`/api/events/${this.props.event.id}/iterations/lead`, {
       method: 'get',
       credentials: 'include'
     }).then((response) => {

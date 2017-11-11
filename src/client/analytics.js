@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './header'
 import OneWord from './analytics-one-word'
 import LineChart from './analytics-line-chart'
+import Wordcloud from './analytics-wordcloud'
 
 
 class Analytics extends React.Component {
@@ -79,6 +80,7 @@ class Analytics extends React.Component {
           </div>
 
           <OneWord event={this.state.event}></OneWord>
+          <Wordcloud></Wordcloud>
           <LineChart event={this.state.event}></LineChart>
 
       </main>
