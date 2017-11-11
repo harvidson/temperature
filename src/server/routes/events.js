@@ -9,6 +9,7 @@ const {
   camelizeKeys,
   decamelizeKeys
 } = require('humps');
+const moment = require('moment')
 
 const router = express.Router();
 
@@ -228,7 +229,7 @@ router.get('/:id', authorize, (req, res, next) => {
   .then((rows) => {
     isLead = rows[0].is_lead
     isParticipant = rows[0].is_participant
-    console.log(rows);
+    // console.log(rows);
     if (!rows) return next(boom.create(401, 'Unauthorized.'));
 
     return knex('events')
@@ -321,8 +322,8 @@ class NotAnError{
   }
 }
 
-//leads: get iterations for an event
-router.get('/:id/lead', authorize, (req, res, next) => {
+//leads: get full iterations for an event
+router.get('/:id/iterations/lead', authorize, (req, res, next) => {
   const eventId = Number.parseInt(req.params.id);
   const userId = req.claim.userId;
 
@@ -337,7 +338,6 @@ router.get('/:id/lead', authorize, (req, res, next) => {
       'iterations.event_id': eventId,
       'iterations.deleted_at': null,
       'events_users.user_id': userId,
-      // 'events_users.is_participant': false,
       'events_users.is_lead': true
     })
     .orderBy('iterations.due_date', 'desc')
@@ -348,6 +348,40 @@ router.get('/:id/lead', authorize, (req, res, next) => {
       console.log(err);
     })
   })
+
+  //get iterations and due_dates
+  router.get('/:id/dates', authorize, (req, res, next) => {
+    const eventId = Number.parseInt(req.params.id);
+    const userId = req.claim.userId;
+
+    if (Number.isNaN(eventId) || userId < 0) {
+      return next(boom.create(404, 'Not found.'));
+    }
+
+    knex('iterations')
+      .select('iterations.id', 'iterations.due_date')
+      .where({
+        'iterations.event_id': eventId,
+        'iterations.deleted_at': null,
+      })
+      .orderBy('iterations.due_date', 'desc')
+      .then((iterationDates) => {
+        const dates = []
+
+        for (const i of iterationDates) {
+          const date = {
+            value: i.id,
+            label: moment(i.due_date).format('MMMM D, YYYY')
+           }
+           dates.push(date)
+        }
+        res.send(dates)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    })
+
 
 //post new iteration
 router.post('/:id/iterations', authorize, (req, res, next) => {

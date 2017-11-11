@@ -61,12 +61,11 @@ router.get('/:id/reflections', authorize, (req, res, next) => {
   const iterationId = Number.parseInt(req.params.id);
   const userId = req.claim.userId
 
-
   if (Number.isNaN(iterationId)) {
     return next(boom.create(404, 'Not found.'));
   }
 
-//check whether logged in user has lead access to this event
+  //check whether logged in user has lead access to this event
   knex('iterations')
   .where('id', iterationId)
   .first()
@@ -94,6 +93,120 @@ router.get('/:id/reflections', authorize, (req, res, next) => {
     next(err)
   });
 })
+
+//get all one-word responses for one iteration
+router.get('/:id/one-words', authorize, (req, res, next) => {
+  const iterationId = Number.parseInt(req.params.id);
+  const userId = req.claim.userId
+
+  if (Number.isNaN(iterationId)) {
+    return next(boom.create(404, 'Not found.'));
+  }
+
+  knex('iterations')
+  .where('id', iterationId)
+  .first()
+  .then((iteration) => {
+    return knex('events_users')
+    .where({
+      'event_id': iteration.event_id,
+      'is_lead': true
+    })
+    .first()
+  })
+  .then((row) => {
+    if (row.user_id !== userId) {
+      return next(boom.create(401, 'Unauthorized.'));
+    }
+
+    return knex('reflections')
+      .select('one_word_id', 'one_word_intensity')
+      .where('iteration_id', iterationId)
+    })
+    .then((reflections) => {
+      // console.log(reflections);
+      if (reflections.length <= 0) res.send([])
+
+      const oneWords = getWordData(reflections)
+      const worded = []
+
+      for (const w of oneWords) {
+        worded.push(getWord(w))
+      }
+      return Promise.all(worded)
+    }).then((data) => {
+        console.log(data);
+
+        const wordData = aggregateWords(data)
+        res.send(wordData)
+    }).catch((err) => {
+      console.log(err);
+      next(err)
+    });
+
+    function getWordData(reflections) {
+      const oneWords = [];
+
+      for (const r of reflections) {
+        const w = {
+          id: r.one_word_id,
+          intensity: r.one_word_intensity,
+        }
+        oneWords.push(w);
+      }
+      return oneWords
+    }
+
+    function getWord(word) {
+      return knex('one_words')
+        .where('id', word.id)
+        .first()
+        .then((data) => {
+          word.word = data.word
+          return Promise.resolve(word)
+        })
+    }
+
+    function aggregateWords(data) {
+      let total = 0
+      const wordMap = {}
+      const wordMapWithIntensity = {}
+
+      for (let i = 0; i < data.length; i++) {
+
+          if (wordMap.hasOwnProperty(data[i].word) ) {
+            wordMap[data[i].word]++
+            wordMapWithIntensity[data[i].word] += data[i].intensity
+          } else {
+            wordMap[data[i].word] = 1
+            wordMapWithIntensity[data[i].word] = data[i].intensity
+          }
+          total += data[i].intensity
+      }
+
+      const oneWords = []
+      const oneWordsWithIntensity = []
+
+      for (const key in wordMap) {
+        const newWord = {
+          word: key,
+          score: wordMap[key],
+        }
+
+        const newWordIntensity = {
+          word: key,
+          //TODO: should this be divided by total or not??
+          score: wordMapWithIntensity[key]
+          // / total
+        }
+
+        oneWords.push(newWord)
+        oneWordsWithIntensity.push(newWordIntensity)
+      }
+
+      return {oneWords: oneWords, oneWordsWithIntensity: oneWordsWithIntensity}
+    }
+  })
 
 //post new reflection
 router.post('/:id/reflections', authorize, (req, res, next) => {
@@ -152,7 +265,6 @@ router.post('/:id/reflections', authorize, (req, res, next) => {
     }, '*')
   })
   .then((data) => {
-    console.log(data);
     res.send(data)
   })
   .catch((err) => {

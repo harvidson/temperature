@@ -10,6 +10,7 @@ const {
   decamelizeKeys
 } = require('humps');
 
+
 const router = express.Router();
 
 const authorize = function(req, res, next) {
@@ -461,7 +462,7 @@ router.get('/:id/writerReflectionsOverTime', authorize, (req, res,next) => {
     return Promise.all(reflectionData)
   })
   .then((data) => {
-    console.log(data);
+    // console.log(data);
     res.send(data)
   })
   .catch((err) => {
@@ -490,6 +491,108 @@ router.get('/:id/writerReflectionsOverTime', authorize, (req, res,next) => {
       })
   }
 })
+
+router.get('/:id/word-cloud', authorize, (req, res, next) => {
+  const eventId = Number.parseInt(req.params.id);
+  const userId = req.claim.userId;
+
+  if (Number.isNaN(eventId) || userId < 0) {
+    return next(boom.create(404, 'Not found.'));
+  }
+
+  //check that user is lead on this event
+  knex('events_users')
+  .where({
+    'event_id': eventId,
+    'user_id': userId,
+    'is_lead': true
+  })
+  .first()
+  .then((row) => {
+    if (!row) return next(boom.create(401, 'Unauthorized.'));
+
+  //grab all iterations of this eventId
+    return knex('iterations')
+      .where('event_id', eventId)
+  })
+  .then((iterations) => {
+    //for each row, get one-word data from relections
+    const content = []
+
+    for (const i of iterations){
+      content.push(getReflectionContent(i.id))
+    }
+
+    return Promise.all(content)
+  })
+  .then((batchedContent) => {
+
+    const oneBatch = batchedContent.reduce((arr, batch) => {
+      return arr.concat(batch)
+    }, [])
+
+    const retVal = []
+    const wordMap = {}
+    const separator = /\W/
+    const commonWords = ['and','or','for','to','of','in','on','with','about','really','but','so','since','how','one','two','way','even','up','after','if','by','from','as','at','a','an','i','me','my','not','it','the','this','that','these','those','what','there','their','then','be','is','has','was','did','had','am','are','were','going','have','get','all','just','would','do','doing','like','they','could','next','ever','go','him','while','want','make','actually','let','he','when','any','much','been','no','over','our','some','took','us','little','everyone','ever','out','says','can','could','else','something','things','see','will','everything','seem','someone','basically','getting','because','which','seems','every','come','s','re','ve','m','t','don','won',' ','']
+    let contentArray = []
+
+    for (const reflection of oneBatch) {
+      const newContent = reflection.toLowerCase().split(separator)
+      contentArray = [...contentArray, ...newContent];
+    }
+
+    const filteredContent = contentArray.filter((word) => {
+        return (!commonWords.includes(word))
+      })
+
+
+    for (const word of filteredContent) {
+      if (wordMap.hasOwnProperty(word)) {
+        wordMap[word]++
+      } else {
+        wordMap[word] = 1
+      }
+    }
+
+    for (const key in wordMap) {
+      //only keep words used more than once
+      if (wordMap[key] >= 3){
+        const addWord = {
+          text: key,
+          value: wordMap[key]
+        }
+        retVal.push(addWord)
+      }
+    }
+    res.send(retVal);
+
+  })
+  .catch((err) => {
+    console.log(err);
+    next(err)
+  })
+
+  function getReflectionContent(iterationId) {
+
+    return knex('reflections')
+      .select('content')
+      .where('iteration_id', iterationId)
+      .then((reflections) => {
+        const content = []
+
+        for (const r of reflections) {
+          content.push(r.content)
+        }
+
+        return Promise.resolve(content)
+      })
+
+  }
+
+
+})
+
 
 
 
