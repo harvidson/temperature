@@ -73,7 +73,7 @@ class ReflectionView extends React.Component {
         <div className="ba b--light-gray pa4 bg-near-white">
           <h2 className="f4 fw3">Prompt</h2>
           <p>{iteration.prompt}</p>
-          <div>
+          <div className="tc">
             {iteration.is_anonymous
               ?
               <div><i className="fa fa-users" aria-hidden="true"></i> Analysis by group (anonymous)</div>

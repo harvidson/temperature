@@ -25,7 +25,7 @@ class Wordcloud extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      // console.log(j);
+      console.log('wordcloud data: ', j);
       this.setState({
         words: j
       })
@@ -59,11 +59,6 @@ class Wordcloud extends React.Component {
             rotate={this.rotate}
             font="sans-serif"
           />
-        <div>wordcloud graph above</div>
-
-
-
-
 
       </div>
     )

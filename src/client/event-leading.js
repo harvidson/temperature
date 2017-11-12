@@ -54,7 +54,7 @@ class EventLeading extends React.Component {
       <div>
 
             <div className="cf">
-              <h2 className="fl f3 fw3 accent-orange">{event.title}</h2>
+              <a className="link pointer" onClick={() => { openModal('eventView', event)}}><h2 className="fl f3 fw3 accent-orange">{event.title}</h2></a>
               <a className="fr f6 no-underline grow dib ba ph2 pv2 ma2 accent-blue br2 link pointer" onClick={() => { openModal('newIteration', event)}}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Assign new reflection</a>
               <Link to={`/events/${event.id}/analytics`} className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link fr"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</Link>
             </div>

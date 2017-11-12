@@ -39,7 +39,7 @@ class EventWriting extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
+      // console.log(j);
       this.setState({iterations: j})
     }).catch((err) => {
       console.log(err);
@@ -52,16 +52,15 @@ class EventWriting extends React.Component {
 
     return (
       <div>
-
-            <div>
-              <div className="cf">
-                <h2 className="fl f3 fw3 mt0 accent-orange">{event.title}</h2>
-                <div className="fr accent-blue v-mid ml2">Lead: {event.lead}</div>
-                <Link to={`/events/${event.id}/analytics`} className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link fr"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</Link>
-              </div>
-            <p>{event.description}</p>
-
+        <div>
+          <div className="cf">
+            <h2 className="fl f3 fw3 mt0 accent-orange">{event.title}</h2>
+            <div className="fr accent-blue v-mid ml2">Lead: {event.lead}</div>
+            <Link to={`/events/${event.id}/analytics`} className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link fr"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</Link>
           </div>
+        <p>{event.description}</p>
+
+      </div>
 
 
         { this.state.iterations.length > 0

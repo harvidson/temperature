@@ -8,6 +8,7 @@ import NewEvent from './new-event'
 import EventFormResponse from './event-form-response'
 import NewIteration from './new-iteration'
 import ReflectionView from './reflection-view'
+import EventView from './event-view'
 
 
 class Dashboard extends React.Component {
@@ -81,6 +82,7 @@ class Dashboard extends React.Component {
       case 'eventFormResponse': return <EventFormResponse newEvent={this.state.newEvent} closeModal={this.closeModal}/>
       case 'iterationFormResponse': return <IterationFormResponse newIteration={this.state.newIteration} closeModal={this.closeModal}/>
       case 'reflectionView': return <ReflectionView iteration={data} closeModal={this.closeModal}/>
+      case 'eventView': return <EventView event={data} closeModal={this.closeModal}/>
       default: return null
     }
   }
