@@ -1,6 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import * as d3 from 'd3'
 
 class ReflectionView extends React.Component {
   constructor(props) {
@@ -8,7 +9,8 @@ class ReflectionView extends React.Component {
 
     this.state = {
       event: {},
-      temperature: ""
+      temperature: "",
+      temp: 0
     }
     this.determineTemperature = this.determineTemperature.bind(this);
   }
@@ -38,13 +40,26 @@ class ReflectionView extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
+      // console.log(j);
       this.setState({event: j})
     }).catch((err) => {
       console.log(err);
     })
 
+    const tempString = (this.props.iteration.reflection.text_analytics.documentSentiment.score).toFixed(1)
+    console.log(tempString);
+
+    const temp = [Number.parseFloat(tempString)]
+    this.setState({
+      temp: temp
+    })
     this.determineTemperature()
+    this.createThermometer()
+  }
+
+  componentDidUpdate(){
+    this.createThermometer()
+
   }
 
   determineTemperature() {
@@ -59,6 +74,27 @@ class ReflectionView extends React.Component {
     }
 
     this.setState({temperature: color})
+  }
+
+
+
+  createThermometer(){
+    const temp = this.state.temp
+    console.log(temp);
+
+    // const x = d3.scaleLinear()
+    //   .domain([-1, 1])
+    //   .range([0, 700]);
+    //
+    //   console.log(x);
+    //
+    // d3.select(this.node)
+    //   .selectAll("div")
+    //     .data(temp)
+    //   .enter().append("div")
+    //     .style("width", function(d) { return x(d) + "px"; })
+    //     .text(function(d) { return d; });
+
   }
 
   render() {
@@ -96,6 +132,12 @@ class ReflectionView extends React.Component {
             <p>{iteration.reflection.content}</p>
             <div className={`tc ${this.state.temperature} mt3`}>
               <i className="fa fa-thermometer-half fa-lg f5 sans-serif" aria-hidden="true"></i> {iteration.reflection.one_word}  {iteration.reflection.one_word_intensity}
+            </div>
+            <div className="tc thermometer white mt3">
+              {(iteration.reflection.text_analytics.documentSentiment.score).toFixed(1)}
+            </div>
+            <div className="tc thermometer mt3">
+              <svg width="700" height="10" ref={node => this.node = node}></svg>
             </div>
           </div>
         </div>
