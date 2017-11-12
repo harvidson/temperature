@@ -3,8 +3,13 @@ body {
 
 }
 
-main, .modal {
+main {
   max-width: 960px;
+  margin: auto;
+}
+
+.modal {
+  max-width: 760px;
   margin: auto;
 }
 
