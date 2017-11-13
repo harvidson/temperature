@@ -16,7 +16,7 @@
     "knex": "knex",
     "latest": "knex --knexfile ./src/server/knexfile.js migrate:latest",
     "seed": "knex --knexfile ./src/server/knexfile.js seed:run",
-    "aws:start": "nodemon ./src/server/index.js"
+    "aws:start": "nodemon ./lib/server/index.js"
 
   },
   "devDependencies": {
