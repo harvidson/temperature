@@ -102,16 +102,22 @@ class Dashboard extends React.Component {
 
 
   render() {
-    // const customStyles = {
-    //   content : {
-    //     top                   : '40%',
-    //     left                  : '40%',
-    //     right                 : 'auto',
-    //     bottom                : 'auto',
-    //     marginRight           : '-40%',
-    //     transform             : 'translate(-40%, -40%)'
-    //   }
-    // };
+    const customStyles = {
+      content : {
+
+        left                       : '15%',
+        right                      : '15%',
+        bottom                     : '40px',
+        border                     : '1px solid #bbb',
+        background                 : '#fff',
+        overflow                   : 'auto',
+        WebkitOverflowScrolling    : 'touch',
+        borderRadius               : '4px',
+        outline                    : 'none',
+        padding                    : '20px'
+
+      }
+    };
 
     return (
 
@@ -157,7 +163,7 @@ class Dashboard extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
-          // style={customStyles}
+          style={customStyles}
           >
 
             <div className="cf">
