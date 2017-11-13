@@ -15,7 +15,9 @@
     "heroku-postbuild": "yarn prod:build",
     "knex": "knex",
     "latest": "knex --knexfile ./src/server/knexfile.js migrate:latest",
-    "seed": "knex --knexfile ./src/server/knexfile.js seed:run"
+    "seed": "knex --knexfile ./src/server/knexfile.js seed:run",
+    "aws:start": "nodemon ./server/index.js"
+
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
