@@ -10,7 +10,8 @@ class ReflectionView extends React.Component {
     this.state = {
       event: {},
       temperature: "",
-      temp: 0,
+      temp: null,
+      tempOffset: 0
     }
     this.determineTemperature = this.determineTemperature.bind(this);
     this.createOffset = this.createOffset.bind(this);
@@ -44,9 +45,10 @@ class ReflectionView extends React.Component {
     }).catch((err) => {
       console.log(err);
     })
+  }
 
+  componentDidMount(){
     this.determineTemperature()
-
   }
 
   componentDidUpdate(){
@@ -70,13 +72,14 @@ class ReflectionView extends React.Component {
 
     this.setState({
       temperature: color,
-      temp: temp
+      temp: temp,
+      tempOffset: this.createOffset(temp)
     })
   }
 
   createOffset(temp){
     // console.log(this.thermometer);
-    // const width = this.thermometer.clientWidth
+    const width = this.thermometer.clientWidth
     // // or should use offsetWidth?
     // console.log('width ', width);
 
@@ -85,7 +88,7 @@ class ReflectionView extends React.Component {
 //range will be set of width var
     const x = d3.scaleLinear()
       .domain([-1, 1])
-      .range([0, 700]);
+      .range([0, width]);
 
     const offset = x(temp)
     console.log(offset);
@@ -94,8 +97,11 @@ class ReflectionView extends React.Component {
 
 
   render() {
-
-    const leftOffset = this.createOffset(this.state.temp)
+    // let leftOffset = 0;
+    // if (this.state.temp !== null) {
+    //   console.log('hiiii', this.state.temp);
+    //   // leftOffset = this.createOffset(this.state.temp)
+    // }
 
     const {iteration} = this.props
 
@@ -133,7 +139,7 @@ class ReflectionView extends React.Component {
               <i className="fa fa-thermometer-half fa-lg f5 sans-serif" aria-hidden="true"></i> {iteration.reflection.one_word}  {iteration.reflection.one_word_intensity}
             </div>
             <div className="relative thermometer white mt3 h1" ref={node => this.thermometer = node}>
-              <span className="f5 absolute" style={{left: leftOffset}}>
+              <span className="f5 absolute" style={{left: this.state.tempOffset}}>
                 {this.state.temp}
               </span>
             </div>

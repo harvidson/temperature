@@ -178,9 +178,9 @@ class OneWord extends React.Component {
         return d.score;
       }));
       const percent = Math.round(1000 * d.data.score / total) / 10;
-      // console.log('percent: ', percent);
+      console.log('percent: ', percent);
       tooltip.select('.label').html(d.data.word);
-      // console.log(d.data.word);
+      console.log(d.data.word);
       tooltip.select('.percent').html(percent + '%');
       tooltip.style('display', 'block');
     });
@@ -189,7 +189,7 @@ class OneWord extends React.Component {
       tooltip.style('display', 'none');
     });
 
-    const legend = svg.selectAll('.legend').data(color.domain()).enter().append('g').attr('className', 'legend').attr('transform', function(d, i) {
+    const legend = svg.selectAll('.legend').data(color.domain()).enter().append('g').attr('class', 'legend').attr('transform', function(d, i) {
       var height = legendRectSize + legendSpacing;
       var offset = height * color.domain().length / 2;
       var horz = -2 * legendRectSize;
@@ -212,8 +212,6 @@ class OneWord extends React.Component {
   }
 
   render() {
-    console.log('checkbox in render ', this.state.checkboxIsChecked);
-
     return (
 
       <div className="w-50 mt3">

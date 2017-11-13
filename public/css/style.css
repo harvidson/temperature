@@ -75,6 +75,21 @@ main {
     background: linear-gradient(to right, #00f1ff, #ff7316);
 }
 
+.tooltip {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 95px;
+  width: 80px;
+  z-index: 10;
+}
+
 
 /*react-datepicker*/
 .react-datepicker-time__header {
