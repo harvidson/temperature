@@ -25,7 +25,7 @@ class Wordcloud extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log('wordcloud data: ', j);
+      // console.log('wordcloud data: ', j);
       this.setState({
         words: j
       })

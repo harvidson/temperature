@@ -8,13 +8,11 @@ class OneWord extends React.Component {
     super(props)
 
     this.state = {
-      oneWords: [],
-      oneWordsWithIntensity: [],
+      oneTruth: [],
       dateOptions: [],
       checkboxIsChecked: false,
       noReflections: false,
       dateSelected: '',
-      wordsByDate: [],
       d3Data: []
 
     }
@@ -25,73 +23,76 @@ class OneWord extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentWillMount() {}
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.event.is_lead) {
+      this.getOneWordData(nextProps.event.id)
+      .then((j) => {
+        this.setState({
+          oneTruth: j,
+          d3Data: j.oneWords
+        })
+      }).catch((err) => {
+        console.log(err);
+      })
+
+      this.getDates(nextProps.event.id)
+    } else {
+      // this.getOneWordWriterData(nextProps.event.id)
+      console.log('this is the writer');
+    }
+  }
 
   componentDidMount() {
     this.createDonutChart()
   }
 
   componentDidUpdate() {
+    console.log('componentDidUpdate checkbox checked? ', this.state.checkboxIsChecked);
     this.createDonutChart()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.event.is_lead) {
-      this.getOneWordData(nextProps.event.id)
-      this.getDates(nextProps.event.id)
-    } else {
-      this.getOneWordWriterData(nextProps.event.id)
-    }
+    console.log('after componentDidUpdate, d3Data using this data', this.state.d3Data);
   }
 
   toggleIntensity(event) {
+    console.log('toggleIntensity before setState: checkbox checked? ', this.state.checkboxIsChecked);
     this.setState({
-      checkboxIsChecked: !this.state.checkboxIsChecked
+      checkboxIsChecked: !this.state.checkboxIsChecked,
+      //d3Data here will be working
+      d3Data: !this.state.checkboxIsChecked ? this.state.oneTruth.oneWordsWithIntensity : this.state.oneTruth.oneWords
     });
   }
 
   getOneWordData(id) {
-    fetch(`/api/events/${id}/one-words`, {
+    return fetch(`/api/events/${id}/one-words`, {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
       return response.json();
-    }).then((j) => {
-      // console.log(j);
-      this.setState({
-        oneWords: j.oneWords,
-        oneWordsWithIntensity: j.oneWordsWithIntensity,
-        d3Data: j.oneWords
-      })
-    }).catch((err) => {
-      console.log(err);
     })
   }
 
   getDates(id) {
-    fetch(`/api/events/${id}/dates`, {
+    return fetch(`/api/events/${id}/dates`, {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
       return response.json()
     }).then((j) => {
-      // console.log(j);
       this.setState({
         dateOptions: j
       })
     })
   }
 
+// TODO: make this into its own component
   getOneWordWriterData(id) {
-    fetch(`/api/events/${id}/one-words-writer`, {
+    return fetch(`/api/events/${id}/one-words-writer`, {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
       return response.json();
     }).then((j) => {
       this.setState({
-        oneWords: j.oneWords,
-        oneWordsWithIntensity: j.oneWordsWithIntensity,
+        oneTruth: j,
         d3Data: j.oneWords
       })
     }).catch((err) => {
@@ -100,37 +101,45 @@ class OneWord extends React.Component {
   }
 
   getWordsByDate(iterationId) {
-    fetch(`/api/iterations/${iterationId}/one-words`, {
+    return fetch(`/api/iterations/${iterationId}/one-words`, {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
       return response.json();
-    }).then((j) => {
-      // console.log(j);
-      this.setState({
-        wordsByDate: j.oneWords,
-        wordsByDateWithIntensity: j.oneWordsWithIntensity,
-        d3Data: j.oneWords
-      })
-    }).catch((err) => {
-      console.log(err);
     })
   }
 
   handleDateChange(val){
     console.log('Selected: ', val);
     if (val === null) {
-      this.setState({
-        dateSelected: '',
-        d3Data: this.state.oneWords,
-        checkboxIsChecked: false
+      this.getOneWordData(this.props.event.id)
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          oneTruth: data,
+          dateSelected: '',
+          d3Data: data.oneWords || [],
+          checkboxIsChecked: false
+        })
       })
+      .catch((err) => {
+        console.log(err);
+      })
+
     } else {
-      this.setState({
-        dateSelected: val,
-        checkboxIsChecked: false
-      })
       this.getWordsByDate(val.value)
+      .then((data) => {
+
+        this.setState({
+          dateSelected: val,
+          checkboxIsChecked: false,
+          oneTruth: data,
+          d3Data: data.oneWords
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     }
   }
 
@@ -195,20 +204,20 @@ class OneWord extends React.Component {
     });
 
     // TODO: make tooltip work
-    const tooltip = d3.select(this.node).append('div').attr('className', 'tooltip');
+    const tooltip = d3.select(this.node).append('div').attr('class', 'tooltip');
 
-    tooltip.append('div').attr('className', 'label');
-    tooltip.append('div').attr('className', 'count');
-    tooltip.append('div').attr('className', 'percent');
+    tooltip.append('div').attr('class', 'label');
+    tooltip.append('div').attr('class', 'count');
+    tooltip.append('div').attr('class', 'percent');
   }
 
   render() {
-
+    console.log('checkbox in render ', this.state.checkboxIsChecked);
 
     return (
 
       <div className="w-50 mt3">
-        {this.state.oneWords.length > 0
+        {this.state.d3Data.length > 0
           ?
             <div>
               <div className="tc">

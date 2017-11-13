@@ -10,14 +10,13 @@ class ReflectionView extends React.Component {
     this.state = {
       event: {},
       temperature: "",
-      temp: 0
+      temp: 0,
     }
     this.determineTemperature = this.determineTemperature.bind(this);
+    this.createOffset = this.createOffset.bind(this);
   }
 
   componentWillMount() {
-    console.log(this.props);
-
     //check token
     fetch('/api/token', {
       method: 'get',
@@ -46,23 +45,19 @@ class ReflectionView extends React.Component {
       console.log(err);
     })
 
-    const tempString = (this.props.iteration.reflection.text_analytics.documentSentiment.score).toFixed(1)
-    console.log(tempString);
-
-    const temp = [Number.parseFloat(tempString)]
-    this.setState({
-      temp: temp
-    })
     this.determineTemperature()
-    this.createThermometer()
+
   }
 
   componentDidUpdate(){
-    this.createThermometer()
+    // this.createThermometer()
 
   }
 
   determineTemperature() {
+    const tempString = (this.props.iteration.reflection.text_analytics.documentSentiment.score).toFixed(1)
+    const temp = Number.parseFloat(tempString)
+
     let color;
 
     if (this.props.iteration.reflection.one_word_id < 7) {
@@ -73,31 +68,35 @@ class ReflectionView extends React.Component {
       color = 'ice-blue'
     }
 
-    this.setState({temperature: color})
+    this.setState({
+      temperature: color,
+      temp: temp
+    })
   }
 
+  createOffset(temp){
+    // console.log(this.thermometer);
+    // const width = this.thermometer.clientWidth
+    // // or should use offsetWidth?
+    // console.log('width ', width);
 
+    console.log('temp in createOffset ', temp);
 
-  createThermometer(){
-    const temp = this.state.temp
-    console.log(temp);
+//range will be set of width var
+    const x = d3.scaleLinear()
+      .domain([-1, 1])
+      .range([0, 700]);
 
-    // const x = d3.scaleLinear()
-    //   .domain([-1, 1])
-    //   .range([0, 700]);
-    //
-    //   console.log(x);
-    //
-    // d3.select(this.node)
-    //   .selectAll("div")
-    //     .data(temp)
-    //   .enter().append("div")
-    //     .style("width", function(d) { return x(d) + "px"; })
-    //     .text(function(d) { return d; });
-
+    const offset = x(temp)
+    console.log(offset);
+    return offset
   }
+
 
   render() {
+
+    const leftOffset = this.createOffset(this.state.temp)
+
     const {iteration} = this.props
 
     return (
@@ -133,12 +132,16 @@ class ReflectionView extends React.Component {
             <div className={`tc ${this.state.temperature} mt3`}>
               <i className="fa fa-thermometer-half fa-lg f5 sans-serif" aria-hidden="true"></i> {iteration.reflection.one_word}  {iteration.reflection.one_word_intensity}
             </div>
-            <div className="tc thermometer white mt3">
-              {(iteration.reflection.text_analytics.documentSentiment.score).toFixed(1)}
+            <div className="relative thermometer white mt3 h1" ref={node => this.thermometer = node}>
+              <span className="f5 absolute" style={{left: leftOffset}}>
+                {this.state.temp}
+              </span>
             </div>
-            <div className="tc thermometer mt3">
-              <svg width="700" height="10" ref={node => this.node = node}></svg>
+            <div className="cf">
+                <div className="fl mid-gray">-1</div>
+                <div className="fr mid-gray">1</div>
             </div>
+
           </div>
         </div>
 
