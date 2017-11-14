@@ -15,7 +15,6 @@ class Wordcloud extends React.Component {
   }
 
   componentDidMount() {
-    console.log('word cloudisloading data');
     this.getWordData(this.props.event.id)
   }
 

@@ -60,7 +60,7 @@ class Landing extends React.Component {
   render() {
     const customStyles = {
       content : {
-        top                   : '50%',
+        top                   : '45%',
         left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',

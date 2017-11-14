@@ -7,7 +7,8 @@ class login extends React.Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      loginInvalid: false
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -46,16 +47,15 @@ class login extends React.Component {
       credentials: 'include'
       })
     .then((response) => {
-      console.log(response.status);
       if (response.status !== 200) {
-        alert("Jacob says you done goofed.")
+        this.setState({
+          loginInvalid: true
+        })
         throw 'Invalid login'
       }
 
-
-        return response.json();
+      return response.json();
     }).then((j) => {
-      console.log(j);
       this.props.saveUser(this.state.email)
       this.resetForm();
       this.props.history.push('/dashboard');
@@ -76,6 +76,13 @@ class login extends React.Component {
         <div className="tc">
           <h1 className="accent-orange f1-m f2 fw4">Log in</h1>
         </div>
+
+        {this.state.loginInvalid
+          ? <div className="accent-orange f5 fw3 tc bg-light-gray pa3 mh2">
+            <p>Invalid login. Check your password and email and try again!</p>
+          </div>
+          : null
+        }
 
         <div className="pa4">
           <form onSubmit={this.handleSubmit}>
