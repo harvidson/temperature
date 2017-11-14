@@ -54,7 +54,7 @@ class Landing extends React.Component {
   }
 
   saveUser(id, firstName) {
-    this.setState({userId: id, userName: firstName, modalIsOpen: false, login: false})
+    // this.setState({userId: id, userName: firstName, modalIsOpen: false, login: false})
   }
 
   render() {

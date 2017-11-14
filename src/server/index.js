@@ -42,7 +42,8 @@ app.use((err, _req, res, _next) => {
     return res
       .status(err.output.statusCode)
       .set('Content-Type', 'text/plain')
-      .send({message: err.message});
+      .send({
+        message: err.message});
   }
 
   res.sendStatus(err.status || 500);

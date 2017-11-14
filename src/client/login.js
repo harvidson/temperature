@@ -26,21 +26,16 @@ class login extends React.Component {
   }
 
   handleSubmit(event) {
-    //http call
     event.preventDefault();
 
-    const user = {email: this.state.email, password: this.state.password}
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    }
     this.login(user)
-
-
-
-    //this needs to send back user id when it gets it from the http response
-    this.resetForm();
-    this.props.saveUser(this.state.email)
   }
 
   login(user){
-    console.log(user);
     fetch('/api/token', {
       method: 'POST',
       body: JSON.stringify(user),
@@ -49,19 +44,26 @@ class login extends React.Component {
         'Accept': 'application/json',
       },
       credentials: 'include'
-
       })
     .then((response) => {
-      return response.json();
+      console.log(response.status);
+      if (response.status !== 200) {
+        alert("Jacob says you done goofed.")
+        throw 'Invalid login'
+      }
+
+
+        return response.json();
     }).then((j) => {
+      console.log(j);
+      this.props.saveUser(this.state.email)
+      this.resetForm();
       this.props.history.push('/dashboard');
-      console.log(j)
     }).catch((err) => {
       console.log(err)
     })
   }
 
-// TODO: reset is not working
   resetForm() {
     this.setState({email: '', password: ''})
   }

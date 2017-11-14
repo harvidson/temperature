@@ -36,7 +36,7 @@ router.post('/', (req, res, next) => {
     .first()
     .then((row) => {
       if (!row) {
-        return next(boom.create(400, 'Invalid EMAIL or password.'))
+        throw boom.create(401, 'Invalid email or password.')
       };
       user = camelizeKeys(row);
       return bcrypt.compare(req.body.password, user.hashedPassword)
@@ -59,8 +59,8 @@ router.post('/', (req, res, next) => {
       res.send(user);
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {
-      //allthereturn nexts should probably just be throw
-      return next(boom.create(400, 'Invalid email or PASSWORD.'));
+      console.log('in bcrypt err');
+      res.status(401).send('Invalid login.');
     })
     .catch((err) => {
       console.log(err);
