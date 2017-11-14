@@ -66,9 +66,6 @@ class Signup extends React.Component {
     this.props.history.push('/dashboard');
  }
 
-
-
-// TODO: reset is not working
   resetForm() {
     this.setState({
       firstName: '',

@@ -4,7 +4,7 @@ const reflectionsList = [
   //faculty meetings
   {
     id: 1,
-    iteration_id: 4,
+    iteration_id: 4, //due 10/23
     user_id: 3,
     title: 'Over Time as Usual',
     content: 'As usual, we used most of the meeting to review things that did not really matter and took three times as long as they should have, then they sprung these huge changes on us right before the meeting was over. That is some serious bullshit, especially since I could tell just by looking at the agenda that it was going to run over. As excited as I am about the changes and as great as it was to vent about how much work we have to do, I would actually just appreciate some information about next year and some reassurance that we are not going to have to do a ton of unpaid work to make this change happen. No one ever answered the question as to why are they making us do all these hours of work to describe our previous project instead of giving us time to plan our next one.',
@@ -15,7 +15,7 @@ const reflectionsList = [
     updated_at: new Date('2017-09-02 14:26:16 UTC')
   }, {
     id: 2,
-    iteration_id: 5,
+    iteration_id: 5, //10/30
     user_id: 3,
     title: 'Excited about New Schedule',
     content: 'I went into the meeting feeling pretty tired and expecting to be bored, but I actually left quite excited about the new schedule. I think it is going to make things easier for the whole team. I appreciated that we started by talking to a partner about something from our week that we were proud of, since it put me in a much better mood. I wish all of our weekly meetings could be this cheerful and useful.',
@@ -26,7 +26,7 @@ const reflectionsList = [
     updated_at: new Date('2017-09-02 14:26:16 UTC')
   }, {
     id: 3,
-    iteration_id: 6,
+    iteration_id: 6, //11/06
     user_id: 3,
     title: 'Same People Same Issues',
     content: 'I am so so tired of the same people raising the same issues in every fucking meeting and then us not getting to the agenda items. Why do people think it is ok to raise issues that only have to do with them? Any why does my boss not take control of the situation? It is infuriating to watch him nodding along and taking notes while people go on and on about their personal complaints and priorities while the rest of us are sitting there obviously bored. What is the point of having these meetings if we do not ever talk about what we say we are going to talk about?.',

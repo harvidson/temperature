@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './header'
 import OneWord from './analytics-one-word'
+import OneWordWriter from './analytics-one-word-writer'
 import LineChart from './analytics-line-chart'
 import Wordcloud from './analytics-wordcloud'
 
@@ -10,9 +11,7 @@ class Analytics extends React.Component {
     super()
 
     this.state = {
-      event: {},
-      isLead: false
-
+      event: null,
     }
     this.getEventData = this.getEventData.bind(this);
     this.checkToken = this.checkToken.bind(this);
@@ -37,7 +36,7 @@ class Analytics extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      // console.log(j);
+      console.log(j);
       this.setState({
         event: j
       })
@@ -53,7 +52,7 @@ class Analytics extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      // console.log('response from token check: ', j)
+      console.log('response from token check: ', j)
       if (!j.authorized) {
         this.props.history.push('/');
         console.log('Unauthorized for this page');
@@ -64,24 +63,39 @@ class Analytics extends React.Component {
   }
 
 
-
-
   render(){
+    const { event } = this.state
+    console.log(event);
     return(
 
       <div>
         <Header></Header>
         <main>
 
-          <div className="bg-light-gray ba b--light-gray pa4 mt4 cf br1">
+          <div className="bg-light-gray ba b--light-gray pa2 mt4 cf br1">
             <div className="fl mh4">
-              <h2 className="f2 fw3 dark-gray mv1">{this.state.event.title} Analytics</h2>
+              <h2 className="f2 fw3 dark-gray mv1">{event ? event.title : ''} Analytics</h2>
             </div>
           </div>
 
-          <OneWord event={this.state.event}></OneWord>
-          <Wordcloud event={this.state.event}></Wordcloud>
-          <LineChart event={this.state.event}></LineChart>
+          {event && event.is_lead
+            ? <div>
+                <OneWord event={event}></OneWord>
+                <Wordcloud event={event}></Wordcloud>
+              </div>
+            : null
+          }
+          {event && !event.is_lead
+            ? <div>
+                <OneWordWriter event={event}></OneWordWriter>
+              </div>
+            : null
+          }
+          {event
+            ? <div><LineChart event={event}></LineChart></div>
+            : null
+          }
+
 
       </main>
 

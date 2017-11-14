@@ -20,18 +20,41 @@ class LineChart extends React.Component {
   componentWillMount() {}
 
   componentDidMount() {
-    this.createLineChart()
+    const { event } = this.props
+
+    if (event.is_lead) {
+      this.getReflectionData(event.id)
+      .then((j) => {
+        // console.log(j);
+        this.setState({aggregateScores: j.aggregateScores, aggregateScoresWithMagnitude: j.aggregateScoresWithMagnitude})
+        this.createLineChart()
+      }).catch((err) => {
+        console.log(err);
+      })
+
+    } else {
+      this.getWriterReflectionData(event.id)
+      .then((j) => {
+        // console.log(j);
+        this.setState({aggregateScores: j, aggregateScoresWithMagnitude: j})
+        this.createLineChart()
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+
+
   }
 
   componentWillReceiveProps(nextProps) {
     //get reflection data
     // console.log('show me nextProps.event', nextProps.event);
 
-    if (nextProps.event.is_lead) {
-      this.getReflectionData(nextProps.event.id)
-    } else {
-      this.getWriterReflectionData(nextProps.event.id)
-    }
+    // if (event.is_lead) {
+    //   this.getReflectionData(event.id)
+    // } else {
+    //   this.getWriterReflectionData(event.id)
+    // }
   }
 
   componentDidUpdate() {
@@ -45,32 +68,22 @@ class LineChart extends React.Component {
   }
 
   getReflectionData(id) {
-    fetch(`/api/events/${id}/reflectionsOverTime`, {
+    return fetch(`/api/events/${id}/reflectionsOverTime`, {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
       // console.log(response);
       return response.json();
-    }).then((j) => {
-      // console.log(j);
-      this.setState({aggregateScores: j.aggregateScores, aggregateScoresWithMagnitude: j.aggregateScoresWithMagnitude})
-    }).catch((err) => {
-      console.log(err);
     })
   }
 
   getWriterReflectionData(id) {
-    fetch(`/api/events/${id}/writerReflectionsOverTime`, {
+    return fetch(`/api/events/${id}/writerReflectionsOverTime`, {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
       // console.log(response);
       return response.json();
-    }).then((j) => {
-      // console.log(j);
-      this.setState({aggregateScores: j, aggregateScoresWithMagnitude: j})
-    }).catch((err) => {
-      console.log(err);
     })
   }
 
@@ -148,23 +161,23 @@ class LineChart extends React.Component {
 
   render() {
     return (
-      <div className="w-50 mt3 tc">
+      <div className="w-100 mt5 tc">
        <div>
-              <div className="tc">
-                <svg width="960" height="500" ref={node => this.node = node}></svg>
+         <div className="f2 f3 fw3 accent-orange">Reflections</div>
+          <div className="tc">
+            <svg width="960" height="500" ref={node => this.node = node}></svg>
+          </div>
+
+
+          {this.props.event.is_lead
+            ? <div className="f5 tc">
+                <input type="checkbox" className="" name="checkMagnitude" onClick={this.toggleMagnitude}/>
+                <label>
+                  Weight reflections by intensity</label>
               </div>
-
-              <div className="f4 tc">Reflections</div>
-
-              {this.props.event.is_lead
-                ? <div className="f5 tc">
-                    <input type="checkbox" className="" name="checkMagnitude" onClick={this.toggleMagnitude}/>
-                    <label>
-                      Weight reflections by intensity</label>
-                  </div>
-                : null
-              }
-            </div>
+            : null
+          }
+        </div>
 
       </div>
     )

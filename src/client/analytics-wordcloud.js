@@ -14,8 +14,9 @@ class Wordcloud extends React.Component {
 
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.getWordData(nextProps.event.id)
+  componentDidMount() {
+    console.log('word cloudisloading data');
+    this.getWordData(this.props.event.id)
   }
 
   getWordData(id){
@@ -43,23 +44,16 @@ class Wordcloud extends React.Component {
   }
 
 
-
-
   render(){
-
-
 
     return(
       <div>
-
-
         <WordCloud
             data={this.state.words}
             fontSizeMapper={this.fontSizeMapper}
             rotate={this.rotate}
             font="sans-serif"
           />
-
       </div>
     )
   }

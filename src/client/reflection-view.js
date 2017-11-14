@@ -78,31 +78,17 @@ class ReflectionView extends React.Component {
   }
 
   createOffset(temp){
-    // console.log(this.thermometer);
     const width = this.thermometer.clientWidth
-    // // or should use offsetWidth?
-    // console.log('width ', width);
-
-    console.log('temp in createOffset ', temp);
-
-//range will be set of width var
     const x = d3.scaleLinear()
       .domain([-1, 1])
       .range([0, width]);
 
     const offset = x(temp)
-    console.log(offset);
     return offset
   }
 
 
   render() {
-    // let leftOffset = 0;
-    // if (this.state.temp !== null) {
-    //   console.log('hiiii', this.state.temp);
-    //   // leftOffset = this.createOffset(this.state.temp)
-    // }
-
     const {iteration} = this.props
 
     return (
@@ -118,7 +104,6 @@ class ReflectionView extends React.Component {
             {iteration.is_anonymous
               ?
               <div><i className="fa fa-users" aria-hidden="true"></i> Analysis by group (anonymous)</div>
-
               :
               <div><i className="fa fa-user-circle-o" aria-hidden="true"></i> Analysis by individual (not anonymous)</div>
             }

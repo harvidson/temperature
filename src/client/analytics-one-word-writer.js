@@ -2,8 +2,9 @@ import React from 'react'
 import * as d3 from 'd3'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
+import OneWordChart from './analytics-one-word-chart'
 
-class OneWord extends React.Component {
+class OneWordWriter extends React.Component {
   constructor(props) {
     super(props)
 
@@ -14,39 +15,18 @@ class OneWord extends React.Component {
       noReflections: false,
       dateSelected: '',
       d3Data: []
-
     }
     this.createDonutChart = this.createDonutChart.bind(this);
     this.toggleIntensity = this.toggleIntensity.bind(this);
-    this.getOneWordData = this.getOneWordData.bind(this);
     this.getOneWordWriterData = this.getOneWordWriterData.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
-    // if (nextProps.event.is_lead) {
-    //   this.getOneWordData(nextProps.event.id)
-    //   .then((j) => {
-    //     this.setState({
-    //       oneTruth: j,
-    //       d3Data: j.oneWords
-    //     })
-    //   }).catch((err) => {
-    //     console.log(err);
-    //   })
-    //
-    //   this.getDates(nextProps.event.id)
-    // } else {
-    //   // this.getOneWordWriterData(nextProps.event.id)
-    //   console.log('this is the writer');
-    // }
-  }
-
   componentDidMount() {
     const { event } = this.props
+    console.log(this.props);
 
-    this.getOneWordData(event.id)
+    this.getOneWordWriterData(event.id)
       .then((j) => {
         this.setState({
           oneTruth: j,
@@ -56,9 +36,6 @@ class OneWord extends React.Component {
       }).catch((err) => {
         console.log(err);
       })
-
-    this.getDates(event.id)
-
   }
 
   componentDidUpdate() {
@@ -68,58 +45,21 @@ class OneWord extends React.Component {
   toggleIntensity(event) {
     this.setState({
       checkboxIsChecked: !this.state.checkboxIsChecked,
-      //d3Data here will be working with the old version of state
       d3Data: !this.state.checkboxIsChecked ? this.state.oneTruth.oneWordsWithIntensity : this.state.oneTruth.oneWords
     });
   }
 
-  getOneWordData(id) {
-    return fetch(`/api/events/${id}/one-words`, {
-      method: 'get',
-      credentials: 'include'
-    }).then((response) => {
-      return response.json();
-    })
-  }
 
-  getDates(id) {
-    return fetch(`/api/events/${id}/dates`, {
-      method: 'get',
-      credentials: 'include'
-    }).then((response) => {
-      return response.json()
-    }).then((j) => {
-      this.setState({
-        dateOptions: j
-      })
-    })
-  }
 
-// TODO: make this into its own component
   getOneWordWriterData(id) {
     return fetch(`/api/events/${id}/one-words-writer`, {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
       return response.json();
-    }).then((j) => {
-      this.setState({
-        oneTruth: j,
-        d3Data: j.oneWords
-      })
-    }).catch((err) => {
-      console.log(err);
     })
   }
 
-  getWordsByDate(iterationId) {
-    return fetch(`/api/iterations/${iterationId}/one-words`, {
-      method: 'get',
-      credentials: 'include'
-    }).then((response) => {
-      return response.json();
-    })
-  }
 
   handleDateChange(val){
     console.log('Selected: ', val);
@@ -158,6 +98,10 @@ class OneWord extends React.Component {
   createDonutChart() {
     let clear = d3.select(this.node)
     clear.selectAll('*').remove();
+
+    // const oneWordData = this.state.checkboxState
+    //   ? this.state.oneWords
+    //   : this.state.oneWordsWithIntensity
 
     const oneWordData = this.state.d3Data
 
@@ -220,17 +164,17 @@ class OneWord extends React.Component {
   }
 
   render() {
-    console.log('admin data', this.state.d3Data);
     return (
 
-      <div className="w-100 ma3 center">
+      <div className="w-100 ma3">
         {this.state.d3Data.length > 0
-          ? <div>
-              <div className="tc">
-                <svg ref={node => this.node = node} width={400} height={400}></svg>
-              </div>
-              <div className="f2 f3 fw3 accent-orange">One-word answers</div>
-              <div className="f5 tc">
+          ?
+            <div className="w-100">
+              <div className="tl f2 f3 fw3 accent-orange mb3">One-word answers</div>
+              <div className="center">
+                <svg className= "center" ref={node => this.node = node} width={400} height={400}></svg>
+
+              <div className="f5">
                 <input
                   type="checkbox"
                   className="checkbox"
@@ -238,30 +182,16 @@ class OneWord extends React.Component {
                   checked={this.state.checkboxIsChecked}
                   onClick={this.toggleIntensity}/>
                 <label>
-                  &nbsp;&nbsp;Weight answers by intensity
+                    &nbsp;&nbsp;Weight answers by intensity
                 </label>
               </div>
-              <div>
-                <div className="mt4">
-                  <label className="fw3 lh-copy f4 dark-gray db">
-
-                    <Select
-                      className="mv2 bg-transparent db f5 w-50"
-                      name="oneWord"
-                      value={this.state.dateSelected}
-                      options={this.state.dateOptions}
-                      onChange={this.handleDateChange}
-                      placeholder="Select a date..."
-                    />
-                  </label>
                 </div>
-              </div>
             </div>
-          : <div className="f5 ma3">Admin No data is available yet.</div>
+          : <div className="f5 ma3">No data available yet.</div>
         }
       </div>
     )
   }
 }
 
-export default OneWord
+export default OneWordWriter
