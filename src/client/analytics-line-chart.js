@@ -161,16 +161,16 @@ class LineChart extends React.Component {
 
   render() {
     return (
-      <div className="w-100 mt5 tc">
+      <div className="w-100 ml3 m1">
        <div>
-         <div className="f2 f3 fw3 accent-orange">Reflections</div>
+         <div className="f3 fw3 accent-orange">Temperature over Time</div>
           <div className="tc">
             <svg width="960" height="500" ref={node => this.node = node}></svg>
           </div>
 
 
           {this.props.event.is_lead
-            ? <div className="f5 tc">
+            ? <div className="f5 mt2 mb5 ml5">
                 <input type="checkbox" className="" name="checkMagnitude" onClick={this.toggleMagnitude}/>
                 <label>
                   Weight reflections by intensity</label>

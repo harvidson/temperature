@@ -72,7 +72,7 @@ class Analytics extends React.Component {
         <main>
 
           <div className="bg-light-gray ba b--light-gray pa2 mt4 cf br1">
-            <div className="fl mh4">
+            <div className="fl mh1">
               <h2 className="f2 fw3 dark-gray mv1">{event ? event.title : ''} Analytics</h2>
             </div>
           </div>

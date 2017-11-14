@@ -25,7 +25,6 @@ class Wordcloud extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      // console.log('wordcloud data: ', j);
       this.setState({
         words: j
       })
@@ -46,12 +45,15 @@ class Wordcloud extends React.Component {
   render(){
 
     return(
-      <div>
+      <div className="ma3">
+     <div className="f3 fw3 accent-orange">Reflection Keywords</div>
         <WordCloud
             data={this.state.words}
             fontSizeMapper={this.fontSizeMapper}
             rotate={this.rotate}
             font="sans-serif"
+            width="400"
+            height="300"
           />
       </div>
     )

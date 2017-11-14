@@ -45,15 +45,19 @@ class Signup extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const user = {firstName: this.state.firstName, lastName: this.state.lastName, pronouns: this.state.pronouns, email: this.state.email, password: this.state.password}
-    this.postUser(user)
 
-    this.resetForm();
-    this.props.saveUser(this.state.id, this.state.firstName)
+    const user = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      pronouns: this.state.pronouns,
+      email: this.state.email,
+      password: this.state.password
+    }
+    this.postUser(user)
   }
 
-  async postUser(user) {
-   const response = await fetch('/api/users', {
+   postUser(user) {
+     fetch('/api/users', {
      method: 'POST',
      body: JSON.stringify(user),
      headers: {
@@ -62,8 +66,24 @@ class Signup extends React.Component {
      },
      credentials: 'include'
    })
-   const userAdded = await response.json()
-    this.props.history.push('/dashboard');
+   .then((response) => {
+     if (response.status !== 200) {
+       this.setState({
+         loginInvalid: true
+       })
+       throw 'Invalid signup'
+     }
+
+     return response.json()
+   })
+   .then((response) => {
+     this.resetForm();
+     this.props.saveUser(this.state.id, this.state.firstName)
+     this.props.history.push('/dashboard');
+   }).catch((err) => {
+     console.log(err)
+   })
+
  }
 
   resetForm() {

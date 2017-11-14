@@ -39,7 +39,6 @@ class Dashboard extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      // console.log('response from token check: ', j)
       if (!j.authorized) {
         this.props.history.push('/');
         console.log('Unauthorized for this page');
@@ -104,18 +103,8 @@ class Dashboard extends React.Component {
   render() {
     const customStyles = {
       content : {
-
         left                       : '15%',
         right                      : '15%',
-        bottom                     : '40px',
-        border                     : '1px solid #bbb',
-        background                 : '#fff',
-        overflow                   : 'auto',
-        WebkitOverflowScrolling    : 'touch',
-        borderRadius               : '4px',
-        outline                    : 'none',
-        padding                    : '20px'
-
       }
     };
 
@@ -128,7 +117,7 @@ class Dashboard extends React.Component {
         {/* <div className="bg-moon-gray bg-left bg-center-l w-100 cf"> */}
           <div className="bg-light-gray ba b--light-gray pa2 mt4 cf br1">
           <div className="fl mh4">
-            <h2 className="f2 fw3 dark-gray mv1">Take the Temperature</h2>
+            <h2 className="f2 fw3 dark-gray mv1">Lead Journal Events</h2>
           </div>
           <div className="fr v-mid">
             <a className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 action-button br2 link" href="#" onClick={() => {this.openModal('newEvent')}}><i className="fa fa-book" aria-hidden="true"></i> Create new journal event</a>
@@ -147,7 +136,7 @@ class Dashboard extends React.Component {
             <div>
               <div className="bg-light-gray ba b--light-gray pa2 mt4 cf br1">
                 <div className="fl mh4">
-                  <h2 className="f2 fw3 dark-gray mv1">Write reflections</h2>
+                  <h2 className="f2 fw3 dark-gray mv1">Write Reflections</h2>
                 </div>
               </div>
               <div className="mh5 mt4">

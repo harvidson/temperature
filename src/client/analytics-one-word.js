@@ -223,30 +223,30 @@ class OneWord extends React.Component {
     console.log('admin data', this.state.d3Data);
     return (
 
-      <div className="w-100 ma3 center">
+      <div className="w-100 ma3">
+        <div className="f3 fw3 accent-orange mv4">In a word, how is everyone feeling?</div>
         {this.state.d3Data.length > 0
-          ? <div>
-              <div className="tc">
+          ? <div className="cf mh3">
+              <div className="fl">
                 <svg ref={node => this.node = node} width={400} height={400}></svg>
-              </div>
-              <div className="f2 f3 fw3 accent-orange">One-word answers</div>
-              <div className="f5 tc">
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  name="checkIntensity"
-                  checked={this.state.checkboxIsChecked}
-                  onClick={this.toggleIntensity}/>
-                <label>
-                  &nbsp;&nbsp;Weight answers by intensity
-                </label>
-              </div>
-              <div>
-                <div className="mt4">
+
+                <div className="f5 tc">
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    name="checkIntensity"
+                    checked={this.state.checkboxIsChecked}
+                    onClick={this.toggleIntensity}/>
+                  <label>
+                    &nbsp;&nbsp;Weight answers by intensity
+                  </label>
+                </div>
+
+                <div className="mt3 w-30 tc w-50 center">
                   <label className="fw3 lh-copy f4 dark-gray db">
 
                     <Select
-                      className="mv2 bg-transparent db f5 w-50"
+                      className="mv2 bg-transparent db f5 measure"
                       name="oneWord"
                       value={this.state.dateSelected}
                       options={this.state.dateOptions}

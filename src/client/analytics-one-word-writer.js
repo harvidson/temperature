@@ -169,8 +169,8 @@ class OneWordWriter extends React.Component {
       <div className="w-100 ma3">
         {this.state.d3Data.length > 0
           ?
-            <div className="w-100">
-              <div className="tl f2 f3 fw3 accent-orange mb3">One-word answers</div>
+          <div className="w-100 ma3">
+            <div className="f3 fw3 accent-orange mv4">In a word, how've you been?</div>
               <div className="center">
                 <svg className= "center" ref={node => this.node = node} width={400} height={400}></svg>
 
