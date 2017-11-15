@@ -54,9 +54,9 @@ class EventWriting extends React.Component {
       <div>
         <div>
           <div className="cf">
-            <h2 className="fl f3 fw3 mt0 accent-orange">{event.title}</h2>
-            <div className="fr accent-blue v-mid ml2">Lead: {event.lead}</div>
-            <Link to={`/events/${event.id}/analytics`} className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link fr"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</Link>
+            <h2 className="fl f3 fw3 mt0 accent-orange dib">{event.title}</h2>
+            <div className="fr accent-blue ml2 dib">Lead: {event.lead}</div>
+            <Link to={`/events/${event.id}/analytics`} className="f6 no-underline grow dib v-mid white ba ph2 pv2 ma2 analytics-button br2 link fr dib"><i className="fa fa-bar-chart" aria-hidden="true"></i> See analytics</Link>
           </div>
         <p>{event.description}</p>
 

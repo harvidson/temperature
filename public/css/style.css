@@ -36,7 +36,7 @@ main {
   width: 100%;
 }
 
-.action-button {
+.action-button, .submissions {
   background-color: #20AAB2;
   border-color: #20AAB2;
 }
@@ -73,6 +73,12 @@ main {
     background: -ms-linear-gradient(left, #00f1ff, #ff7316);
     background: -o-linear-gradient(left, #00f1ff, #ff7316);
     background: linear-gradient(to right, #00f1ff, #ff7316);
+}
+
+.due {
+  border-color: #D95700;
+  border-style: dashed;
+  border-width: 1px;
 }
 
 .tooltip {

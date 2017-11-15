@@ -69,10 +69,6 @@ class EventLeading extends React.Component {
 
 
                 <ul className="list mt1">
-                  <li className="cf small-caps">
-                    <div className="fl mr4">reflection due date</div>
-                    <div className="fl ml4">submitted</div>
-                  </li>
                   { this.state.iterationsLead.map((iteration) => {
                     return <li key={iteration.iteration_id}><IterationLead iteration={iteration}/></li>
                     })

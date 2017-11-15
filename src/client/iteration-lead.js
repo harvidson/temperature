@@ -27,11 +27,20 @@ class IterationLead extends React.Component {
   }
 
   render(){
+    const { reflectionsIn } = this.state
+
     return (
       <div>
             <div className="cf">
-              <h3 className="f4 fw4 fl mt0"><Moment format="MMMM D, YYYY">{this.props.iteration.due_date}</Moment></h3>
-              <p className="f5 fw4 fr mt0">{this.state.reflectionsIn}</p>
+              <p className="f5 fw4 fl"><Moment format="MMMM D, YYYY">{this.props.iteration.due_date}</Moment></p>
+              {reflectionsIn === 1
+                ?   <p className="fr"><span className="f5 fw4 fl mt0 br-100 submissions white ph1">{this.state.reflectionsIn}</span><span className="f5 fw4 fl mt0 dark-gray ph1">reflection submitted&nbsp;</span></p>
+                : null
+              }
+              {reflectionsIn > 1
+                ? <p className="fr"><span className="f5 fw4 fl mt0 br-100 submissions white ph1">{this.state.reflectionsIn}</span><span className="f5 fw4 fl mt0 dark-gray ph1">reflections submitted</span></p>
+                : null
+              }
             </div>
 
       </div>
