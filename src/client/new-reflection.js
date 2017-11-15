@@ -128,8 +128,8 @@ class NewReflection extends React.Component {
 
         <main>
         <div className="tc">
-          <h1 className="accent-orange f1-m f2 fw4">New Reflection </h1>
-          <h2 className="accent-orange f2-m f3 fw4">{iteration.event_title}</h2>
+          <h1 className="accent-orange f1-m f2 fw4">{iteration.event_title}</h1>
+          <h2 className="accent-orange f2-m f3 fw4">New Reflection</h2>
         </div>
 
         <div className="ph4 pt2">
@@ -138,10 +138,10 @@ class NewReflection extends React.Component {
                 <div className="mt4 bg-near-white ba b--light-gray pa4">
                 <div className="fw3 lh-copy f4 dark-gray db">
                   Prompt</div>
-                  <p className="pl4">{iteration.prompt}</p>
+                  <p className="pl4 black-80 f5">{iteration.prompt}</p>
                   {iteration.is_anonymous
                     ?
-                    <div><i className="fa fa-users" aria-hidden="true"></i> Analysis by group (anonymous)</div>
+                    <div className="tc black-80 f5"><i className="fa fa-users" aria-hidden="true"></i> Analysis by group (anonymous)</div>
 
                     :
                     <div><i className="fa fa-user-circle-o" aria-hidden="true"></i> Analysis by individual (not anonymous)</div>

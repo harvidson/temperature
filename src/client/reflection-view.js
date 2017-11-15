@@ -99,13 +99,13 @@ class ReflectionView extends React.Component {
         </div>
         <div className="ba b--light-gray pa4 bg-near-white">
           <h2 className="f4 fw3">Prompt</h2>
-          <p>{iteration.prompt}</p>
+          <p className="black-80">{iteration.prompt}</p>
           <div className="tc">
             {iteration.is_anonymous
               ?
               <div><i className="fa fa-users" aria-hidden="true"></i> Analysis by group (anonymous)</div>
               :
-              <div><i className="fa fa-user-circle-o" aria-hidden="true"></i> Analysis by individual (not anonymous)</div>
+              <div className="black-80"><i className="fa fa-user-circle-o" aria-hidden="true"></i> Analysis by individual (not anonymous)</div>
             }
           </div>
         </div>
@@ -113,13 +113,13 @@ class ReflectionView extends React.Component {
           <div className="cf">
             <div className="accent-orange f3 fl fw3 mt0">{iteration.reflection.title}</div>
 
-            <div className="fr v-base">
+            <div className="fr v-base black-80">
               <Moment format="MMMM D, YYYY, h:mm a" className="v-base">{iteration.reflection.created_at}</Moment>
             </div>
           </div>
 
           <div>
-            <p>{iteration.reflection.content}</p>
+            <p className="black-80">{iteration.reflection.content}</p>
             <div className={`tc ${this.state.temperature} mt3`}>
               <i className="fa fa-thermometer-half fa-lg f5 sans-serif" aria-hidden="true"></i> {iteration.reflection.one_word}  {iteration.reflection.one_word_intensity}
             </div>
@@ -128,7 +128,7 @@ class ReflectionView extends React.Component {
                 {this.state.temp}
               </span>
             </div>
-            <div className="cf">
+            <div className="cf mt1">
                 <div className="fl mid-gray">-1</div>
                 <div className="fr mid-gray">1</div>
             </div>
