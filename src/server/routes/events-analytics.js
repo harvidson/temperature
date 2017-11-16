@@ -70,6 +70,10 @@ router.get('/:id/one-words', authorize, (req, res,next) => {
     return Promise.all(worded)
   })
   .then((data) => {
+    data.sort(function (a, b) {
+      return b.id - a.id;
+    })
+    console.log(data);
     const wordData = aggregateWords(data)
     res.send(wordData)
   })
