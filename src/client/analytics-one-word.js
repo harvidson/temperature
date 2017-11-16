@@ -102,11 +102,9 @@ class OneWord extends React.Component {
   }
 
   handleDateChange(val){
-    console.log('Selected: ', val);
     if (val === null) {
       this.getOneWordData(this.props.event.id)
       .then((data) => {
-        console.log(data);
         this.setState({
           oneTruth: data,
           dateSelected: '',
@@ -166,9 +164,9 @@ class OneWord extends React.Component {
         return d.score;
       }));
       const percent = Math.round(1000 * d.data.score / total) / 10;
-      console.log('percent: ', percent);
+      // console.log('percent: ', percent);
       tooltip.select('.label').html(d.data.word);
-      console.log(d.data.word);
+      // console.log(d.data.word);
       tooltip.select('.percent').html(percent + '%');
       tooltip.style('display', 'block');
     });
@@ -200,7 +198,6 @@ class OneWord extends React.Component {
   }
 
   render() {
-    console.log('admin data', this.state.d3Data);
     return (
 
       <div className="w-100 mh3 mv5">

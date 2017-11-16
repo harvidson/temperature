@@ -47,7 +47,6 @@ handleSubmit(event) {
     isAnonymous: this.state.isAnonymous
   }
   this.postIteration(newIteration)
-  console.log('iteration submitted!', newIteration);
 }
 
 postIteration(newIteration) {
@@ -62,7 +61,6 @@ postIteration(newIteration) {
   }).then((response) => {
     return response.json();
   }).then((j) => {
-    console.log(j);
     this.props.saveIteration(j)
   }).catch((err) => {
     console.log(err);

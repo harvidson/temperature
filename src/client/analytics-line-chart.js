@@ -25,7 +25,6 @@ class LineChart extends React.Component {
     if (event.is_lead) {
       this.getReflectionData(event.id)
       .then((j) => {
-        // console.log(j);
         this.setState({aggregateScores: j.aggregateScores, aggregateScoresWithMagnitude: j.aggregateScoresWithMagnitude})
         this.createLineChart()
       }).catch((err) => {
@@ -35,7 +34,6 @@ class LineChart extends React.Component {
     } else {
       this.getWriterReflectionData(event.id)
       .then((j) => {
-        // console.log(j);
         this.setState({aggregateScores: j, aggregateScoresWithMagnitude: j})
         this.createLineChart()
       }).catch((err) => {
@@ -44,17 +42,6 @@ class LineChart extends React.Component {
     }
 
 
-  }
-
-  componentWillReceiveProps(nextProps) {
-    //get reflection data
-    // console.log('show me nextProps.event', nextProps.event);
-
-    // if (event.is_lead) {
-    //   this.getReflectionData(event.id)
-    // } else {
-    //   this.getWriterReflectionData(event.id)
-    // }
   }
 
   componentDidUpdate() {
@@ -72,7 +59,6 @@ class LineChart extends React.Component {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
-      // console.log(response);
       return response.json();
     })
   }
@@ -82,7 +68,6 @@ class LineChart extends React.Component {
       method: 'get',
       credentials: 'include'
     }).then((response) => {
-      // console.log(response);
       return response.json();
     })
   }
@@ -119,8 +104,6 @@ class LineChart extends React.Component {
 
     var y = d3.scaleLinear().domain([-1, 1]).range([height, 0]);
 
-    //specify domain for y scale
-
     // define the line
     var valueline = d3.line().x(function(d) {
       return x(d.date);
@@ -144,8 +127,6 @@ class LineChart extends React.Component {
       return a["date"] - b["date"];
     })
 
-    // console.log(aggregateData);
-
     // Add the valueline path.
     svg.append("path").data([aggregateData]).attr("class", "line").attr("d", valueline);
     // Add the valueline path if checkbox is checked.
@@ -167,7 +148,6 @@ class LineChart extends React.Component {
           <div className="tc">
             <svg width="960" height="500" ref={node => this.node = node}></svg>
           </div>
-
 
           {this.props.event.is_lead
             ? <div className="f5 mt2 mb5 ml5">

@@ -59,7 +59,6 @@ router.post('/', (req, res, next) => {
       res.send(user);
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {
-      console.log('in bcrypt err');
       res.status(401).send('Invalid login.');
     })
     .catch((err) => {

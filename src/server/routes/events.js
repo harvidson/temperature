@@ -195,7 +195,6 @@ router.get('/:id', authorize, (req, res, next) => {
   knex('events_users').where({'event_id': eventId, 'user_id': userId}).then((rows) => {
     isLead = rows[0].is_lead
     isParticipant = rows[0].is_participant
-    // console.log(rows);
     if (!rows)
       return next(boom.create(401, 'Unauthorized.'));
 
@@ -448,18 +447,14 @@ router.post('/:id/users', authorize, (req, res, next) => {
 
     //check whether participant is already registered in this event
     for (const p of participantsToCheck) {
-      console.log('about to check participant ', p);
       newParticipants.push(checkParticipant(p))
     }
 
     return Promise.all(newParticipants)
   }).then((newParticipants) => {
-    console.log('newParticipants, line 458 ', newParticipants);
-
     updatedParticipants.registered = registered,
     updatedParticipants.notRegistered = notRegistered,
     updatedParticipants.alreadyParticipant = alreadyParticipant
-    console.log('updatedParticipants', updatedParticipants);
 
     res.send(updatedParticipants)
   }).catch((err) => {
@@ -491,8 +486,6 @@ function checkEmail(email) {
 function checkParticipant(p) {
   const newParticipant = []
 
-  console.log('checking user ', p);
-
   return knex('events_users')
     .where({
       event_id: eventId,
@@ -500,18 +493,13 @@ function checkParticipant(p) {
     })
     .first()
     .then((row) => {
-      console.log(row);
       if (!row) {
         newParticipant.push(addParticipant(p))
-        console.log('new user!')
       } else if (row && row.is_lead) {
           newParticipant.push(addLeadAsParticipant(p))
-          console.log('this user is the lead and now wants to participate')
       } else {
-        console.log('this user is already registered and is added (as promise) to fn-scoped alreadyParticipant', row)
         alreadyParticipant.push(p)
       };
-    console.log(alreadyParticipant);
     return Promise.resolve(newParticipant)
   })
 }

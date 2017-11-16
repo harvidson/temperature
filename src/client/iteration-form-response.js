@@ -2,7 +2,6 @@ import React from 'react';
 
 // TODO: reformat for style
 const IterationFormResponse = ({newIteration, closeModal}) => {
-  console.log(newIteration);
   return(
     <div className="mh4">
 
@@ -11,10 +10,6 @@ const IterationFormResponse = ({newIteration, closeModal}) => {
       </div>
       <div>You've assigned a new reflection. </div>
 
-      {/* <div className="fw3 lh-copy f4 dark-gray db">Title</div>
-      <p>{newEvent.title}</p>
-      <div className="fw3 lh-copy f4 dark-gray db">Description</div>
-      <p>{newEvent.description}</p> */}
       <div className="fw3 lh-copy f4 dark-gray db">Prompt</div>
       <p>{newIteration.prompt}</p>
 

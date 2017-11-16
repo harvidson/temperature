@@ -89,7 +89,6 @@ class NewReflection extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
       this.props.history.push('/dashboard');
     }).catch((err) => {
       console.log(err);

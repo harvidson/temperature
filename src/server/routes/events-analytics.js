@@ -322,7 +322,6 @@ router.get('/:id/reflectionsOverTime', authorize, (req, res,next) => {
       .where('event_id', eventId)
   })
   .then((iterations) => {
-    // console.log(iterations);
     const reflectionData = []
 
     for (const i of iterations) {
@@ -333,9 +332,7 @@ router.get('/:id/reflectionsOverTime', authorize, (req, res,next) => {
     return Promise.all(reflectionData)
   })
   .then((data) => {
-    // console.log(data.length);
     if (data.length <= 0) {
-      console.log('no data');
       res.send([])
     } else {
       const dataFlattened = data.reduce(function(arr, item) {
@@ -357,7 +354,6 @@ router.get('/:id/reflectionsOverTime', authorize, (req, res,next) => {
       .where('iteration_id', iteration.id)
       .orderBy('iteration_id')
       .then((reflections) => {
-        // console.log(reflections);
 
         const reflectionData = [];
 
@@ -474,7 +470,6 @@ router.get('/:id/writerReflectionsOverTime', authorize, (req, res,next) => {
     next(err)
   })
 
-// TODO: missing edge case clause here in case there's no reflection
   function getReflections(iteration) {
     return knex('reflections')
       .where({
@@ -483,7 +478,6 @@ router.get('/:id/writerReflectionsOverTime', authorize, (req, res,next) => {
       })
       .first()
       .then((reflection) => {
-        // console.log(reflection);
         if (!reflection) return Promise.resolve({})
 
         const singleReflection = {

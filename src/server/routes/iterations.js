@@ -38,7 +38,6 @@ router.get('/:id', authorize, (req, res, next) => {
   .where('id', iterationId)
   .first()
   .then((row) => {
-    console.log('iteration ', row);
     iteration = row
 
     return knex('events')
@@ -124,7 +123,6 @@ router.get('/:id/one-words', authorize, (req, res, next) => {
       .where('iteration_id', iterationId)
     })
     .then((reflections) => {
-      // console.log(reflections);
       if (reflections.length <= 0) res.send([])
 
       const oneWords = getWordData(reflections)
@@ -135,8 +133,6 @@ router.get('/:id/one-words', authorize, (req, res, next) => {
       }
       return Promise.all(worded)
     }).then((data) => {
-        console.log(data);
-
         const wordData = aggregateWords(data)
         res.send(wordData)
     }).catch((err) => {
@@ -232,7 +228,6 @@ router.post('/:id/reflections', authorize, (req, res, next) => {
   })
   .first()
   .then((row) => {
-    console.log('row from events_users ', row);
     if (!row) {
       return next(boom.create(401, 'Unauthorized.'))
     }

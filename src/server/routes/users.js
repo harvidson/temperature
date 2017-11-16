@@ -66,7 +66,6 @@ router.post('/', (req, res, next) => {
         secure: router.get('env') === 'production'
       });
 
-      console.log(user);
       res.send(user);
     })
     .catch((err) => {

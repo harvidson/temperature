@@ -52,15 +52,11 @@ class AddParticipant extends React.Component {
     const invalidPruned = invalid.filter(email => !isEmpty(email))
     this.setState({invalidEmails: invalidPruned})
 
-    console.log('valid emails ', valid);
-    console.log('invalid emails ', invalid);
-
     return valid;
   }
 
   postParticipants(participants) {
     const eventId = this.props.eventId;
-    console.log('participants to send to api', participants);
 
     fetch(`/api/events/${eventId}/users`, {
       method: 'post',
@@ -73,8 +69,6 @@ class AddParticipant extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
-      //TODO: on backend, remove 'already participants' from registered array; communicate 'already registered' separately
       this.setState({
         registered: j.registered,
         notRegistered: j.notRegistered

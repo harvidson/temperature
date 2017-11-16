@@ -39,7 +39,6 @@ class EventWriting extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
       this.setState({iterations: j})
     }).catch((err) => {
       console.log(err);

@@ -46,7 +46,6 @@ class EventView extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
       this.setState({
         participants: j
       })
@@ -62,7 +61,6 @@ class EventView extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
       this.setState({
         iterations: j
       })
@@ -75,7 +73,6 @@ class EventView extends React.Component {
     this.setState({
       addParticipant: !this.state.addParticipant
     })
-    console.log(this.state.addParticipant);
   }
 
   submitParticipants(){

@@ -54,7 +54,6 @@ class Dashboard extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
       this.setState({leading: j.leading, writing: j.writing});
     }).catch((err) => {
       console.log(err);
@@ -87,16 +86,13 @@ class Dashboard extends React.Component {
   }
 
   saveEvent(newEvent) {
-    console.log('newEvent sent to dashboard', newEvent);
     this.setState({newEvent: newEvent})
     this.openModal('eventFormResponse')
   }
 
   saveIteration(newIteration){
-    console.log('newIteration sent to dashboard', newIteration);
     this.setState({newIteration: newIteration})
     this.closeModal()
-    // this.openModal('iterationFormResponse', newIteration)
   }
 
 

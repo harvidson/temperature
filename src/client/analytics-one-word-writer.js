@@ -24,7 +24,6 @@ class OneWordWriter extends React.Component {
 
   componentDidMount() {
     const { event } = this.props
-    console.log(this.props);
 
     this.getOneWordWriterData(event.id)
       .then((j) => {
@@ -62,11 +61,9 @@ class OneWordWriter extends React.Component {
 
 
   handleDateChange(val){
-    console.log('Selected: ', val);
     if (val === null) {
       this.getOneWordData(this.props.event.id)
       .then((data) => {
-        console.log(data);
         this.setState({
           oneTruth: data,
           dateSelected: '',
@@ -98,10 +95,6 @@ class OneWordWriter extends React.Component {
   createDonutChart() {
     let clear = d3.select(this.node)
     clear.selectAll('*').remove();
-
-    // const oneWordData = this.state.checkboxState
-    //   ? this.state.oneWords
-    //   : this.state.oneWordsWithIntensity
 
     const oneWordData = this.state.d3Data
 
@@ -155,7 +148,6 @@ class OneWordWriter extends React.Component {
       return d;
     });
 
-    // TODO: make tooltip work
     const tooltip = d3.select(this.node).append('div').attr('class', 'tooltip');
 
     tooltip.append('div').attr('class', 'label');

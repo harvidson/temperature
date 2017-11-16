@@ -51,7 +51,6 @@ class Analytics extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log('response from token check: ', j)
       if (!j.authorized) {
         this.props.history.push('/');
         console.log('Unauthorized for this page');
