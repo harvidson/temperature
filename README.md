@@ -1,5 +1,3 @@
-# Temperature
+# <img src="public/images/temperature-logo.png" width="300" alt="logo">
 
 ![Logo](public/images/temperature-logo.png)
-
-<img src="public/images/temperature-logo.png" width="200" alt="logo">
