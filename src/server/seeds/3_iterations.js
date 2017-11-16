@@ -35,8 +35,8 @@ const iterationsList = [
     due_date: '2017-10-23 14:00:00 UTC',
     prompt: 'How do you feel about how the meeting went?',
     is_anonymous: true,
-    created_at: new Date('2017-09-15 14:26:16 UTC'),
-    updated_at: new Date('2017-09-15 14:26:16 UTC')
+    created_at: new Date('2017-10-18 14:26:16 UTC'),
+    updated_at: new Date('2017-10-18 14:26:16 UTC')
   },
   {
     id: 5,
@@ -44,35 +44,17 @@ const iterationsList = [
     due_date: '2017-10-30 14:00:00 UTC',
     prompt: 'How do you feel about how the meeting went?',
     is_anonymous: true,
-    created_at: new Date('2017-09-15 14:26:16 UTC'),
-    updated_at: new Date('2017-09-15 14:26:16 UTC')
+    created_at: new Date('2017-10-25 14:26:16 UTC'),
+    updated_at: new Date('2017-10-25 14:26:16 UTC')
   },
   {
     id: 6,
     event_id: 5,
-    due_date: '2017-10-06 14:00:00 UTC',
+    due_date: '2017-11-06 14:00:00 UTC',
     prompt: 'How do you feel about how the meeting went?',
     is_anonymous: true,
-    created_at: new Date('2017-09-15 14:26:16 UTC'),
-    updated_at: new Date('2017-09-15 14:26:16 UTC')
-  },
-  {
-    id: 7,
-    event_id: 5,
-    due_date: '2017-11-13 14:00:00 UTC',
-    prompt: 'How do you feel about how the meeting went?',
-    is_anonymous: true,
-    created_at: new Date('2017-09-15 14:26:16 UTC'),
-    updated_at: new Date('2017-09-15 14:26:16 UTC')
-  },
-  {
-    id: 8,
-    event_id: 5,
-    due_date: '2017-11-20 14:00:00 UTC',
-    prompt: 'How do you feel about how the meeting went?',
-    is_anonymous: true,
-    created_at: new Date('2017-09-15 14:26:16 UTC'),
-    updated_at: new Date('2017-09-15 14:26:16 UTC')
+    created_at: new Date('2017-11-01 14:26:16 UTC'),
+    updated_at: new Date('2017-11-01 14:26:16 UTC')
   },
   //university group work
   {
@@ -129,7 +111,36 @@ const iterationsList = [
     is_anonymous: true,
     created_at: new Date('2017-11-01 14:00:00 UTC'),
     updated_at: new Date('2017-11-01 14:00:00 UTC')
+  },
+  //more highschool meetings
+  {
+    id: 15,
+    event_id: 5,
+    due_date: '2017-11-13 14:00:00 UTC',
+    prompt: 'How do you feel about how the meeting went?',
+    is_anonymous: true,
+    created_at: new Date('2017-11-10 14:26:16 UTC'),
+    updated_at: new Date('2017-11-10 14:26:16 UTC')
+  },
+  {
+    id: 16,
+    event_id: 5,
+    due_date: '2017-11-19 13:00:00 UTC',
+    prompt: 'How do you feel about how the meeting went?',
+    is_anonymous: true,
+    created_at: new Date('2017-11-15 14:26:16 UTC'),
+    updated_at: new Date('2017-11-15 14:26:16 UTC')
+  },
+  {
+    id: 17,
+    event_id: 5,
+    due_date: '2017-11-24 14:00:00 UTC',
+    prompt: 'How do you feel about how the meeting went?',
+    is_anonymous: true,
+    created_at: new Date('2017-11-17 14:26:16 UTC'),
+    updated_at: new Date('2017-11-17 14:26:16 UTC')
   }
+
 ];
 
 exports.seed = function(knex, Promise) {

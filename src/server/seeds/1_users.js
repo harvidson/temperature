@@ -63,10 +63,10 @@ const usersList = [
   },
   {
     id: 7,
-    first_name: 'Paul',
+    first_name: 'Peter',
     last_name: 'Straight-As',
     pronouns: 'he',
-    email: 'paul@highschool.edu',
+    email: 'peter@highschool.edu',
     hashed_password: '$2a$12$oEnJjrb2XsPOTGhrn0o21.Ck5qiOXF4OIXes1rjCrbQJlRlSwoTVW', //failbetter
     created_at: new Date('2017-09-02 14:26:16 UTC'),
     updated_at: new Date('2017-09-02 14:26:16 UTC')
@@ -213,8 +213,28 @@ const usersList = [
     hashed_password: '$2a$12$oEnJjrb2XsPOTGhrn0o21.Ck5qiOXF4OIXes1rjCrbQJlRlSwoTVW', //failbetter
     created_at: new Date('2017-09-02 14:26:16 UTC'),
     updated_at: new Date('2017-09-02 14:26:16 UTC')
-  }
-
+  },
+  //more highschool teachers
+  {
+    id: 22,
+    first_name: 'Paul',
+    last_name: 'Biology',
+    pronouns: 'he',
+    email: 'paul@highschool.com',
+    hashed_password: '$2a$12$oEnJjrb2XsPOTGhrn0o21.Ck5qiOXF4OIXes1rjCrbQJlRlSwoTVW', //failbetter
+    created_at: new Date('2017-10-15 14:26:16 UTC'),
+    updated_at: new Date('2017-10-15 14:26:16 UTC')
+  },
+  {
+    id: 23,
+    first_name: 'Hattie',
+    last_name: 'Health',
+    pronouns: 'she',
+    email: 'patty@highschool.com',
+    hashed_password: '$2a$12$oEnJjrb2XsPOTGhrn0o21.Ck5qiOXF4OIXes1rjCrbQJlRlSwoTVW', //failbetter
+    created_at: new Date('2017-10-15 14:26:16 UTC'),
+    updated_at: new Date('2017-10-15 14:26:16 UTC')
+  },
 ]
 
 exports.seed = function(knex, Promise) {

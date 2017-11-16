@@ -462,7 +462,11 @@ router.get('/:id/writerReflectionsOverTime', authorize, (req, res,next) => {
     return Promise.all(reflectionData)
   })
   .then((data) => {
-    // console.log(data);
+    for (let i = 0; i < data.length; i++) {
+      if (Object.keys(data[i]).length === 0 && data[i].constructor === Object) {
+        data.splice(i, 1)
+      }
+    }
     res.send(data)
   })
   .catch((err) => {
@@ -480,6 +484,7 @@ router.get('/:id/writerReflectionsOverTime', authorize, (req, res,next) => {
       .first()
       .then((reflection) => {
         // console.log(reflection);
+        if (!reflection) return Promise.resolve({})
 
         const singleReflection = {
           date: reflection.created_at,

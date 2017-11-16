@@ -34,7 +34,7 @@ class Wordcloud extends React.Component {
   }
 
   fontSizeMapper(word){
-    return Math.log2(word.value) * 10;
+    return Math.log2(word.value) * 15;
   }
 
   rotate(word) {

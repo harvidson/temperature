@@ -25,7 +25,7 @@ const Iteration = ({iteration, openModal}) => {
               <div className=""><Link to={`/iterations/${iteration.id}/reflection`} className="fr f6 no-underline grow white ba ph2 pv2 v-mid ma2 action-button br2 link pointer">Write</Link></div>
           </div>
           <div className="pl4 ">
-            <span className="accent-orange">Due:</span> <Moment format="dddd, MMMM D, YYYY, h:mm a">{iteration.due_date}</Moment>
+            <span className="accent-orange mb1">Due:</span> <Moment format="dddd, MMMM D, YYYY, h:mm a">{iteration.due_date}</Moment>
           </div>
         </div>
 
