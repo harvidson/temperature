@@ -99,7 +99,7 @@ class Landing extends React.Component {
         <main>
           <div className="mv5 mh6">
             <h2 className="f1 fw3 dark-gray">Get candid data.</h2>
-            <p className="dark-gray f4">Temperature is a tool for gathering authentic, candid information about people’s states of mind while preserving their confidentiality. It combines reflective writing that only the writer will see with aggregate data analytics for the group, allowing leaders to ask targeted questions and trace responses over time.  </p>
+            <p className="dark-gray f4">Temperature is a tool for gathering authentic, candid information about people’s states of mind while preserving their confidentiality. It combines reflective writing that only the writer will see with aggregate data analytics for the group, allowing leaders to ask targeted questions and trace responses over time. Temperature is an analytics platform that keeps leaders up to speed.</p>
 
 
             <div className="tc">
@@ -111,9 +111,9 @@ class Landing extends React.Component {
           <div className="mv5 mh6">
             <h2 className="f1 fw3 dark-gray">Why journal?</h2>
             <p className="dark-gray f4">Temperature adds a vital upgrade to the traditional survey: it makes responding valuable to the people answering the questions. </p>
-            <p className="dark-gray f4">The benefits of journalling are well documented. The <i>Harvard Business Review</i> cites four key ones: improved focus, patience, planning, and personal growth. It's a powerful tool for integrating learning more deeply; identifying barriers to success; working through difficult feelings, stress, or conflict; and tracing personal trajectories.</p>
+            <p className="dark-gray f4">The benefits of journalling are well documented. The <i>Harvard Business Review</i> cites four key ones: improved focus, patience, planning, and personal growth. Reflective writing is a powerful tool for integrating learning more deeply; identifying barriers to success; working through difficult feelings, stress, or conflict; and tracing personal trajectories.</p>
             <p className="dark-gray f4">
-              These are excellent reasons to promote reflective writing for your team.
+              These are excellent reasons to integrate reflective writing into your team's process for sharing feedback. Temperature is a journalling platform that enables group members to express themselves on their own terms.
             </p>
 
             <ul>
