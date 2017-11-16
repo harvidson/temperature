@@ -23,26 +23,6 @@ class OneWord extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
-    // if (nextProps.event.is_lead) {
-    //   this.getOneWordData(nextProps.event.id)
-    //   .then((j) => {
-    //     this.setState({
-    //       oneTruth: j,
-    //       d3Data: j.oneWords
-    //     })
-    //   }).catch((err) => {
-    //     console.log(err);
-    //   })
-    //
-    //   this.getDates(nextProps.event.id)
-    // } else {
-    //   // this.getOneWordWriterData(nextProps.event.id)
-    //   console.log('this is the writer');
-    // }
-  }
-
   componentDidMount() {
     const { event } = this.props
 
@@ -223,8 +203,9 @@ class OneWord extends React.Component {
     console.log('admin data', this.state.d3Data);
     return (
 
-      <div className="w-100 ma3">
-        <div className="f3 fw3 accent-orange mv4">In a word, how is everyone feeling?</div>
+      <div className="w-100 mh3 mv5">
+
+        <div className="f2 fw3 accent-orange mb4">In a word, how is everyone feeling?</div>
         {this.state.d3Data.length > 0
           ? <div className="cf mh3">
               <div className="fl">

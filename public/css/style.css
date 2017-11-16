@@ -50,6 +50,10 @@ main {
   color: #D95700;
 }
 
+.orange-link:hover {
+  color:  #D95700;
+}
+
 .bright-orange {
   color: #FF7316;
 }

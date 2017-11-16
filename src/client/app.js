@@ -34,13 +34,15 @@ class App extends React.Component {
             <div className="fl w-40 pa2 tr pv3">
               <img src="/static/images/temperature-logo.png" alt="logo" width="150px"/>
             </div>
-            <div className="fl w-25 pa2  ">
-              <p className="white-70">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div className="fl w-15 pa2 ml6">
+              <p className="white-70">About Temperature</p>
+              <p className="white-70">Contact</p>
             </div>
-            <div className="fl w-25 pa2  ">
-              <p className="white-70">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div className="fl w-20 pa2 ml6 ">
+              <p className="white-70">FAQs</p>
+              <p className="white-70">Support</p>
             </div>
-            <div className="fl w-15 pa2  "></div>
+
           </div>
         </div>
         </footer>

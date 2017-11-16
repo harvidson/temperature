@@ -233,7 +233,7 @@ const reflectionsList = [
     user_id: 1,
     title: 'Wow.',
     content: 'What happened this week?? Meeting got totally derailed. The agenda was a joke. People seemed mad, and I was absolutely confused about what’s happening, and what these meetings are for. And, man, do we have some firecrackers on staff. I’m pretty appreciative that they speak up and push back, but I also feel like there’s not much room for me. They just talked and talked, about what, god knows. I can’t really get into the conversation, but I guess I feel to new to know what to say anyway. So, not feeling great about my job this week. Actually I feel kind of awful. But maybe it was just a hard week…. ',
-    text_analytics: '{ "documentSentiment": {"magnitude": 3.5999999046325684, "score": -0.10000000149011612}}',
+    text_analytics: '{ "documentSentiment": {"magnitude": 3.5999999046325684, "score": -0.30000000149011612}}',
     one_word_id: 19,
     one_word_intensity: 2,
     created_at: new Date('2017-11-06 14:26:16 UTC'),
@@ -248,7 +248,7 @@ const reflectionsList = [
     one_word_id: 8,
     one_word_intensity: 3,
     created_at: new Date('2017-11-06 14:26:16 UTC'),
-    updated_at: new Date('2017-09-30 14:26:16 UTC')
+    updated_at: new Date('2017-11-06 14:26:16 UTC')
   },{
     id: 23,
     iteration_id: 6,
@@ -266,7 +266,7 @@ const reflectionsList = [
     user_id: 23,
     title: 'Complainers',
     content: 'I know that Paul has worked here a long time and has a lot to say, but I’ve worked here a long time too and I don’t think that entitles me to talk to a room full of people for ten minutes straight about the whole history of the school and then opine about everything that’s wrong. Why can’t Sam cut people off when they talk too long? He was nodding along and taking notes as the entire rest of the faculty was so pissed off and bored they were practically climbing under their chairs or just checked out on their email. I miss the days when faculty meetings felt like a time to gather and be in dialogue rather than a place to listed to a few people complain, complain, complain and complain some more. Honestly, it makes me really angry to have to listen to other people’s complaints. I have enough of my own!',
-    text_analytics: '{ "documentSentiment": {"magnitude": 2.4000000953674316, "score": -0.10000000149011612}}',
+    text_analytics: '{ "documentSentiment": {"magnitude": 2.4000000953674316, "score": -0.30000000149011612}}',
     one_word_id: 18,
     one_word_intensity: 2,
     created_at: new Date('2017-11-06 14:26:16 UTC'),
@@ -277,7 +277,7 @@ const reflectionsList = [
     user_id: 1,
     title: 'I have so checked out.',
     content: 'Bob and Sam have really lost my attention. Shit hit the fan at the end of the meeting as we once again wandered off into the weeds astride hobbyhorses and broomsticks, and then amid some pretty intense concerns and distress about workload, Bob and Sam just kept charging ahead with a pretty ill-thought project that’s just going to pile the work on. Anyway, I’m so overwhelmed I can hardly get through the day to day, so I guess I didn’t listen too closely. Will there be more information in writing about what we’re supposed to do? As usual, I’m confused. What’s new is I’m demoralized. Starting to worry that I never should have taken this job. ',
-    text_analytics: '{ "documentSentiment": {"magnitude": 2.200000047683716, "score": -0.20000000298023224}}',
+    text_analytics: '{ "documentSentiment": {"magnitude": 2.200000047683716, "score": -0.50000000298023224}}',
     one_word_id: 16,
     one_word_intensity: 4,
     created_at: new Date('2017-11-13 14:26:16 UTC'),
@@ -288,7 +288,7 @@ const reflectionsList = [
     user_id: 5,
     title: 'Lost momentum.',
     content: 'Today we were back into crossing t’s and dotting i’s; pointless things that could well be conveyed in an email that leave no space at all for discussion. Not like we kept to the agenda, either. It was all higgledy piggledy and airing personal grievances. If I have to hear anymore about how the language teachers expect to see students every day of the week I really might just scream. Stress levels are high. I hope you’re listening to us, Sam.',
-    text_analytics: '{ "documentSentiment": {"magnitude": 1.7999999523162842, "score": -0.10000000149011612}}',
+    text_analytics: '{ "documentSentiment": {"magnitude": 1.7999999523162842, "score": -0.30000000149011612}}',
     one_word_id: 16,
     one_word_intensity: 4,
     created_at: new Date('2017-11-13 14:26:16 UTC'),
@@ -299,7 +299,7 @@ const reflectionsList = [
     user_id: 22,
     title: 'Busy',
     content: 'In the twenty-five years I’ve worked at this school I don’t think I’ve ever been so busy. I’ve been sick twice already this year and had to miss work, which adds even more work. I thought that last week the old commander had finally taken some goddamn notes about all the crazy shit that’s happening and maybe he was going to contemplate those notes and do something about it, but instead they just spent an hour reminding us of all the insane work that we need to do that has nothing to do with teaching our actual classes, the thing that we’re supposedly being paid to do. I hate to say it, but I’m thinking of quitting. Probably just a pipe dream, since I like the kids too much to leave (and am too old to change careers), but honestly today was one of those days when throwing in the towel seems like the best option. ',
-    text_analytics: '{ "documentSentiment": {"magnitude": 2.700000047683716, "score": -0.20000000298023224}}',
+    text_analytics: '{ "documentSentiment": {"magnitude": 2.700000047683716, "score": -0.50000000298023224}}',
     one_word_id: 16,
     one_word_intensity: 5,
     created_at: new Date('2017-11-13 14:26:16 UTC'),
@@ -309,8 +309,8 @@ const reflectionsList = [
     iteration_id: 15,
     user_id: 23,
     title: 'So much work…',
-    content: 'I hate to complain so much, but these days it just feels hard to keep my head above water. To go to these meetings on top of a very booked and hectic days of classes feels like a lot. I know it’s important, but sometimes I just get frustrated by how much they expect us to do and how little time we have to do it. That’s not really about the meeting itself, but it feels like when we go to the meetings they give us all these details about more things we need to get done on ridiculous timelines. What happened to the meetings where we actually got to talk to our colleagues about things that matter? It feels like',
-    text_analytics: '{ "documentSentiment": {"magnitude": 2.5, "score": 0}}',
+    content: 'I hate to complain so much, but these days it just feels hard to keep my head above water. To go to these meetings on top of a very booked and hectic days of classes feels like a lot. I know it’s important, but sometimes I just get frustrated by how much they expect us to do and how little time we have to do it. That’s not really about the meeting itself, but it feels like when we go to the meetings they give us all these details about more things we need to get done on ridiculous timelines. What happened to the meetings where we actually got to talk to our colleagues about things that matter? It feels like no one has our backs.',
+    text_analytics: '{ "documentSentiment": {"magnitude": 2.5, "score": -0.2}}',
     one_word_id: 16,
     one_word_intensity: 3,
     created_at: new Date('2017-11-13 14:26:16 UTC'),
@@ -381,7 +381,19 @@ const reflectionsList = [
     one_word_intensity: 3,
     created_at: new Date('2017-11-19 14:26:16 UTC'),
     updated_at: new Date('2017-11-19 14:26:16 UTC')
-  }
+  },
+  {
+    id: 35,
+    iteration_id: 16,
+    user_id: 4,
+    title: 'Great turn of morale',
+    content: 'Today\'s meeting went by quickly. I don\' think I\'m alone in feeling much more upbeat about our direction and our ability to get there as a team. I\'m relieved that there\'s been some sign of compromise about our curriculum project; I hope the discussion continues. And mostly it was just awesome to have some fun with my collegues--we laughed, got some work done, and went home on a positive note.',
+    text_analytics: '{ "documentSentiment": {"magnitude": 2, "score": 0.5}}',
+    one_word_id: 5,
+    one_word_intensity: 3,
+    created_at: new Date('2017-11-19 14:26:16 UTC'),
+    updated_at: new Date('2017-11-19 14:26:16 UTC')
+  },
 
 ];
 

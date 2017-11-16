@@ -45,8 +45,8 @@ class Wordcloud extends React.Component {
   render(){
 
     return(
-      <div className="ma3">
-     <div className="f3 fw3 accent-orange">Reflection Keywords</div>
+      <div className="mh3 mt5">
+     <div className="f2 fw3 accent-orange mb4">Reflection Keywords</div>
         <WordCloud
             data={this.state.words}
             fontSizeMapper={this.fontSizeMapper}

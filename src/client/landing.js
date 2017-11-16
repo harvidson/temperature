@@ -99,7 +99,8 @@ class Landing extends React.Component {
         <main>
           <div className="mv5 mh6">
             <h2 className="f1 fw3 dark-gray">Get candid data.</h2>
-            <p className="dark-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p className="dark-gray f4">Temperature is a tool for gathering authentic, candid information about people’s states of mind while preserving their confidentiality. It combines reflective writing that only the writer will see with aggregate data analytics for the group, allowing leaders to ask targeted questions and trace responses over time.  </p>
+
 
             <div className="tc">
               <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link" onClick={this.openModal.bind(this, 'signup')}>Get started</a>
@@ -109,14 +110,18 @@ class Landing extends React.Component {
           <hr/>
           <div className="mv5 mh6">
             <h2 className="f1 fw3 dark-gray">Why journal?</h2>
-            <p className="dark-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p className="dark-gray f4">Temperature adds a vital upgrade to the traditional survey: it makes responding valuable to the people answering the questions. </p>
+            <p className="dark-gray f4">The benefits of journalling are well documented. The <i>Harvard Business Review</i> cites four key ones: improved focus, patience, planning, and personal growth. It's a powerful tool for integrating learning more deeply; identifying barriers to success; working through difficult feelings, stress, or conflict; and tracing personal trajectories.</p>
+            <p className="dark-gray f4">
+              These are excellent reasons to promote reflective writing for your team.
+            </p>
 
             <ul>
               <li>
-                <a href="#" className="link dark-gray">Some study</a>
+                <a href="https://hbr.org/2011/04/four-reasons-to-keep-a-work-di" className="f4 link dark-gray orange-link">Four Reasons to Keep A Work Diary</a>
               </li>
               <li>
-                <a href="#" className="link dark-gray">Another study</a>
+                <a href="https://psychcentral.com/lib/the-health-benefits-of-journaling/" className="f4 link dark-gray orange-link">The Health Benefits of Journalling</a>
               </li>
             </ul>
 
