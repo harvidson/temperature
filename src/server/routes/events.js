@@ -221,8 +221,9 @@ router.get('/:id/writer', authorize, (req, res, next) => {
       return next(boom.create(401, 'Unauthorized.'));
 
     //get all iterations of event
-    return knex('iterations').where('event_id', eventId).whereNull('iterations.deleted_at')
+    return knex('iterations').where('event_id', eventId).whereNull('iterations.deleted_at').orderBy('due_date', 'desc')
   }).then((iterations) => {
+    console.log(iterations);
     const array = []
 
     //look for a reflection for each iteration
