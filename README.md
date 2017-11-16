@@ -1,3 +1,3 @@
 # Temperature
 
-![Temperature Logo]('./public/images/temperature-logo.png')
+![Temperature Logo](public/images/temperature-logo.png)
