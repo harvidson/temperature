@@ -149,8 +149,6 @@ class Landing extends React.Component {
     )
   }
 
-  /* // TODO: style: make modal smaller */
-
 };
 
 export default Landing;

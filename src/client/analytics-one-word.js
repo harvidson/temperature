@@ -235,7 +235,7 @@ class OneWord extends React.Component {
                 </div>
               </div>
             </div>
-          : <div className="f5 ma3">Admin No data is available yet.</div>
+          : <div className="f4 ma3">No data is available yet.</div>
         }
       </div>
     )

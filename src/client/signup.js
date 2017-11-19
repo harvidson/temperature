@@ -1,5 +1,7 @@
-import React from 'react';
-import {Route, Link} from 'react-router-dom';
+import React from 'react'
+import {Route, Link} from 'react-router-dom'
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
 
 class Signup extends React.Component {
   constructor(props) {
@@ -8,7 +10,7 @@ class Signup extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      pronouns: 'she',
+      pronouns: '',
       email: '',
       password: ''
     }
@@ -31,8 +33,8 @@ class Signup extends React.Component {
     this.setState({lastName: event.target.value});
   }
 
-  handlePronounsChange(event) {
-    this.setState({pronouns: event.target.value});
+  handlePronounsChange(val) {
+    this.setState({pronouns: val});
   }
 
   handleEmailChange(event) {
@@ -53,6 +55,7 @@ class Signup extends React.Component {
       email: this.state.email,
       password: this.state.password
     }
+
     this.postUser(user)
   }
 
@@ -96,6 +99,13 @@ class Signup extends React.Component {
   }
 
   render() {
+    const options = [
+      { value: "she", label: 'She/her' },
+      { value: "he", label: 'He/him'},
+      { value: "they", label: 'They/them' },
+      { value: "other", label: 'Other' }
+    ]
+
     return (
 
       <div className="w-100 mh4 modal">
@@ -117,15 +127,17 @@ class Signup extends React.Component {
                   <input className="pa2 mh2 bg-transparent" type="text" name="lastName" value={this.state.lastName} onChange={this.handleLastNameChange}/>
                 </label>
               </div>
-              <div className="mt3">
+              <div className="mt3 w-100 cf">
                 <label className="fw4 lh-copy f5">
                   Which pronouns do you prefer?&nbsp;&nbsp;
-                  <select value={this.state.pronouns} onChange={this.handlePronounsChange}>
-                    <option value="she">She/her</option>
-                    <option value="he">He/him</option>
-                    <option value="they">They/them</option>
-                    <option value="other">Other</option>
-                  </select>
+                  <Select
+                    name="pronouns"
+                    value={this.state.pronouns}
+                    onChange={this.handlePronounsChange}
+                    options={options}
+                    className="w-30"
+                    placeholder="Select..."
+                  />
                 </label>
               </div>
               <div className="mt3">

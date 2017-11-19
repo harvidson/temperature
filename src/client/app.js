@@ -35,12 +35,12 @@ class App extends React.Component {
               <img src="/static/images/temperature-logo.png" alt="logo" width="150px"/>
             </div>
             <div className="fl w-15 pa2 ml6">
-              <p className="white-70"><a href="#" className="hover-white grow link">About Temperature</a></p>
-              <p className="white-70"><a href="#" className="hover-white grow link">Contact</a></p>
+              <p className="white-70"><a href="#" className="white-70 hover-white grow link">About Temperature</a></p>
+              <p className="white-70"><a href="#" className="white-70 hover-white grow link">Contact</a></p>
             </div>
             <div className="fl w-20 pa2 ml6 ">
-              <p className="white-70"><a href="#" className="hover-white grow link">FAQs</a></p>
-              <p className="white-70"><a href="#" className="hover-white grow link">Support</a></p>
+              <p className="white-70"><a href="#" className="white-70 hover-white grow link">FAQs</a></p>
+              <p className="white-70"><a href="#" className="white-70 hover-white grow link">Support</a></p>
             </div>
 
           </div>
