@@ -87,16 +87,16 @@ class login extends React.Component {
         <div className="pa4">
           <form onSubmit={this.handleSubmit}>
 
-              <div className="mt3">
-                <label className="db fw4 lh-copy f5">
+              <div className="mt3 w-100">
+                <label className="db fw4 lh-copy f5 ">
                   Email
-                  <input className="pa2 mh2 bg-transparent w-100 measure" type="email" name="email" value={this.state.email} onChange={this.handleEmailChange}/>
+                  <input className="pa2 mh2 bg-transparent ba b--black-20 br2 w-70" type="email" name="email" value={this.state.email} onChange={this.handleEmailChange}/>
                 </label>
               </div>
               <div className="mt3">
                 <label className="db fw4 lh-copy f5">
                   Password
-                  <input className="pa2 mh2 bg-transparent" type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}/>
+                  <input className="pa2 mh2 bg-transparent ba b--black-20 br2" type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}/>
                 </label>
               </div>
               <div className="tc mt3">

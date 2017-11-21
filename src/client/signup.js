@@ -120,36 +120,42 @@ class Signup extends React.Component {
               <div className="mt3">
                 <label className="fw4 lh-copy f5">
                   First name
-                  <input className="pa2 mh2 bg-transparent" type="text" name="firstName" value={this.state.firstName} onChange={this.handleFirstNameChange}/>
+                  <input className="pa2 mh2 bg-transparent ba b--black-20 br2" type="text" name="firstName" value={this.state.firstName} onChange={this.handleFirstNameChange}/>
                 </label>
-                <label className="fw4 lh-copy f5">
+                <label className="ml2 fw4 lh-copy f5">
                   Last name
-                  <input className="pa2 mh2 bg-transparent" type="text" name="lastName" value={this.state.lastName} onChange={this.handleLastNameChange}/>
+                  <input className="pa2 mh2 bg-transparent ba b--black-20 br2" type="text" name="lastName" value={this.state.lastName} onChange={this.handleLastNameChange}/>
                 </label>
               </div>
-              <div className="mt3 w-100 cf">
-                <label className="fw4 lh-copy f5">
+              <div className="mt3 w-100 lh-copy">
+                <label className="fw4 f5 dib w-100">
                   Which pronouns do you prefer?&nbsp;&nbsp;
                   <Select
                     name="pronouns"
                     value={this.state.pronouns}
                     onChange={this.handlePronounsChange}
                     options={options}
-                    className="w-30"
+                    className="dib w-30 ml2 v-btm"
                     placeholder="Select..."
                   />
                 </label>
               </div>
               <div className="mt3">
-                <label className="db fw4 lh-copy f5">
+                <label className="db fw4 lh-copy f5 ">
                   Email
-                  <input className="pa2 mh2 bg-transparent w-100 measure" type="email" name="email" value={this.state.email} onChange={this.handleEmailChange}/>
+                  <input
+                    className="pa2 mh2 bg-transparent w-100 measure ba b--black-20 br2"
+                    type="email"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleEmailChange}
+                  />
                 </label>
               </div>
               <div className="mt3">
                 <label className="db fw4 lh-copy f5">
                   Password
-                  <input className="pa2 mh2 bg-transparent" type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}/>
+                  <input className="pa2 mh2 bg-transparent ba b--black-20 br2" type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}/>
                 </label>
               </div>
               <div className="tc mt3">
