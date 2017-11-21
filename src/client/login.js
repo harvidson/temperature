@@ -1,5 +1,7 @@
-import React from 'react';
-import {Route, Link} from 'react-router-dom';
+import React from 'react'
+import {Route, Link} from 'react-router-dom'
+import { Formik } from 'formik'
+
 
 class login extends React.Component {
   constructor(props) {
@@ -106,6 +108,8 @@ class login extends React.Component {
 
           </form>
         </div>
+
+
 
         <div className="tc">
           <p>Need an account? <a className="accent-orange link pointer" onClick={ () => {this.props.openModal('signup')}}>Sign up</a>.</p>

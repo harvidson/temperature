@@ -2,6 +2,7 @@ import React from 'react'
 import {Route, Link} from 'react-router-dom'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
+import { Formik } from 'formik'
 
 class Signup extends React.Component {
   constructor(props) {
@@ -135,7 +136,7 @@ class Signup extends React.Component {
                     value={this.state.pronouns}
                     onChange={this.handlePronounsChange}
                     options={options}
-                    className="dib w-30 ml2 v-btm"
+                    className="dib w-30 ml2 v-mid"
                     placeholder="Select..."
                   />
                 </label>
@@ -169,7 +170,11 @@ class Signup extends React.Component {
         <div className="tc">
           <p>Already have an account? <a className="accent-orange link pointer" onClick={ () => {this.props.openModal('login')}}>Log in</a>.</p>
         </div>
-      </div>
+
+
+
+
+  </div>
 
     )
   }
