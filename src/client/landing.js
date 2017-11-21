@@ -71,9 +71,7 @@ class Landing extends React.Component {
     return (
       <div>
         <header className="sans-serif">
-          {/* <div className="cover bg-left bg-center-l w-100" style={{
-            backgroundImage: 'url(static/images/kluber.jpg)'
-          }}> */}
+
             <div className="bg-dark-gray pb4 pb4-m pb5-l">
               <nav className="dt w-100 mw8 center">
 
@@ -92,13 +90,12 @@ class Landing extends React.Component {
                 <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link" onClick={this.openModal.bind(this, 'signup')} href="#">Get started</a>
               </div>
             </div>
-          {/* </div> */}
         </header>
 
         <main>
           <div className="mv5 mh6">
             <h2 className="f1 fw3 dark-gray">Get candid data.</h2>
-            <p className="dark-gray f4">Temperature is a tool for gathering authentic, candid information about people’s states of mind while preserving their confidentiality. It combines reflective writing that only the writer will see with aggregate data analytics for the group, allowing leaders to ask targeted questions and trace responses over time. Temperature is an analytics platform that keeps leaders up to speed.</p>
+            <p className="black-80 f4">Temperature is a tool for gathering authentic, candid information about people’s states of mind while preserving their confidentiality. It combines reflective writing that only the writer will see with aggregate data analytics for the group, allowing leaders to ask targeted questions and trace responses over time. Temperature is an analytics platform that keeps leaders up to speed.</p>
 
 
             <div className="tc">
@@ -109,17 +106,17 @@ class Landing extends React.Component {
           <hr/>
           <div className="mv5 mh6">
             <h2 className="f1 fw3 dark-gray">Why journal?</h2>
-            <p className="dark-gray f4">Temperature adds a vital upgrade to the traditional survey: it makes responding valuable to the people answering the questions. </p>
-            <p className="dark-gray f4">The benefits of journalling are well documented. The <a href="https://hbr.org/2011/04/four-reasons-to-keep-a-work-di" className="link orange-link"><i>Harvard Business Review</i></a> cites four key ones: improved focus, patience, planning, and personal growth. Reflective writing is a powerful tool for integrating learning more deeply; identifying barriers to success; working through difficult feelings, stress, or conflict; and tracing personal trajectories.</p>
+            <p className="black-80 f4">Temperature adds a vital upgrade to the traditional survey: it makes responding valuable to the people answering the questions. </p>
+            <p className="black-80 f4">The benefits of journalling are well documented. The <a href="https://hbr.org/2011/04/four-reasons-to-keep-a-work-di" className="link orange-link"><i>Harvard Business Review</i></a> cites four key ones: improved focus, patience, planning, and personal growth. Reflective writing is a powerful tool for integrating learning more deeply; identifying barriers to success; working through difficult feelings, stress, or conflict; and tracing personal trajectories.</p>
             <ul>
               <li>
-                <a href="https://hbr.org/2011/04/four-reasons-to-keep-a-work-di" className="f4 link dark-gray orange-link">Four Reasons to Keep A Work Diary</a>
+                <a href="https://hbr.org/2011/04/four-reasons-to-keep-a-work-di" className="f4 link black-80 orange-link">Four Reasons to Keep A Work Diary</a>
               </li>
               <li>
-                <a href="https://psychcentral.com/lib/the-health-benefits-of-journaling/" className="f4 link dark-gray orange-link">The Health Benefits of Journalling</a>
+                <a href="https://psychcentral.com/lib/the-health-benefits-of-journaling/" className="f4 link black-80 orange-link">The Health Benefits of Journalling</a>
               </li>
             </ul>
-            <p className="dark-gray f4">
+            <p className="black-80 f4">
               These are excellent reasons to integrate reflective writing into your team's process for sharing feedback. Temperature is a journalling platform that enables group members to express themselves on their own terms.
             </p>
 
