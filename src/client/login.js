@@ -1,6 +1,7 @@
 import React from 'react'
 import {Route, Link} from 'react-router-dom'
 import { Formik } from 'formik'
+import Yup from 'yup'
 
 
 class login extends React.Component {
@@ -109,7 +110,54 @@ class login extends React.Component {
           </form>
         </div>
 
+        <div>
+          <Formik
+            initialValues={{
+              email: '',
+              password: ''
+            }}
+            validate = {values => {
+              let errors = {};
+              if (!values.email) {
+                errors.email = 'Required'
+              } else if ( !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
+              }
 
+              if (!values.password){
+                errors.password = 'Required'
+              } else if ( !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/i.test(values.password)) {
+                errors.password = 'Password must contain one number, one special character, one upper-case and one lower-case letter.'
+              }
+
+              return errors
+            }}
+            onSubmit = {values => {
+
+            }}
+            render = {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) =>
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="email"
+                  name="email"
+                  onChange={handleChange}
+                  value={values.email}
+                />
+                {touched.email && errors.email && <div>{errors.email}</div>}
+                <input
+                  type="password"
+                  name="password"
+                  onChange={handleChange}
+                  value={values.password}
+                />
+                {touched.password && errors.password && <div>{errors.password}</div>}
+                <button type="submit" disabled={isSubmitting}>Submit</button>
+
+
+              </form>
+            }
+          />
+        </div>
 
         <div className="tc">
           <p>Need an account? <a className="accent-orange link pointer" onClick={ () => {this.props.openModal('signup')}}>Sign up</a>.</p>
