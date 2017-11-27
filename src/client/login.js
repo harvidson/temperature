@@ -3,44 +3,18 @@ import {Route, Link} from 'react-router-dom'
 import { Formik } from 'formik'
 import Yup from 'yup'
 
-
 class login extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      email: '',
-      password: '',
       loginInvalid: false
     }
 
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.resetForm = this.resetForm.bind(this);
-
   }
 
-  handleEmailChange(event) {
-    this.setState({email: event.target.value});
-  }
-
-  handlePasswordChange(event) {
-    this.setState({password: event.target.value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const user = {
-      email: this.state.email,
-      password: this.state.password
-    }
-    this.login(user)
-  }
-
-  login(user){
-    fetch('/api/token', {
+  login(user) {
+    return fetch('/api/token', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -56,14 +30,7 @@ class login extends React.Component {
         })
         throw 'Invalid login'
       }
-
       return response.json();
-    }).then((j) => {
-      this.props.saveUser(this.state.email)
-      this.resetForm();
-      this.props.history.push('/dashboard');
-    }).catch((err) => {
-      console.log(err)
     })
   }
 
@@ -82,77 +49,89 @@ class login extends React.Component {
 
         {this.state.loginInvalid
           ? <div className="accent-orange f5 fw3 tc bg-light-gray pa3 mh2">
-            <p>Invalid login. Check your password and email and try again!</p>
+            <p>Invalid login. Check your email and password and try again.</p>
           </div>
           : null
         }
 
         <div className="pa4">
-          <form onSubmit={this.handleSubmit}>
-
-              <div className="mt3 w-100">
-                <label className="db fw4 lh-copy f5 ">
-                  Email
-                  <input className="pa2 mh2 bg-transparent ba b--black-20 br2 w-70" type="email" name="email" value={this.state.email} onChange={this.handleEmailChange}/>
-                </label>
-              </div>
-              <div className="mt3">
-                <label className="db fw4 lh-copy f5">
-                  Password
-                  <input className="pa2 mh2 bg-transparent ba b--black-20 br2" type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-                </label>
-              </div>
-              <div className="tc mt3">
-                <button className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer" type="submit" value="Submit">Log in</button>
-              </div>
-
-
-          </form>
-        </div>
-
-        <div>
           <Formik
             initialValues={{
               email: '',
               password: ''
             }}
-            validate = {values => {
-              let errors = {};
-              if (!values.email) {
-                errors.email = 'Required'
-              } else if ( !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
-              }
 
-              if (!values.password){
-                errors.password = 'Required'
-              } else if ( !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/i.test(values.password)) {
-                errors.password = 'Password must contain one number, one special character, one upper-case and one lower-case letter.'
-              }
+            validationSchema={Yup.object().shape({
+              email: Yup.string()
+                .email('Invalid email address.')
+                .required('Email is required.'),
+              password: Yup.string()
+                .required('Password is required.')
+            })}
 
-              return errors
+            onSubmit = {(
+              values,
+              { setSubmitting, setErrors }
+            ) => {
+              this.login(values)
+              .then(
+                user => {
+                  setSubmitting(false);
+                  this.props.saveUser(user.email)
+                  this.resetForm();
+                  this.props.history.push('/dashboard');
+                },
+                errors => {
+                  console.log(errors);
+                  setSubmitting(false);
+                }
+              )
+              .catch((err) => {
+                console.log(err)
+              })
             }}
-            onSubmit = {values => {
 
-            }}
-            render = {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) =>
+            render = {({ values, errors, touched, handleChange, handleSubmit, handleBlur, isSubmitting, dirty, setErrors }) =>
               <form onSubmit={handleSubmit}>
-                <input
-                  type="email"
-                  name="email"
-                  onChange={handleChange}
-                  value={values.email}
-                />
-                {touched.email && errors.email && <div>{errors.email}</div>}
-                <input
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  value={values.password}
-                />
-                {touched.password && errors.password && <div>{errors.password}</div>}
-                <button type="submit" disabled={isSubmitting}>Submit</button>
 
+                <div className="mt3 w-100">
+                  <label className="db fw4 lh-copy f5 ">
+                    Email
+                    <input
+                      type="email"
+                      name="email"
+                      className="pa2 mh2 bg-transparent ba b--black-20 br2 w-70"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
+                  </label>
+                  {touched.email && errors.email && <div className="accent-orange pt2">{errors.email}</div>}
+                </div>
+
+                <div className="mt3 w-100">
+                  <label className="db fw4 lh-copy f5 ">
+                    Password
+                    <input
+                      className={errors.password && touched.password ? "pa2 mh2 bg-transparent ba br2 w-70 error" : "pa2 mh2 bg-transparent ba b--black-20 br2 w-70"}
+                      type="password"
+                      name="password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.password}
+                    />
+                  </label>
+                  {touched.password && errors.password && <div className="accent-orange pt2">{errors.password}</div>}
+                </div>
+                <div className="tc mt3">
+                  <button
+                    className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer" type="submit"
+                    disabled={isSubmitting || Object.keys(errors).length > 0 }
+                    value="Submit"
+                  >
+                    Log in
+                  </button>
+                </div>
 
               </form>
             }

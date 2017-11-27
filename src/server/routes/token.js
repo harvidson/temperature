@@ -36,6 +36,7 @@ router.post('/', (req, res, next) => {
     .first()
     .then((row) => {
       if (!row) {
+        console.log('no user wiht that email');
         throw boom.create(401, 'Invalid email or password.')
       };
       user = camelizeKeys(row);
@@ -63,7 +64,7 @@ router.post('/', (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      return next(boom.create(500, 'Internal server error, /token POST.'));
+      next(err);
     });
 })
 

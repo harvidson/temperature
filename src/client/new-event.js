@@ -1,7 +1,7 @@
-import React from 'react';
-import {Route, Link} from 'react-router-dom';
-import isEmail from 'validator/lib/isEmail';
-import isEmpty from 'validator/lib/isEmpty';
+import React from 'react'
+import {Route, Link} from 'react-router-dom'
+import isEmail from 'validator/lib/isEmail'
+import isEmpty from 'validator/lib/isEmpty'
 
 class NewEvent extends React.Component {
   constructor(props){

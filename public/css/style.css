@@ -101,6 +101,15 @@ main {
   z-index: 10;
 }
 
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed !important;
+}
+
+input.error {
+  border-color: #D95700;
+}
+
 
 /*react-datepicker*/
 .react-datepicker-time__header {

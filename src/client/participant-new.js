@@ -1,6 +1,6 @@
-import React from 'react';
-import isEmail from 'validator/lib/isEmail';
-import isEmpty from 'validator/lib/isEmpty';
+import React from 'react'
+import isEmail from 'validator/lib/isEmail'
+import isEmpty from 'validator/lib/isEmpty'
 
 
 class AddParticipant extends React.Component {
