@@ -91,7 +91,7 @@ class login extends React.Component {
               })
             }}
 
-            render = {({ values, errors, touched, handleChange, handleSubmit, handleBlur, isSubmitting, dirty, setErrors }) =>
+            render = {({ values, errors, touched, handleChange, handleSubmit, handleBlur, isSubmitting, setErrors }) =>
               <form onSubmit={handleSubmit}>
 
                 <div className="mt3 w-100">
@@ -100,7 +100,7 @@ class login extends React.Component {
                     <input
                       type="email"
                       name="email"
-                      className="pa2 mh2 bg-transparent ba b--black-20 br2 w-70"
+                      className={errors.email && touched.email ? "pa2 mh2 bg-transparent ba br2 w-70 error": "pa2 mh2 bg-transparent ba b--black-20 br2 w-70"}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.email}
@@ -113,7 +113,7 @@ class login extends React.Component {
                   <label className="db fw4 lh-copy f5 ">
                     Password
                     <input
-                      className={errors.password && touched.password ? "pa2 mh2 bg-transparent ba br2 w-70 error" : "pa2 mh2 bg-transparent ba b--black-20 br2 w-70"}
+                      className={errors.password && touched.password ? "pa2 mh2 bg-transparent ba br2 w-60 error" : "pa2 mh2 bg-transparent ba b--black-20 br2 w-60"}
                       type="password"
                       name="password"
                       onBlur={handleBlur}

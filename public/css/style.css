@@ -11,6 +11,7 @@ main {
 .modal {
   max-width: 760px;
   margin: auto;
+  min-width: 500px;
 }
 
 .line {

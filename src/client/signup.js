@@ -3,6 +3,8 @@ import {Route, Link} from 'react-router-dom'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import { Formik } from 'formik'
+import Yup from 'yup'
+import SelectMenu from './selectMenu'
 
 class Signup extends React.Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class Signup extends React.Component {
       lastName: '',
       pronouns: '',
       email: '',
-      password: ''
+      password: '',
     }
 
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -87,8 +89,36 @@ class Signup extends React.Component {
    }).catch((err) => {
      console.log(err)
    })
-
  }
+
+ postFormikUser(user) {
+   return fetch('/api/users', {
+   method: 'POST',
+   body: JSON.stringify(user),
+   headers: {
+     'Content-Type': 'application/json',
+     'Accept': 'application/json',
+   },
+   credentials: 'include'
+ })
+ .then((response) => {
+   if (response.status !== 200) {
+     this.setState({
+       loginInvalid: true
+     })
+     throw 'Invalid signup'
+   }
+
+   return response.json()
+ })
+ .then((response) => {
+   this.resetForm();
+   this.props.saveUser(this.state.id, this.state.firstName)
+   this.props.history.push('/dashboard');
+ }).catch((err) => {
+   console.log(err)
+ })
+}
 
   resetForm() {
     this.setState({
@@ -108,22 +138,6 @@ class Signup extends React.Component {
     ]
 
     return (
-      // validate = {values => {
-      //   let errors = {};
-      //   if (!values.email) {
-      //     errors.email = 'Required'
-      //   } else if ( !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      //     errors.email = 'Invalid email address';
-      //   }
-      //
-      //   if (!values.password){
-      //     errors.password = 'Required'
-      //   } else if ( !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/i.test(values.password)) {
-      //     errors.password = 'Password must contain one number, one special character, one upper-case and one lower-case letter.'
-      //   }
-      //
-      //   return errors
-      // }}
 
       <div className="w-100 mh4 modal">
 
@@ -132,7 +146,7 @@ class Signup extends React.Component {
         </div>
 
         <div className="pa4">
-          <form onSubmit={this.handleSubmit}>
+          {/* <form onSubmit={this.handleSubmit}>
 
               <div className="mt3">
                 <label className="fw4 lh-copy f5">
@@ -180,7 +194,167 @@ class Signup extends React.Component {
               </div>
 
 
-          </form>
+          </form> */}
+
+          <Formik
+            initialValues={{
+              firstName: '',
+              lastName: '',
+              pronouns: '',
+              email: '',
+              password: '',
+              // confirmPassword: '',
+            }}
+
+            // function equalTo(ref: any, msg: any) {
+            //   return Yup.mixed().test({
+            //     name: 'equalTo',
+            //     exclusive: false,
+            //     message: msg || '${path} must be the same as ${reference}',
+            //     params: {
+            //       reference: ref.path,
+            //     },
+            //     test: function(value: any) {
+            //       return value === this.resolve(ref);
+            //     },
+            //   });
+            // }
+            // Yup.addMethod(Yup.string, 'equalTo', equalTo);
+
+            validationSchema={Yup.object().shape({
+              firstName: Yup.string()
+                .required('First name is required.'),
+              lastName: Yup.string()
+                .required('Last name is required.'),
+              pronouns: Yup.string()
+                .required('Please select the pronouns you prefer to use.')
+                .nullable(),
+              email: Yup.string()
+                .email('Invalid email address.')
+                .required('Email is required.'),
+              password: Yup.string()
+                .required('Password is required.')
+                .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, {message: 'Password must be a minimum of eight characters and contain one number, one special character, one upper-case and one lower-case letter.'}),
+              // confirmPassword: Yup.string()
+              //   .equalTo(Yup.ref('password'), 'Passwords do not match.')
+              //   .required('Please confirm your password.')
+
+            })}
+
+            onSubmit = {(
+              values,
+              { setSubmitting, setErrors }
+            ) => {
+              this.postFormikUser(values)
+              .then(
+                user => {
+                  setSubmitting(false);
+                  // this.props.saveUser(user.email)
+                  this.resetForm();
+                  this.props.history.push('/dashboard');
+                },
+                errors => {
+                  console.log(errors);
+                  setSubmitting(false);
+                }
+              )
+              .catch((err) => {
+                console.log(err)
+              })
+            }}
+
+            render = {({ values, errors, touched, handleChange, handleSubmit, handleBlur, isSubmitting, setErrors, setFieldValue, setFieldTouched }) =>
+              <form onSubmit={handleSubmit}>
+
+                <div className="mt3 w-100">
+                  <label className="db fw4 lh-copy f5 ">
+                    First name
+                    <input
+                      type="text"
+                      name="firstName"
+                      className={errors.firstName && touched.firstName ? "pa2 mh2 bg-transparent ba br2 w-70 error" : "pa2 mh2 bg-transparent ba b--black-20 br2 w-70"}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.firstName}
+                    />
+                  </label>
+                  {touched.firstName && errors.firstName && <div className="accent-orange pt2">{errors.firstName}</div>}
+                </div>
+                <div className="mt3 w-100">
+                  <label className="db fw4 lh-copy f5 ">
+                    Last name
+                    <input
+                      type="text"
+                      name="lastName"
+                      className={errors.lastName && touched.lastName ? "pa2 mh2 bg-transparent ba br2 w-70 error" : "pa2 mh2 bg-transparent ba b--black-20 br2 w-70"}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.lastName}
+                    />
+                  </label>
+                  {touched.lastName && errors.lastName && <div className="accent-orange pt2">{errors.lastName}</div>}
+                </div>
+                <div className="mt3 w-100 lh-copy">
+                  <label className="fw4 f5 dib w-100">
+                    {/* <div className="dib"> */}
+                      Which pronouns do you prefer?&nbsp;&nbsp;
+                    {/* </div> */}
+                    <SelectMenu
+                      name="pronouns"
+                      options={options}
+                      value={values.pronouns}
+                      onChange={setFieldValue}
+                      onBlur={setFieldTouched}
+                      error={errors.pronouns}
+                      touched={touched.pronouns}
+                    />
+                  </label>
+                  {touched.pronouns && errors.pronouns && <div className="accent-orange pt2">{errors.pronouns}</div>}
+                </div>
+                <div className="mt3 w-100">
+                  <label className="db fw4 lh-copy f5 ">
+                    Email
+                    <input
+                      type="email"
+                      name="email"
+                      className={errors.email && touched.email ? "pa2 mh2 bg-transparent ba br2 w-70 error": "pa2 mh2 bg-transparent ba b--black-20 br2 w-70"}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
+                  </label>
+                  {touched.email && errors.email && <div className="accent-orange pt2">{errors.email}</div>}
+                </div>
+
+                <div className="mt3 w-100">
+                  <label className="db fw4 lh-copy f5 ">
+                    Password
+                    <input
+                      className={errors.password && touched.password ? "pa2 mh2 bg-transparent ba br2 w-70 error" : "pa2 mh2 bg-transparent ba b--black-20 br2 w-70"}
+                      type="password"
+                      name="password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.password}
+                    />
+                  </label>
+                  {touched.password && errors.password && <div className="accent-orange pt2">{errors.password}</div>}
+                </div>
+                <div className="tc mt3">
+                  <button
+                    className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer" type="submit"
+                    disabled={isSubmitting || Object.keys(errors).length > 0 }
+                    value="Submit"
+                  >
+                    Sign up
+                  </button>
+                </div>
+
+              </form>
+            }
+          />
+
+
         </div>
 
         <div className="tc">

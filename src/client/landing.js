@@ -87,7 +87,7 @@ class Landing extends React.Component {
 
                 </div>
                 <h2 className="fw3 f3 white-80 mb4">Take the temperature of any room.</h2>
-                <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link" onClick={this.openModal.bind(this, 'signup')} href="#">Get started</a>
+                <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link pointer" onClick={this.openModal.bind(this, 'signup')} href="#">Get started</a>
               </div>
             </div>
         </header>
@@ -99,7 +99,7 @@ class Landing extends React.Component {
 
 
             <div className="tc">
-              <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link" onClick={this.openModal.bind(this, 'signup')}>Get started</a>
+              <a className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link pointer" onClick={this.openModal.bind(this, 'signup')}>Get started</a>
             </div>
 
           </div>
