@@ -2,8 +2,6 @@ import React from 'react'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 
-
-
 class SelectMenu extends React.Component {
   constructor(props){
     super(props)
@@ -11,8 +9,6 @@ class SelectMenu extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
   }
-
-
 
   handleChange(value) {
     // this is going to call setFieldValue and manually update values.pronouns

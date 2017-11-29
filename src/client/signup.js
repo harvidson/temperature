@@ -16,6 +16,8 @@ class Signup extends React.Component {
       pronouns: '',
       email: '',
       password: '',
+      signupInvalid: false,
+      duplicateEmail: false
     }
 
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -62,36 +64,7 @@ class Signup extends React.Component {
     this.postUser(user)
   }
 
-   postUser(user) {
-     fetch('/api/users', {
-     method: 'POST',
-     body: JSON.stringify(user),
-     headers: {
-       'Content-Type': 'application/json',
-       'Accept': 'application/json',
-     },
-     credentials: 'include'
-   })
-   .then((response) => {
-     if (response.status !== 200) {
-       this.setState({
-         loginInvalid: true
-       })
-       throw 'Invalid signup.'
-     }
-
-     return response.json()
-   })
-   .then((response) => {
-     this.resetForm();
-     this.props.saveUser(this.state.id, this.state.firstName)
-     this.props.history.push('/dashboard');
-   }).catch((err) => {
-     console.log(err)
-   })
- }
-
- postFormikUser(user) {
+ postUser(user) {
    return fetch('/api/users', {
    method: 'POST',
    body: JSON.stringify(user),
@@ -102,9 +75,14 @@ class Signup extends React.Component {
    credentials: 'include'
  })
  .then((response) => {
-   if (response.status !== 200) {
+   if (response.status === 403) {
      this.setState({
-       loginInvalid: true
+       duplicateEmail: true,
+     })
+     throw 'Invalid signup'
+   } else if (response.status !== 200) {
+     this.setState({
+       signupInvalid: true,
      })
      throw 'Invalid signup'
    } else {
@@ -137,6 +115,20 @@ class Signup extends React.Component {
         <div className="tc">
           <h1 className="accent-orange f1-m f2 fw4">Sign up</h1>
         </div>
+
+        {this.state.signupInvalid
+          ? <div className="accent-orange f5 fw3 tc bg-light-gray pa3 mh2">
+              <p>We weren't able to register you. Check your info and try again.</p>
+          </div>
+          : null
+        }
+
+        {this.state.duplicateEmail
+          ? <div className="accent-orange f5 fw3 tc bg-light-gray pa3 mh2">
+              <p>That email is already registered with a Temperature account.</p>
+          </div>
+          : null
+        }
 
         <div className="pa4">
           {/* <form onSubmit={this.handleSubmit}>
@@ -238,12 +230,10 @@ class Signup extends React.Component {
               values,
               { setSubmitting, setErrors }
             ) => {
-              this.postFormikUser(values)
+              this.postUser(values)
               .then(
                 user => {
                   setSubmitting(false);
-                  // this.props.saveUser(user.email)
-                  this.resetForm();
                   this.props.history.push('/dashboard');
                 },
                 errors => {
@@ -251,9 +241,7 @@ class Signup extends React.Component {
                   setSubmitting(false);
                 }
               )
-              .then((response) => {
-                this.props.history.push('/dashboard');
-              }).catch((err) => {
+              .catch((err) => {
                 console.log(err)
               })
             }}
@@ -291,9 +279,7 @@ class Signup extends React.Component {
                 </div>
                 <div className="mt3 w-100 lh-copy">
                   <label className="fw4 f5 dib w-100">
-                    {/* <div className="dib"> */}
                       Which pronouns do you prefer?&nbsp;&nbsp;
-                    {/* </div> */}
                     <SelectMenu
                       name="pronouns"
                       options={options}

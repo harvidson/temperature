@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
     .first()
     .then((row) => {
       if (row) {
-        throw boom.create(400, 'That email is already registered with a Temperature account.')
+        throw boom.create(403, 'That email is already registered with a Temperature account.')
       }
       //hash password for new users
       return bcrypt.hash(req.body.password, 12)
