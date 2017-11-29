@@ -36,13 +36,12 @@ router.post('/', (req, res, next) => {
       return bcrypt.hash(req.body.password, 12)
     })
     .then((result) => {
-
       return knex('users')
         .insert({
           first_name: req.body.firstName,
           last_name: req.body.lastName,
           email: req.body.email,
-          pronouns: req.body.pronouns,
+          pronouns: req.body.pronouns.value,
           hashed_password: result
         }, '*')
     })
