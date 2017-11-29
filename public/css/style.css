@@ -108,7 +108,8 @@ button:disabled {
 }
 
 input.error {
-  border-color: #D95700;
+  /*border-color: #D95700;*/
+  border-color: #FF7316;
 }
 
 

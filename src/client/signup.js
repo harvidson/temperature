@@ -107,9 +107,10 @@ class Signup extends React.Component {
        loginInvalid: true
      })
      throw 'Invalid signup'
+   } else {
+     return response.json()
    }
 
-   return response.json()
  })
  .then((response) => {
    this.resetForm();
@@ -223,9 +224,9 @@ class Signup extends React.Component {
 
             validationSchema={Yup.object().shape({
               firstName: Yup.string()
-                .required('First name is required.'),
+                .required('Please enter a first name.'),
               lastName: Yup.string()
-                .required('Last name is required.'),
+                .required('Please enter a last name.'),
               pronouns: Yup.string()
                 .required('Please select the pronouns you prefer to use.')
                 .nullable(),
@@ -234,7 +235,7 @@ class Signup extends React.Component {
                 .required('Email is required.'),
               password: Yup.string()
                 .required('Password is required.')
-                .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, {message: 'Password must be a minimum of eight characters and contain one number, one special character, one upper-case and one lower-case letter.'}),
+                .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, {message: 'Your password needs to be eight characters long, including one number, one special character, one upper-case and one lower-case letter.'}),
               // confirmPassword: Yup.string()
               //   .equalTo(Yup.ref('password'), 'Passwords do not match.')
               //   .required('Please confirm your password.')
