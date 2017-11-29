@@ -7,7 +7,7 @@ function renderApp(title) {
       <head>
         <title>${title}</title>
         <link rel="stylesheet" href="https://unpkg.com/tachyons@4.8.1/css/tachyons.min.css"/>
-<link rel="shortcut icon" href="${STATIC_PATH}/images/logo_T_icon.ico" type="image/x-icon"> 
+<link rel="shortcut icon" href="${STATIC_PATH}/images/logo_T_grey_bgd_circle_icon.ico" type="image/x-icon"> 
         <link rel="stylesheet" href="${STATIC_PATH}/css/style.css">
       </head>
       <body>
