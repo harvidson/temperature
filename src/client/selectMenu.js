@@ -21,7 +21,7 @@ class SelectMenu extends React.Component {
   };
 
   render() {
-    const { errors, touched, options, value } = this.props
+    const { errors, touched, options, value, addClasses } = this.props
     return (
       <div className="dib w-40">
         <Select
@@ -30,16 +30,11 @@ class SelectMenu extends React.Component {
           value={value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
-          className="dib ml2 v-mid w-100"
+          className={addClasses}
           placeholder="Select..."
-          // className={ errors.pronouns && touched.pronouns ? "dib w-30 ml2 v-mid error" : "dib w-30 ml2 v-mid" }
         />
-
-
-
       </div>
     )
-
   }
 }
 

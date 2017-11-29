@@ -182,6 +182,7 @@ class Signup extends React.Component {
                       onBlur={setFieldTouched}
                       error={errors.pronouns}
                       touched={touched.pronouns}
+                      addClasses="dib ml2 v-mid w-100"
                     />
                   </label>
                   {touched.pronouns && errors.pronouns && <div className="accent-orange pt2">{errors.pronouns}</div>}
