@@ -43,7 +43,23 @@ class Signup extends React.Component {
  })
 }
 
+
   render() {
+    function equalTo(ref: any, msg: any) {
+      return Yup.mixed().test({
+        name: 'equalTo',
+        exclusive: false,
+        message: msg || '${path} must be the same as ${reference}',
+        params: {
+          reference: ref.path,
+        },
+        test: function(value: any) {
+          return value === this.resolve(ref);
+        },
+      });
+    }
+    Yup.addMethod(Yup.string, 'equalTo', equalTo);
+
     //options for pronoun select element
     const options = [
       { value: "she", label: 'She/her' },
@@ -81,23 +97,8 @@ class Signup extends React.Component {
               pronouns: '',
               email: '',
               password: '',
-              // confirmPassword: '',
+              confirmPassword: '',
             }}
-
-            // function equalTo(ref: any, msg: any) {
-            //   return Yup.mixed().test({
-            //     name: 'equalTo',
-            //     exclusive: false,
-            //     message: msg || '${path} must be the same as ${reference}',
-            //     params: {
-            //       reference: ref.path,
-            //     },
-            //     test: function(value: any) {
-            //       return value === this.resolve(ref);
-            //     },
-            //   });
-            // }
-            // Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
             validationSchema={Yup.object().shape({
               firstName: Yup.string()
@@ -113,9 +114,9 @@ class Signup extends React.Component {
               password: Yup.string()
                 .required('Password is required.')
                 .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, {message: 'Your password needs to be eight characters long, including one number, one special character, one upper-case and one lower-case letter.'}),
-              // confirmPassword: Yup.string()
-              //   .equalTo(Yup.ref('password'), 'Passwords do not match.')
-              //   .required('Please confirm your password.')
+              confirmPassword: Yup.string()
+                .equalTo(Yup.ref('password'), 'Passwords do not match.')
+                .required('Please confirm your password.')
 
             })}
 
@@ -213,6 +214,20 @@ class Signup extends React.Component {
                     />
                   </label>
                   {touched.password && errors.password && <div className="accent-orange pt2">{errors.password}</div>}
+                </div>
+                <div className="mt3 w-100">
+                  <label className="db fw4 lh-copy f5 ">
+                    Confirm password
+                    <input
+                      className={errors.confirmPassword && touched.confirmPassword ? "pa2 mh2 bg-transparent ba br2 w-60 error" : "pa2 mh2 bg-transparent ba b--black-20 br2 w-60"}
+                      type="password"
+                      name="confirmPassword"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.confirmPassword}
+                    />
+                  </label>
+                  {touched.confirmPassword && errors.confirmPassword && <div className="accent-orange pt2">{errors.confirmPassword}</div>}
                 </div>
                 <div className="tc mt3">
                   <button
