@@ -2,6 +2,8 @@ import React from 'react'
 import {Route, Link} from 'react-router-dom'
 import isEmail from 'validator/lib/isEmail'
 import isEmpty from 'validator/lib/isEmpty'
+import { Formik } from 'formik'
+import Yup from 'yup'
 
 class NewEvent extends React.Component {
   constructor(props){
