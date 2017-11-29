@@ -77,7 +77,7 @@ class Signup extends React.Component {
        this.setState({
          loginInvalid: true
        })
-       throw 'Invalid signup'
+       throw 'Invalid signup.'
      }
 
      return response.json()
@@ -110,14 +110,6 @@ class Signup extends React.Component {
    } else {
      return response.json()
    }
-
- })
- .then((response) => {
-   this.resetForm();
-   this.props.saveUser(this.state.id, this.state.firstName)
-   this.props.history.push('/dashboard');
- }).catch((err) => {
-   console.log(err)
  })
 }
 
@@ -259,7 +251,9 @@ class Signup extends React.Component {
                   setSubmitting(false);
                 }
               )
-              .catch((err) => {
+              .then((response) => {
+                this.props.history.push('/dashboard');
+              }).catch((err) => {
                 console.log(err)
               })
             }}

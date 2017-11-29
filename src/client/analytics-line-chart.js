@@ -40,8 +40,6 @@ class LineChart extends React.Component {
         console.log(err);
       })
     }
-
-
   }
 
   componentDidUpdate() {
