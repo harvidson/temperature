@@ -43,8 +43,8 @@ class Signup extends React.Component {
  })
 }
 
-
   render() {
+    //adds Yup method to confirm password
     function equalTo(ref: any, msg: any) {
       return Yup.mixed().test({
         name: 'equalTo',
@@ -69,7 +69,6 @@ class Signup extends React.Component {
     ]
 
     return (
-
       <div className="w-100 mh4 modal">
 
         <div className="tc">
@@ -85,6 +84,7 @@ class Signup extends React.Component {
         {this.state.duplicateEmail
           ? <div className="accent-orange f5 fw3 tc bg-light-gray pa3 mh2">
               <p>That email is already registered with a Temperature account.</p>
+              <p>Try <a className="accent-blue link pointer" onClick={ () => {this.props.openModal('login')}}>logging in</a> or sign up with a different email.</p>
           </div>
           : null
         }

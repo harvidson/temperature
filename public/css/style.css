@@ -107,7 +107,7 @@ button:disabled {
   cursor: not-allowed !important;
 }
 
-input.error {
+input.error, textarea.error {
   /*border-color: #D95700;*/
   border-color: #FF7316;
 }
