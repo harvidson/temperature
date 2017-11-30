@@ -15,6 +15,7 @@ class NewEvent extends React.Component {
 
   }
 
+
   checkPartipants(participants) {
     const separators = /\s|\t|\n|\r|,|;/;
     const valid = [];
@@ -96,7 +97,7 @@ class NewEvent extends React.Component {
                 })
               }}
 
-              render = {({ values, errors, touched, handleChange, handleSubmit, handleBlur, isSubmitting, setErrors }) =>
+              render = {({ values, errors, touched, handleChange, handleSubmit, handleBlur, handleReset, isSubmitting, setErrors }) =>
                 <form onSubmit={handleSubmit}>
 
                   <div className="mt3 w-100">
@@ -165,11 +166,21 @@ class NewEvent extends React.Component {
 
                   <div className="tc mt3">
                     <button
-                      className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer" type="submit"
+                      className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer mr2"
+                      type="submit"
                       disabled={isSubmitting || Object.keys(errors).length > 0 }
                       value="Submit"
                     >
                       Submit
+                    </button>
+                    <button
+                      className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer"
+                      type="button"
+                      value="cancel"
+                      disabled={isSubmitting}
+                      onClick={this.props.closeModal}
+                    >
+                      Cancel
                     </button>
                   </div>
 
