@@ -12,9 +12,7 @@ class NewEvent extends React.Component {
     this.state = {
       invalidEmails: [],
     }
-
   }
-
 
   checkPartipants(participants) {
     const separators = /\s|\t|\n|\r|,|;/;
@@ -106,7 +104,9 @@ class NewEvent extends React.Component {
                       <input
                         type="text"
                         name="title"
-                        className={errors.title && touched.title ? "mv2 bg-transparent w-100 db input-reset ba f5 error" : "mv2 bg-transparent w-100 db input-reset ba b--black-20 f5"}
+                        className={errors.title && touched.title
+                          ? "mv2 bg-transparent w-100 db input-reset ba f5 error"
+                          : "mv2 bg-transparent w-100 db input-reset ba b--black-20 f5"}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.title}
@@ -121,7 +121,9 @@ class NewEvent extends React.Component {
                         rows="6"
                         type="textarea"
                         name="description"
-                        className={errors.description && touched.description ? "mv2 bg-transparent w-100 db input-reset ba f5 error" : "mv2 bg-transparent w-100 db input-reset ba b--black-20 f5"}
+                        className={errors.description && touched.description
+                          ? "mv2 bg-transparent w-100 db input-reset ba f5 error"
+                          : "mv2 bg-transparent w-100 db input-reset ba b--black-20 f5"}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.description}
@@ -137,7 +139,9 @@ class NewEvent extends React.Component {
                         rows="3"
                         type="teaxtarea"
                         name="defaultPrompt"
-                        className={errors.defaultPrompt && touched.defaultPrompt ? "mv2 bg-transparent w-100 db input-reset ba f5 error": "mv2 bg-transparent w-100 db input-reset ba b--black-20 f5"}
+                        className={errors.defaultPrompt && touched.defaultPrompt
+                          ? "mv2 bg-transparent w-100 db input-reset ba f5 error"
+                          : "mv2 bg-transparent w-100 db input-reset ba b--black-20 f5"}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.defaultPrompt}
@@ -154,7 +158,9 @@ class NewEvent extends React.Component {
                         type="textarea"
                         rows="2"
                         name="participants"
-                        className={errors.participants && touched.participants ? "mv2 bg-transparent w-100 db input-reset ba f5 error" : "mv2 bg-transparent w-100 db input-reset ba b--black-20 f5"}
+                        className={errors.participants && touched.participants
+                          ? "mv2 bg-transparent w-100 db input-reset ba f5 error"
+                          : "mv2 bg-transparent w-100 db input-reset ba b--black-20 f5"}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.participants}

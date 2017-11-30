@@ -76,7 +76,7 @@ class Dashboard extends React.Component {
   modal(type, data) {
     switch (type) {
       case 'newEvent': return <NewEvent saveEvent={this.saveEvent} closeModal={this.closeModal}/>
-      case 'newIteration': return <NewIteration saveIteration={this.saveIteration} event={data} saveIteration={this.saveIteration} openModal={this.openModal}/>
+      case 'newIteration': return <NewIteration saveIteration={this.saveIteration} event={data} saveIteration={this.saveIteration} openModal={this.openModal} closeModal={this.closeModal}/>
       case 'eventFormResponse': return <EventFormResponse newEvent={this.state.newEvent} closeModal={this.closeModal}/>
       case 'iterationFormResponse': return <IterationFormResponse newIteration={this.state.newIteration} closeModal={this.closeModal}/>
       case 'reflectionView': return <ReflectionView iteration={data} closeModal={this.closeModal}/>
