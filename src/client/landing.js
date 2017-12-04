@@ -64,7 +64,7 @@ class Landing extends React.Component {
         right                 : 'auto',
         bottom                : 'auto',
         marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)'
+        transform             : 'translate(-50%, -40%)'
       }
     };
 
@@ -95,7 +95,7 @@ class Landing extends React.Component {
         <main>
           <div className="mv5 mh6">
             <h2 className="f1 fw3 dark-gray">Get candid data.</h2>
-            <p className="black-80 f4">Temperature is a tool for gathering authentic, candid information about people’s states of mind while preserving their confidentiality. It combines reflective writing that only the writer will see with aggregate data analytics for the group, allowing leaders to ask targeted questions and trace responses over time. Temperature is an analytics platform that keeps leaders up to speed.</p>
+            <p className="black-80 f4">Temperature is a surveying tool for gathering authentic, candid information about people’s states of mind while preserving their confidentiality. It combines reflective writing that only the writer will see with aggregate data analytics for the group, allowing leaders to ask targeted questions and trace responses over time. Temperature is an analytics platform that keeps leaders up to speed.</p>
 
 
             <div className="tc">

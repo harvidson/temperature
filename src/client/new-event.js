@@ -83,7 +83,7 @@ class NewEvent extends React.Component {
                   newEvent => {
                     newEvent.participants.invalidEmails = this.state.invalidEmails
                     this.props.saveEvent(newEvent)
-                    setSubmitting(false)
+                    // setSubmitting(false)
                   },
                   errors => {
                     console.log(errors)
@@ -95,7 +95,17 @@ class NewEvent extends React.Component {
                 })
               }}
 
-              render = {({ values, errors, touched, handleChange, handleSubmit, handleBlur, handleReset, isSubmitting, setErrors }) =>
+              render = {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleSubmit,
+                handleBlur,
+                handleReset,
+                isSubmitting,
+                setErrors
+              }) => (
                 <form onSubmit={handleSubmit}>
 
                   <div className="mt3 w-100">
@@ -175,7 +185,7 @@ class NewEvent extends React.Component {
                       className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer mr2"
                       type="submit"
                       disabled={isSubmitting || Object.keys(errors).length > 0 }
-                      value="Submit"
+                      value="submit"
                     >
                       Submit
                     </button>
@@ -191,7 +201,7 @@ class NewEvent extends React.Component {
                   </div>
 
                 </form>
-              }
+              )}
             />
 
         </div>

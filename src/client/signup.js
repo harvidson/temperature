@@ -4,7 +4,7 @@ import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import { Formik } from 'formik'
 import Yup from 'yup'
-import SelectMenu from './selectMenu'
+import SelectMenu from './select-menu'
 
 class Signup extends React.Component {
   constructor(props) {
