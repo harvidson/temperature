@@ -28,15 +28,11 @@ postIteration(newIteration) {
     credentials: 'include'
   }).then((response) => {
     return response.json();
-  }).then((j) => {
-    this.props.saveIteration(j)
-  }).catch((err) => {
-    console.log(err);
   })
 }
 
   render(){
-    const { event, closeModal } = this.props
+    const { event, closeModal, saveIteration } = this.props
 
     return(
       <div className="mh4">
@@ -77,10 +73,11 @@ postIteration(newIteration) {
                 isAnonymous: !values.seeIndividual
               }
               this.postIteration(newIteration)
-
               .then(
                 newEvent => {
+                  console.log('newEvent ', newEvent);
                   setSubmitting(false)
+                  saveIteration(newEvent)
                 },
                 errors => {
                   console.log(errors)
