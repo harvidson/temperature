@@ -27,7 +27,7 @@ class DueDatePicker extends React.Component {
       <div>
         <DatePicker
           name="dueDate"
-          selected={ value }
+          selected={ value || moment()}
           onChange={ this.handleChange }
           showTimeSelect
           dateFormat="LLL"
