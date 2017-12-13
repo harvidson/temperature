@@ -75,9 +75,8 @@ postIteration(newIteration) {
               this.postIteration(newIteration)
               .then(
                 newEvent => {
-                  console.log('newEvent ', newEvent);
                   setSubmitting(false)
-                  saveIteration(newEvent)
+                  saveIteration(newEvent[0])
                 },
                 errors => {
                   console.log(errors)

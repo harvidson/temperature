@@ -20,15 +20,14 @@ class Dashboard extends React.Component {
       writing: [],
       modalIsOpen: false,
       modalType: null,
-
+      newEvent: {},
+      newIteration: {}
     }
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveEvent = this.saveEvent.bind(this);
     this.saveIteration = this.saveIteration.bind(this);
-
-
   }
 
   componentWillMount() {
@@ -86,6 +85,7 @@ class Dashboard extends React.Component {
   }
 
   saveEvent(newEvent) {
+    console.log(newEvent);
     this.setState({newEvent: newEvent})
     this.openModal('eventFormResponse')
   }
