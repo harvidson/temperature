@@ -85,7 +85,6 @@ class Dashboard extends React.Component {
   }
 
   saveEvent(newEvent) {
-    console.log(newEvent);
     this.setState({newEvent: newEvent})
     this.openModal('eventFormResponse')
   }

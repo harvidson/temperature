@@ -2,8 +2,11 @@ import React from 'react'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import {Route, Link} from 'react-router-dom'
+import { Formik } from 'formik'
+import Yup from 'yup'
 
 import Header from './header'
+import SelectMenu from './select-menu'
 
 class NewReflection extends React.Component {
   constructor(props){
@@ -36,6 +39,7 @@ class NewReflection extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
+      console.log(j);
       this.setState({
         iteration: j,
         //convert minimum word count to characters (rounded to nearest 50)
@@ -87,10 +91,6 @@ class NewReflection extends React.Component {
       credentials: 'include'
     }).then((response) => {
       return response.json();
-    }).then((j) => {
-      this.props.history.push('/dashboard');
-    }).catch((err) => {
-      console.log(err);
     })
   }
 
@@ -117,7 +117,7 @@ class NewReflection extends React.Component {
         { value: 18, label: 'angry'},
         { value: 19, label: 'awful'}
       ];
-      const iteration = this.state.iteration
+      const {prompt, event_title, is_anonymous, min_word_count} = this.state.iteration
 
     return(
 
@@ -126,28 +126,28 @@ class NewReflection extends React.Component {
 
         <main>
         <div className="tc">
-          <h1 className="accent-orange f1-m f2 fw4">{iteration.event_title}</h1>
+          <h1 className="accent-orange f1-m f2 fw4">{event_title}</h1>
           <h2 className="accent-orange f2-m f3 fw4">New Reflection</h2>
         </div>
 
         <div className="ph4 pt2">
+          <div className="mt4 bg-near-white ba b--light-gray pa4">
+          <div className="fw3 lh-copy f4 dark-gray db">
+            Prompt</div>
+            <p className="pl4 black-80 f5">{prompt}</p>
+            {is_anonymous
+              ?
+              <div className="tc black-80 f5"><i className="fa fa-users" aria-hidden="true"></i> Analysis by group (anonymous)</div>
+
+              :
+              <div><i className="fa fa-user-circle-o" aria-hidden="true"></i> Analysis by individual (not anonymous)</div>
+            }
+        </div>
+
           <form onSubmit={ this.handleSubmit }>
-
-                <div className="mt4 bg-near-white ba b--light-gray pa4">
-                <div className="fw3 lh-copy f4 dark-gray db">
-                  Prompt</div>
-                  <p className="pl4 black-80 f5">{iteration.prompt}</p>
-                  {iteration.is_anonymous
-                    ?
-                    <div className="tc black-80 f5"><i className="fa fa-users" aria-hidden="true"></i> Analysis by group (anonymous)</div>
-
-                    :
-                    <div><i className="fa fa-user-circle-o" aria-hidden="true"></i> Analysis by individual (not anonymous)</div>
-                  }
-              </div>
-              <div className="mt4">
+              {/* <div className="mt4">
                 <label className="fw3 lh-copy f4 dark-gray db">
-                  What would be your one-word answer to that question?
+                  In a word, how are you feeling about this question?
                   <Select
                     className="mv2 bg-transparent db f5 w-50"
                     name="oneWord"
@@ -156,7 +156,7 @@ class NewReflection extends React.Component {
                     onChange={this.handleOneWordChange}
                   />
                 </label>
-              </div>
+              </div> */}
               <div className="mt4">
                 <label className="fw3 lh-copy f4 dark-gray db">
                   How intense is that feeling?
@@ -194,9 +194,9 @@ class NewReflection extends React.Component {
                     minLength={ this.state.minLength }
                     value={ this.state.content }
                     onChange={ this.handleInputChange }/>
-                  {iteration.min_word_count > 0
+                  {min_word_count > 0
                   ?
-                  <small className="f6 black-60 db mb2">Minimum {iteration.min_word_count} words</small>
+                  <small className="f6 black-60 db mb2">Minimum {min_word_count} words</small>
                   : null
                 }
                 </label>
@@ -204,9 +204,171 @@ class NewReflection extends React.Component {
               <div className="tc mt4">
                 <button className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer" type="submit" value="Submit">Submit</button>
               </div>
-
-
           </form>
+
+
+          <Formik
+            initialValues={{
+              oneWord: '',
+              oneWordIntensity: 1,
+              title: '',
+              content: ''
+            }}
+
+            validationSchema={Yup.object().shape({
+              oneWord: Yup.string()
+                .required('Please select the word that most closely matches your feeling.')
+                .nullable(),
+              title: Yup.string()
+                .required('Please give your response a title.'),
+              content: Yup.string()
+                .required('Please write a response to the prompt.')
+
+            })}
+
+            onSubmit = {(
+              values,
+              { setSubmitting, setErrors }
+            ) => {
+
+              const newReflection = {
+                oneWord: values.oneWord,
+                oneWordIntensity: values.oneWordIntensity,
+                title: values.title,
+                content: values.content
+              }
+              this.postReflection(newReflection)
+              .then(
+                newReflection => {
+                  setSubmitting(false)
+                  console.log(newReflection);
+                  // saveReflection(newEvent[0])
+                  this.props.history.push('/dashboard');
+                },
+                errors => {
+                  console.log(errors)
+                  setSubmitting(false)
+                }
+              )
+              .catch((err) => {
+                console.log(err)
+              })
+            }}
+
+            render = {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleSubmit,
+              handleBlur,
+              handleReset,
+              isSubmitting,
+              setErrors,
+              setFieldValue,
+              setFieldTouched
+            }) => (
+              <form onSubmit={handleSubmit}>
+
+                <div className="mt4">
+                  <label className="fw3 lh-copy f4 dark-gray db">
+                    <div>In a word, how are you feeling about this question?</div>
+                    <SelectMenu
+                      name="oneWord"
+                      options={options}
+                      value={values.oneWord}
+                      onChange={setFieldValue}
+                      onBlur={setFieldTouched}
+                      error={errors.oneWord}
+                      touched={touched.oneWord}
+                      addClasses="mv2 bg-transparent db f5 w-50"
+                    />
+                  </label>
+                  {touched.oneWord && errors.oneWord && <div className="accent-orange pt2">{errors.oneWord}</div>}
+                </div>
+
+                {/* <div className="mt4">
+                  <label className="fw3 lh-copy f4 dark-gray db">
+                    Reflection prompt
+                    <textarea
+                      rows="3"
+                      type="teaxtarea"
+                      name="prompt"
+                      className={errors.prompt && touched.prompt ? "mv2 bg-transparent w-100 db ba b--black-20 f5 error" : "mv2 bg-transparent w-100 db ba b--black-20 f5"}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.prompt}
+                    />
+                  </label>
+                  {touched.prompt && errors.prompt && <div className="accent-orange pt2">{errors.prompt}</div>}
+                </div>
+                <div className="mt4 w-100">
+                  <label className="fw3 lh-copy f4 dark-gray db w-100">
+                    Due date
+                    <DueDatePicker
+                      name="dueDate"
+                      value={values.dueDate}
+                      onChange={setFieldValue}
+                      onBlur={setFieldTouched}
+                      error={errors.dueDate}
+                      touched={touched.dueDate}
+                      addClasses="f5 w-100 datepicker-input"
+                    />
+                    {touched.dueDate && errors.dueDate && <div className="accent-orange f5 pt2">{errors.dueDate}</div>}
+                  </label>
+                </div>
+                <div className="mt4">
+                  <label className="fw3 lh-copy f4 dark-gray db">
+                    Minimum word count <span className="f6 black-60">(optional)</span>
+                    <input
+                      type="number"
+                      step="50" min="0" max="500"
+                      name="minWordCount"
+                      className="mv2 bg-transparent db ba b--black-20 f5 pa1"
+                      onChange={handleChange}
+                      value={values.minWordCount}
+                    />
+                  </label>
+                </div>
+                <div className="mt4">
+                  <label className="fw3 lh-copy f4 dark-gray db">
+                    Access to data
+                  </label>
+                  <p className="f5 black-80 mb2">By default, participant data is anonymous: you'll see sentiment analysis for the group as a whole but not for individual participants. If you need to know how people are doing individually, check the box below. We'll let participants know that you'll be able to see their individual data but not their written reflections.</p>
+                    <input
+                      className="mv2 f5"
+                      type="checkbox"
+                      name="seeIndividual"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      checked={values.seeIndividual}
+                    />
+                  <label className="pl2 pr4">See individual data</label>
+                </div> */}
+
+                <div className="tc mt3">
+                  <button
+                    className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer mr2"
+                    type="submit"
+                    disabled={isSubmitting || Object.keys(errors).length > 0 }
+                    value="Submit"
+                  >
+                    Submit
+                  </button>
+                  {/* <button
+                    className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer"
+                    type="button"
+                    value="cancel"
+                    disabled={isSubmitting}
+                    onClick={closeModal}
+                  >
+                    Cancel
+                  </button> */}
+                </div>
+
+              </form>
+            )}
+          />
           </div>
 
       </main>

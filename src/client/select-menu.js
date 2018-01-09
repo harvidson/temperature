@@ -11,21 +11,21 @@ class SelectMenu extends React.Component {
   }
 
   handleChange(value) {
-    // this is going to call setFieldValue and manually update values.pronouns
-    this.props.onChange('pronouns', value);
+    // this is going to call setFieldValue and manually update values.{name}
+    this.props.onChange(this.props.name, value);
   };
 
   handleBlur() {
-    // this is going to call setFieldTouched and manually update touched.pronouns
-    this.props.onBlur('pronouns', true);
+    // this is going to call setFieldTouched and manually update touched.{name}
+    this.props.onBlur(this.props.name, true);
   };
 
   render() {
-    const { errors, touched, options, value, addClasses } = this.props
+    const { errors, touched, options, value, addClasses, name } = this.props
     return (
       <div className="dib w-40">
         <Select
-          name="pronouns"
+          name={name}
           options={options}
           value={value}
           onChange={this.handleChange}
