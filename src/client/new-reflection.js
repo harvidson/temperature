@@ -20,19 +20,10 @@ class NewReflection extends React.Component {
       iteration: {},
       minLength: 0
     }
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleOneWordChange = this.handleOneWordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.postReflection = this.postReflection.bind(this);
-    this.cancelReflection = this.cancelReflection.bind(this);
-
-
   }
 
   componentWillMount() {
     window.scrollTo(0, 0)
-
     //fetch iteration data
     fetch(`/api/iterations/${this.props.match.params.id}`, {
       method: 'get',
@@ -40,49 +31,18 @@ class NewReflection extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((j) => {
-      console.log(j);
       this.setState({
         iteration: j,
-        //convert minimum word count to characters (rounded to nearest 50)
+        //for validation: converts minimum word count to characters (rounded to nearest 50)
         minLength: Math.round(j.min_word_count * 5 / 50) * 50
       })
     })
     .catch((err) => {
       console.log(err);
     })
-
-  }
-
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? 'checked' : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleOneWordChange(val) {
-    this.setState({oneWord: val})
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const newReflection = {
-      title: this.state.title,
-      oneWord: this.state.oneWord,
-      oneWordIntensity: this.state.oneWordIntensity,
-      content: this.state.content,
-      event_id: this.state.iteration.event_id
-    }
-
-    this.postReflection(newReflection)
   }
 
   postReflection(newReflection) {
-    console.log(newReflection)
     return fetch(`/api/iterations/${this.state.iteration.id}/reflections`, {
       method: 'post',
       body: JSON.stringify(newReflection),
@@ -92,7 +52,6 @@ class NewReflection extends React.Component {
       },
       credentials: 'include'
     }).then((response) => {
-      console.log(response)
       return response.json();
     })
   }
@@ -100,7 +59,6 @@ class NewReflection extends React.Component {
   cancelReflection(){
     this.props.history.push('/dashboard')
   }
-
 
   render(){
     // TODO: make these dynamic
@@ -158,7 +116,6 @@ class NewReflection extends React.Component {
               title: '',
               content: ''
             }}
-
             validationSchema={Yup.object().shape({
               oneWord: Yup.string()
                 .required('Please select the word that most closely matches your feeling.')
@@ -167,14 +124,12 @@ class NewReflection extends React.Component {
                 .required('Please give your response a title.'),
               content: Yup.string()
                 .required('Please write a response to the prompt.')
-                .min(this.state.minLength, `Your reflection should be at least ${min_word_count} words long.`)
+                .min(this.state.minLength, `Your reflection should be about ${min_word_count} words long.`)
             })}
-
             onSubmit = {(
               values,
               { setSubmitting, setErrors }
             ) => {
-
               const newReflection = {
                 oneWord: values.oneWord,
                 oneWordIntensity: values.oneWordIntensity,
@@ -183,11 +138,9 @@ class NewReflection extends React.Component {
                 event_id: event_id
               }
               this.postReflection(newReflection)
-
               .then(
                 newReflection => {
                   setSubmitting(false)
-                  console.log(newReflection);
                   this.props.history.push('/dashboard');
                 },
                 errors => {
@@ -214,7 +167,6 @@ class NewReflection extends React.Component {
               setFieldTouched
             }) => (
               <form onSubmit={handleSubmit}>
-
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     <div>In a word, how are you feeling about this question?</div>
@@ -231,7 +183,6 @@ class NewReflection extends React.Component {
                   </label>
                   {touched.oneWord && errors.oneWord && <div className="accent-orange pt2">{errors.oneWord}</div>}
                 </div>
-
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     How intense is that feeling?
@@ -247,7 +198,6 @@ class NewReflection extends React.Component {
                     <small className="f6 black-60 db mb2">1 barely there&nbsp;&nbsp;&nbsp;&nbsp;2 slight&nbsp;&nbsp;&nbsp;&nbsp;3 substantial&nbsp;&nbsp;&nbsp;&nbsp;4 pretty strong&nbsp;&nbsp;&nbsp;&nbsp;5 intense</small>
                   </label>
                 </div>
-
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Title
@@ -262,7 +212,6 @@ class NewReflection extends React.Component {
                   {touched.title && errors.title && <div className="accent-orange pt2 f5 fw4">{errors.title}</div>}
                   </label>
                 </div>
-
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
                     Reflection
@@ -271,7 +220,6 @@ class NewReflection extends React.Component {
                       rows="20"
                       type="teaxtarea"
                       name="content"
-                      // minLength={ this.state.minLength }
                       value={values.content}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -284,7 +232,6 @@ class NewReflection extends React.Component {
                   </label>
                   {touched.content && errors.content && <div className="accent-orange pt2 f5 fw4">{errors.content}</div>}
                 </div>
-
                 <div className="tc mt4">
                   <button
                     className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer mr2"
@@ -294,7 +241,6 @@ class NewReflection extends React.Component {
                   >
                     Submit
                   </button>
-
                   <button
                     className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer"
                     type="button"
@@ -305,12 +251,10 @@ class NewReflection extends React.Component {
                     Cancel
                   </button>
                 </div>
-
               </form>
             )}
           />
           </div>
-
       </main>
       </div>
     )
