@@ -81,7 +81,8 @@ class NewReflection extends React.Component {
   }
 
   postReflection(newReflection) {
-    fetch(`/api/iterations/${this.state.iteration.id}/reflections`, {
+    console.log(newReflection)
+    return fetch(`/api/iterations/${this.state.iteration.id}/reflections`, {
       method: 'post',
       body: JSON.stringify(newReflection),
       headers: {
@@ -90,6 +91,7 @@ class NewReflection extends React.Component {
       },
       credentials: 'include'
     }).then((response) => {
+      console.log(response)
       return response.json();
     })
   }
@@ -117,7 +119,7 @@ class NewReflection extends React.Component {
         { value: 18, label: 'angry'},
         { value: 19, label: 'awful'}
       ];
-      const {prompt, event_title, is_anonymous, min_word_count} = this.state.iteration
+      const {prompt, event_title, is_anonymous, min_word_count, event_id} = this.state.iteration
 
     return(
 
@@ -144,69 +146,6 @@ class NewReflection extends React.Component {
             }
         </div>
 
-          <form onSubmit={ this.handleSubmit }>
-              {/* <div className="mt4">
-                <label className="fw3 lh-copy f4 dark-gray db">
-                  In a word, how are you feeling about this question?
-                  <Select
-                    className="mv2 bg-transparent db f5 w-50"
-                    name="oneWord"
-                    value={this.state.oneWord}
-                    options={options}
-                    onChange={this.handleOneWordChange}
-                  />
-                </label>
-              </div> */}
-              <div className="mt4">
-                <label className="fw3 lh-copy f4 dark-gray db">
-                  How intense is that feeling?
-                  <input
-                    className="mv2 bg-transparent db ba b--black-20 f5"
-                    type="number"
-                    step="1" min="1" max="5"
-                    name="oneWordIntensity"
-                    value={ this.state.oneWordIntensity }
-                    onChange={ this.handleInputChange }
-                  />
-                  <small className="f6 black-60 db mb2">1 barely there&nbsp;&nbsp;&nbsp;&nbsp;2 slight&nbsp;&nbsp;&nbsp;&nbsp;3 substantial&nbsp;&nbsp;&nbsp;&nbsp;4 pretty strong&nbsp;&nbsp;&nbsp;&nbsp;5 intense</small>
-                </label>
-              </div>
-              <div className="mt4">
-                <label className="fw3 lh-copy f4 dark-gray db">
-                  Title
-                  <input
-                    className="mv2 bg-transparent w-100 db input-reset ba b--black-20 f5 measure"
-                    type="text"
-                    name="title"
-                    value={this.state.title}
-                    onChange={ this.handleInputChange }/>
-
-                </label>
-              </div>
-              <div className="mt4">
-                <label className="fw3 lh-copy f4 dark-gray db">
-                  Reflection
-                  <textarea
-                    className="mv2 bg-transparent w-100 db ba b--black-20 f5"
-                    rows="20"
-                    type="teaxtarea"
-                    name="content"
-                    minLength={ this.state.minLength }
-                    value={ this.state.content }
-                    onChange={ this.handleInputChange }/>
-                  {min_word_count > 0
-                  ?
-                  <small className="f6 black-60 db mb2">Minimum {min_word_count} words</small>
-                  : null
-                }
-                </label>
-              </div>
-              <div className="tc mt4">
-                <button className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer" type="submit" value="Submit">Submit</button>
-              </div>
-          </form>
-
-
           <Formik
             initialValues={{
               oneWord: '',
@@ -223,7 +162,7 @@ class NewReflection extends React.Component {
                 .required('Please give your response a title.'),
               content: Yup.string()
                 .required('Please write a response to the prompt.')
-
+                // .min(min_word_count, {message: 'Your reflection should be at least ${min} words long.'})
             })}
 
             onSubmit = {(
@@ -235,14 +174,15 @@ class NewReflection extends React.Component {
                 oneWord: values.oneWord,
                 oneWordIntensity: values.oneWordIntensity,
                 title: values.title,
-                content: values.content
+                content: values.content,
+                event_id: event_id
               }
               this.postReflection(newReflection)
+
               .then(
                 newReflection => {
                   setSubmitting(false)
                   console.log(newReflection);
-                  // saveReflection(newEvent[0])
                   this.props.history.push('/dashboard');
                 },
                 errors => {
@@ -287,66 +227,60 @@ class NewReflection extends React.Component {
                   {touched.oneWord && errors.oneWord && <div className="accent-orange pt2">{errors.oneWord}</div>}
                 </div>
 
-                {/* <div className="mt4">
-                  <label className="fw3 lh-copy f4 dark-gray db">
-                    Reflection prompt
-                    <textarea
-                      rows="3"
-                      type="teaxtarea"
-                      name="prompt"
-                      className={errors.prompt && touched.prompt ? "mv2 bg-transparent w-100 db ba b--black-20 f5 error" : "mv2 bg-transparent w-100 db ba b--black-20 f5"}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.prompt}
-                    />
-                  </label>
-                  {touched.prompt && errors.prompt && <div className="accent-orange pt2">{errors.prompt}</div>}
-                </div>
-                <div className="mt4 w-100">
-                  <label className="fw3 lh-copy f4 dark-gray db w-100">
-                    Due date
-                    <DueDatePicker
-                      name="dueDate"
-                      value={values.dueDate}
-                      onChange={setFieldValue}
-                      onBlur={setFieldTouched}
-                      error={errors.dueDate}
-                      touched={touched.dueDate}
-                      addClasses="f5 w-100 datepicker-input"
-                    />
-                    {touched.dueDate && errors.dueDate && <div className="accent-orange f5 pt2">{errors.dueDate}</div>}
-                  </label>
-                </div>
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
-                    Minimum word count <span className="f6 black-60">(optional)</span>
+                    How intense is that feeling?
                     <input
+                      className="mv2 pa2 bg-transparent db ba b--black-20 f5"
                       type="number"
-                      step="50" min="0" max="500"
-                      name="minWordCount"
-                      className="mv2 bg-transparent db ba b--black-20 f5 pa1"
+                      step="1" min="1" max="5"
+                      name="oneWordIntensity"
+                      value={values.oneWordIntensity}
+                      onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.minWordCount}
                     />
+                    <small className="f6 black-60 db mb2">1 barely there&nbsp;&nbsp;&nbsp;&nbsp;2 slight&nbsp;&nbsp;&nbsp;&nbsp;3 substantial&nbsp;&nbsp;&nbsp;&nbsp;4 pretty strong&nbsp;&nbsp;&nbsp;&nbsp;5 intense</small>
                   </label>
                 </div>
+
                 <div className="mt4">
                   <label className="fw3 lh-copy f4 dark-gray db">
-                    Access to data
-                  </label>
-                  <p className="f5 black-80 mb2">By default, participant data is anonymous: you'll see sentiment analysis for the group as a whole but not for individual participants. If you need to know how people are doing individually, check the box below. We'll let participants know that you'll be able to see their individual data but not their written reflections.</p>
+                    Title
                     <input
-                      className="mv2 f5"
-                      type="checkbox"
-                      name="seeIndividual"
+                      className={errors.title && touched.title ? "mv2 bg-transparent w-100 db ba b--black-20 f5 measure error" : "mv2 bg-transparent w-100 db ba b--black-20 f5 measure"}
+                      type="text"
+                      name="title"
+                      value={values.title}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      checked={values.seeIndividual}
                     />
-                  <label className="pl2 pr4">See individual data</label>
-                </div> */}
+                  {touched.title && errors.title && <div className="accent-orange pt2 f5 fw4">{errors.title}</div>}
+                  </label>
+                </div>
 
-                <div className="tc mt3">
+                <div className="mt4">
+                  <label className="fw3 lh-copy f4 dark-gray db">
+                    Reflection
+                    <textarea
+                      className={errors.content && touched.content ? "mv2 bg-transparent w-100 db ba b--black-20 f5 error" : "mv2 bg-transparent w-100 db ba b--black-20 f5"}
+                      rows="20"
+                      type="teaxtarea"
+                      name="content"
+                      minLength={ this.state.minLength }
+                      value={values.content}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {min_word_count > 0
+                    ?
+                    <small className="f6 black-60 db mb2">Minimum {min_word_count} words</small>
+                    : null
+                  }
+                  </label>
+                  {touched.content && errors.content && <div className="accent-orange pt2 f5 fw4">{errors.content}</div>}
+                </div>
+
+                <div className="tc mt4">
                   <button
                     className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer mr2"
                     type="submit"
@@ -355,15 +289,16 @@ class NewReflection extends React.Component {
                   >
                     Submit
                   </button>
-                  {/* <button
+
+                  <button
                     className="f6 no-underline grow dib v-mid white ba ph3 pv2 mb3 action-button br1 link grow pointer"
                     type="button"
                     value="cancel"
                     disabled={isSubmitting}
-                    onClick={closeModal}
+                    // onClick={this.props.history.push('/dashboard')}
                   >
                     Cancel
-                  </button> */}
+                  </button>
                 </div>
 
               </form>

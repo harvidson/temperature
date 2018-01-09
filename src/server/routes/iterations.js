@@ -206,6 +206,7 @@ router.get('/:id/one-words', authorize, (req, res, next) => {
 
 //post new reflection
 router.post('/:id/reflections', authorize, (req, res, next) => {
+  console.log(req.body)
   const iterationId = Number.parseInt(req.params.id);
   const userId = req.claim.userId;
   const text = req.body.title + ' ' + req.body.content;
@@ -247,6 +248,7 @@ router.post('/:id/reflections', authorize, (req, res, next) => {
     return client.analyzeSentiment({document: document})
   })
   .then(sentimentResults => {
+    console.log(sentimentResults);
 
     return knex('reflections')
     .insert({
