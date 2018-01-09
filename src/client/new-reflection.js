@@ -43,7 +43,7 @@ class NewReflection extends React.Component {
       this.setState({
         iteration: j,
         //convert minimum word count to characters (rounded to nearest 50)
-        minLength: Math.ceil(j.min_word_count * 6 / 50) * 50
+        minLength: Math.round(j.min_word_count * 5 / 50) * 50
       })
     })
     .catch((err) => {
@@ -162,7 +162,7 @@ class NewReflection extends React.Component {
                 .required('Please give your response a title.'),
               content: Yup.string()
                 .required('Please write a response to the prompt.')
-                // .min(min_word_count, {message: 'Your reflection should be at least ${min} words long.'})
+                .min(this.state.minLength, `Your reflection should be at least ${min_word_count} words long.`)
             })}
 
             onSubmit = {(
