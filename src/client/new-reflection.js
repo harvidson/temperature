@@ -25,6 +25,7 @@ class NewReflection extends React.Component {
     this.handleOneWordChange = this.handleOneWordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.postReflection = this.postReflection.bind(this);
+    this.cancelReflection = this.cancelReflection.bind(this);
 
 
   }
@@ -96,6 +97,10 @@ class NewReflection extends React.Component {
     })
   }
 
+  cancelReflection(){
+    this.props.history.push('/dashboard')
+  }
+
 
   render(){
     // TODO: make these dynamic
@@ -162,7 +167,7 @@ class NewReflection extends React.Component {
                 .required('Please give your response a title.'),
               content: Yup.string()
                 .required('Please write a response to the prompt.')
-                // .min(min_word_count, {message: 'Your reflection should be at least ${min} words long.'})
+                // .min(min_word_count, 'Your reflection should be at least ${min} words long.'})
             })}
 
             onSubmit = {(
@@ -266,7 +271,7 @@ class NewReflection extends React.Component {
                       rows="20"
                       type="teaxtarea"
                       name="content"
-                      minLength={ this.state.minLength }
+                      // minLength={ this.state.minLength }
                       value={values.content}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -295,7 +300,7 @@ class NewReflection extends React.Component {
                     type="button"
                     value="cancel"
                     disabled={isSubmitting}
-                    // onClick={this.props.history.push('/dashboard')}
+                    onClick={this.cancelReflection}
                   >
                     Cancel
                   </button>
