@@ -20,6 +20,7 @@ class NewReflection extends React.Component {
       iteration: {},
       minLength: 0
     }
+    this.cancelReflection = this.cancelReflection.bind(this);
   }
 
   componentWillMount() {

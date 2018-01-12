@@ -97,9 +97,9 @@ class Dashboard extends React.Component {
 
   render() {
     const customStyles = {
-      content : {
-        left                       : '15%',
-        right                      : '15%',
+      content: {
+        left: '15%',
+        right: '15%',
       }
     };
 
