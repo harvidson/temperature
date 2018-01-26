@@ -11,7 +11,7 @@ class OneWord extends React.Component {
       oneTruth: [],
       dateOptions: [],
       checkboxIsChecked: false,
-      noReflections: false,
+      // noReflections: false,
       dateSelected: '',
       d3Data: []
 
@@ -19,7 +19,6 @@ class OneWord extends React.Component {
     this.createDonutChart = this.createDonutChart.bind(this);
     this.toggleIntensity = this.toggleIntensity.bind(this);
     this.getOneWordData = this.getOneWordData.bind(this);
-    this.getOneWordWriterData = this.getOneWordWriterData.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
@@ -72,23 +71,6 @@ class OneWord extends React.Component {
       this.setState({
         dateOptions: j
       })
-    })
-  }
-
-// TODO: make this into its own component
-  getOneWordWriterData(id) {
-    return fetch(`/api/events/${id}/one-words-writer`, {
-      method: 'get',
-      credentials: 'include'
-    }).then((response) => {
-      return response.json();
-    }).then((j) => {
-      this.setState({
-        oneTruth: j,
-        d3Data: j.oneWords
-      })
-    }).catch((err) => {
-      console.log(err);
     })
   }
 

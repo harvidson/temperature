@@ -64,7 +64,7 @@ router.get('/:id/reflections', authorize, (req, res, next) => {
     return next(boom.create(404, 'Not found.'));
   }
 
-  //check whether logged in user has lead access to this event
+  //check whether logged-in user has lead access to this event
   knex('iterations')
   .where('id', iterationId)
   .first()
@@ -77,9 +77,9 @@ router.get('/:id/reflections', authorize, (req, res, next) => {
     .first()
   })
   .then((row) => {
-    if (row.user_id !== userId) {
-      return next(boom.create(401, 'Unauthorized.'));
-    }
+    // if (row.user_id !== userId) {
+    //   return next(boom.create(401, 'Unauthorized.'));
+    // }
 
     return knex.raw(`SELECT COUNT(*) AS reflections_in FROM reflections WHERE iteration_id=${iterationId}`)
   })

@@ -17,16 +17,16 @@ class LineChart extends React.Component {
     this.getWriterReflectionData = this.getWriterReflectionData.bind(this);
   }
 
-  componentWillMount() {}
-
   componentDidMount() {
     const { event } = this.props
 
     if (event.is_lead) {
       this.getReflectionData(event.id)
       .then((j) => {
+        console.log(j);
         this.setState({aggregateScores: j.aggregateScores, aggregateScoresWithMagnitude: j.aggregateScoresWithMagnitude})
-        this.createLineChart()
+        console.log(this.state.aggregateScores.length);
+        if (this.state.aggregateScores.length > 0) this.createLineChart()
       }).catch((err) => {
         console.log(err);
       })
@@ -34,6 +34,7 @@ class LineChart extends React.Component {
     } else {
       this.getWriterReflectionData(event.id)
       .then((j) => {
+        console.log(j);
         this.setState({aggregateScores: j, aggregateScoresWithMagnitude: j})
         this.createLineChart()
       }).catch((err) => {
@@ -94,8 +95,6 @@ class LineChart extends React.Component {
     });
 
     // set the ranges
-
-    //prob want to use d3 min and max to find the....this part needs work...converting data into pixel points
     var x = d3.scaleTime().domain(d3.extent(aggregateData, function(d) {
       return d.date;
     })).range([0, width]);
@@ -143,9 +142,14 @@ class LineChart extends React.Component {
       <div className="w-100 ml3 m1 mv5">
        <div>
          <div className="f2 fw3 accent-orange mb3">Temperature over Time</div>
+
+         {this.state.aggregateScores.length > 0
+          ?
           <div className="tc">
             <svg width="960" height="500" ref={node => this.node = node}></svg>
           </div>
+          : null
+          }
 
           {this.props.event.is_lead
             ? <div className="f5 mt2 mb5 ml5">
@@ -155,6 +159,7 @@ class LineChart extends React.Component {
               </div>
             : null
           }
+
         </div>
 
       </div>

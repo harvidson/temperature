@@ -12,7 +12,7 @@ class OneWordWriter extends React.Component {
       oneTruth: [],
       dateOptions: [],
       checkboxIsChecked: false,
-      noReflections: false,
+      // noReflections: false,
       dateSelected: '',
       d3Data: []
     }

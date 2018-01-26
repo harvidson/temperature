@@ -12,36 +12,20 @@ class Analytics extends React.Component {
 
     this.state = {
       event: null,
+      numberReflections: 0
     }
     this.getEventData = this.getEventData.bind(this);
     this.checkToken = this.checkToken.bind(this);
 
   }
 
-  componentWillMount() {
+  componentDidMount(){
     this.checkToken()
     this.getEventData()
-  }
-
-  componentDidMount(){
+    this.reflectionsExist()
   }
 
   componentDidUpdate() {
-  }
-
-  getEventData(){
-    fetch(`/api/events/${this.props.match.params.id}`, {
-      method: 'get',
-      credentials: 'include'
-    }).then((response) => {
-      return response.json();
-    }).then((j) => {
-      this.setState({
-        event: j
-      })
-    }).catch((err) => {
-      console.log(err);
-    })
   }
 
   checkToken() {
@@ -60,9 +44,39 @@ class Analytics extends React.Component {
     })
   }
 
+  getEventData(){
+    fetch(`/api/events/${this.props.match.params.id}`, {
+      method: 'get',
+      credentials: 'include'
+    }).then((response) => {
+      return response.json();
+    }).then((j) => {
+      console.log(j);
+      this.setState({
+        event: j
+      })
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  reflectionsExist(){
+    fetch(`/api/iterations/${this.props.match.params.id}/reflections`, {
+      method: 'get',
+      credentials: 'include'
+    }).then((response) => {
+      return response.json();
+    }).then((j) => {
+      console.log(j);
+      this.setState({numberReflections: j})
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
 
   render(){
-    const { event } = this.state
+    const { event,numberReflections } = this.state
 
     return(
 
@@ -76,21 +90,25 @@ class Analytics extends React.Component {
             </div>
           </div>
 
-          {event && event.is_lead
+          {event && event.is_lead && numberReflections > 0
             ? <div>
                 <OneWord event={event}></OneWord>
                 <Wordcloud event={event}></Wordcloud>
               </div>
             : null
           }
-          {event && !event.is_lead
+          {event && !event.is_lead && numberReflections > 0
             ? <div>
                 <OneWordWriter event={event}></OneWordWriter>
               </div>
             : null
           }
-          {event
+          {event && numberReflections > 0
             ? <div><LineChart event={event}></LineChart></div>
+            : null
+          }
+          {numberReflections < 1
+            ? <div className="f4 ma3 pt4">No data is available yet.</div>
             : null
           }
 
